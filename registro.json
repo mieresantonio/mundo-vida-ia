@@ -1,0 +1,2581 @@
+{
+  "meta": {
+    "ticks": 30,
+    "semilla": 42
+  },
+  "agentes": [
+    {
+      "nombre": "Lia",
+      "rasgos_iniciales": {
+        "curiosidad": 0.9,
+        "sociabilidad": 0.6,
+        "paciencia": 0.5,
+        "ambicion": 0.5
+      },
+      "rasgos_finales": {
+        "curiosidad": 0.9,
+        "sociabilidad": 1.0,
+        "paciencia": 0.55,
+        "ambicion": 0.5
+      },
+      "animo": "inquieto",
+      "energia": 25,
+      "metas": [
+        "Descubrir un lugar secreto del bosque"
+      ],
+      "recuerdos": [
+        "explorar bosque",
+        "explorar bosque",
+        "dialogo con Tomas",
+        "explorar mercado",
+        "explorar mercado",
+        "explorar bosque",
+        "dialogo con Nara",
+        "dialogo con Mara",
+        "explorar bosque",
+        "dialogo con Nara",
+        "dialogo con Mara",
+        "explorar bosque",
+        "dialogo con Nara",
+        "dialogo con Mara",
+        "dialogo con Nara",
+        "dialogo con Mara",
+        "explorar taller",
+        "escasez: faltan provisiones",
+        "dialogo con Nara",
+        "dialogo con Tomas",
+        "dialogo con Tomas",
+        "dialogo con Mara",
+        "dialogo con Mara",
+        "dialogo con Rui",
+        "dialogo con Rui",
+        "dialogo con Rui",
+        "visita_inesperada: conoci a una viajera",
+        "dialogo con Tomas",
+        "dialogo con Tomas",
+        "dialogo con Rui",
+        "dialogo con Tomas",
+        "dialogo con Tomas",
+        "dialogo con Tomas",
+        "dialogo con Tomas",
+        "visita_inesperada: conoci a una viajera",
+        "explorar plaza",
+        "descubrimiento en bosque",
+        "explorar bosque",
+        "tormenta: la tormenta me sorprendio",
+        "dialogo con Tomas",
+        "dialogo con Tomas",
+        "dialogo con Tomas",
+        "dialogo con Tomas",
+        "dialogo con Nara",
+        "tormenta: la tormenta me sorprendio"
+      ]
+    },
+    {
+      "nombre": "Tomas",
+      "rasgos_iniciales": {
+        "curiosidad": 0.4,
+        "sociabilidad": 0.9,
+        "paciencia": 0.6,
+        "ambicion": 0.4
+      },
+      "rasgos_finales": {
+        "curiosidad": 0.4,
+        "sociabilidad": 1.0,
+        "paciencia": 0.65,
+        "ambicion": 0.4
+      },
+      "animo": "inquieto",
+      "energia": 30,
+      "metas": [
+        "Hacer tres amigos nuevos en la plaza"
+      ],
+      "recuerdos": [
+        "explorar plaza",
+        "dialogo con Lia",
+        "dialogo con Rui",
+        "dialogo con Rui",
+        "dialogo con Rui",
+        "explorar plaza",
+        "explorar plaza",
+        "explorar plaza",
+        "explorar plaza",
+        "escasez: faltan provisiones",
+        "dialogo con Rui",
+        "dialogo con Rui",
+        "dialogo con Rui",
+        "dialogo con Rui",
+        "explorar taller",
+        "dialogo con Nara",
+        "dialogo con Nara",
+        "dialogo con Nara",
+        "dialogo con Lia",
+        "dialogo con Lia",
+        "dialogo con Nara",
+        "dialogo con Nara",
+        "dialogo con Nara",
+        "dialogo con Nara",
+        "dialogo con Nara",
+        "dialogo con Lia",
+        "dialogo con Lia",
+        "dialogo con Lia",
+        "dialogo con Lia",
+        "dialogo con Lia",
+        "dialogo con Lia",
+        "dialogo con Rui",
+        "explorar mercado",
+        "tormenta: la tormenta me sorprendio",
+        "dialogo con Lia",
+        "dialogo con Lia",
+        "dialogo con Lia",
+        "dialogo con Lia",
+        "tormenta: la tormenta me sorprendio"
+      ]
+    },
+    {
+      "nombre": "Nara",
+      "rasgos_iniciales": {
+        "curiosidad": 0.5,
+        "sociabilidad": 0.4,
+        "paciencia": 0.9,
+        "ambicion": 0.6
+      },
+      "rasgos_finales": {
+        "curiosidad": 0.5,
+        "sociabilidad": 0.88,
+        "paciencia": 0.95,
+        "ambicion": 0.72
+      },
+      "animo": "inquieto",
+      "energia": 14,
+      "metas": [
+        "Leer todos los libros de la biblioteca"
+      ],
+      "recuerdos": [
+        "construir en biblioteca",
+        "construir en biblioteca",
+        "dialogo con Mara",
+        "dialogo con Mara",
+        "dialogo con Mara",
+        "dialogo con Mara",
+        "dialogo con Lia",
+        "dialogo con Lia",
+        "descubrimiento en bosque",
+        "dialogo con Lia",
+        "dialogo con Lia",
+        "dialogo con Mara",
+        "dialogo con Mara",
+        "escasez: faltan provisiones",
+        "dialogo con Mara",
+        "dialogo con Mara",
+        "dialogo con Mara",
+        "dialogo con Mara",
+        "dialogo con Lia",
+        "construir en mercado",
+        "construir en mercado",
+        "dialogo con Tomas",
+        "dialogo con Tomas",
+        "dialogo con Tomas",
+        "dialogo con Mara",
+        "dialogo con Mara",
+        "dialogo con Tomas",
+        "dialogo con Tomas",
+        "construir en bosque",
+        "dialogo con Tomas",
+        "dialogo con Tomas",
+        "dialogo con Tomas",
+        "construir en bosque",
+        "construir en bosque",
+        "construir en bosque",
+        "dialogo con Mara",
+        "dialogo con Mara",
+        "dialogo con Mara",
+        "dialogo con Mara",
+        "tormenta: la tormenta me sorprendio",
+        "dialogo con Mara",
+        "dialogo con Mara",
+        "dialogo con Lia",
+        "tormenta: la tormenta me sorprendio"
+      ]
+    },
+    {
+      "nombre": "Rui",
+      "rasgos_iniciales": {
+        "curiosidad": 0.5,
+        "sociabilidad": 0.5,
+        "paciencia": 0.4,
+        "ambicion": 0.9
+      },
+      "rasgos_finales": {
+        "curiosidad": 0.53,
+        "sociabilidad": 0.77,
+        "paciencia": 0.45,
+        "ambicion": 1.0
+      },
+      "animo": "inquieto",
+      "energia": 16,
+      "metas": [
+        "Construir un taller mejor para todos"
+      ],
+      "recuerdos": [
+        "construir en taller",
+        "construir en plaza",
+        "dialogo con Tomas",
+        "construir en plaza",
+        "dialogo con Tomas",
+        "dialogo con Tomas",
+        "construir en mercado",
+        "construir en mercado",
+        "construir en mercado",
+        "construir en mercado",
+        "escasez: faltan provisiones",
+        "dialogo con Tomas",
+        "dialogo con Tomas",
+        "dialogo con Tomas",
+        "rumor sobre Mara",
+        "dialogo con Tomas",
+        "construir en taller",
+        "descubrimiento en plaza",
+        "construir en plaza",
+        "descubrimiento en plaza",
+        "construir en plaza",
+        "construir en plaza",
+        "construir en plaza",
+        "visita_inesperada: conoci a una viajera",
+        "construir en plaza",
+        "dialogo con Lia",
+        "dialogo con Lia",
+        "dialogo con Lia",
+        "dialogo con Lia",
+        "dialogo con Mara",
+        "dialogo con Mara",
+        "dialogo con Mara",
+        "dialogo con Mara",
+        "dialogo con Mara",
+        "dialogo con Tomas",
+        "construir en plaza",
+        "tormenta: la tormenta me sorprendio",
+        "construir en plaza",
+        "dialogo con Mara",
+        "dialogo con Mara",
+        "tormenta: la tormenta me sorprendio"
+      ]
+    },
+    {
+      "nombre": "Mara",
+      "rasgos_iniciales": {
+        "curiosidad": 0.7,
+        "sociabilidad": 0.8,
+        "paciencia": 0.3,
+        "ambicion": 0.7
+      },
+      "rasgos_finales": {
+        "curiosidad": 0.7,
+        "sociabilidad": 1.0,
+        "paciencia": 0.35,
+        "ambicion": 0.7
+      },
+      "animo": "inquieto",
+      "energia": 25,
+      "metas": [
+        "Organizar un mercado de trueque semanal"
+      ],
+      "recuerdos": [
+        "explorar mercado",
+        "explorar mercado",
+        "dialogo con Nara",
+        "dialogo con Nara",
+        "dialogo con Nara",
+        "dialogo con Nara",
+        "dialogo con Lia",
+        "dialogo con Lia",
+        "dialogo con Lia",
+        "dialogo con Lia",
+        "dialogo con Nara",
+        "dialogo con Nara",
+        "escasez: faltan provisiones",
+        "dialogo con Nara",
+        "dialogo con Nara",
+        "dialogo con Nara",
+        "dialogo con Nara",
+        "explorar bosque",
+        "explorar bosque",
+        "explorar bosque",
+        "dialogo con Nara",
+        "dialogo con Nara",
+        "dialogo con Lia",
+        "dialogo con Lia",
+        "explorar taller",
+        "explorar taller",
+        "explorar taller",
+        "dialogo con Rui",
+        "dialogo con Rui",
+        "dialogo con Rui",
+        "dialogo con Rui",
+        "dialogo con Rui",
+        "dialogo con Nara",
+        "dialogo con Nara",
+        "dialogo con Nara",
+        "dialogo con Nara",
+        "tormenta: la tormenta me sorprendio",
+        "dialogo con Nara",
+        "dialogo con Nara",
+        "dialogo con Rui",
+        "dialogo con Rui",
+        "tormenta: la tormenta me sorprendio"
+      ]
+    }
+  ],
+  "eventos": [
+    {
+      "tick": 1,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que estoy solo en bosque; me siento curioso y mi energia es 80. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 1,
+      "tipo": "accion",
+      "agente": "Lia",
+      "texto": "Lia decide explorar en bosque. Creo que estoy solo en bosque; me siento curioso y mi energia es 80. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 1,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que estoy solo en plaza; me siento alegre y mi energia es 80. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a explorar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 1,
+      "tipo": "accion",
+      "agente": "Tomas",
+      "texto": "Tomas decide explorar en plaza. Creo que estoy solo en plaza; me siento alegre y mi energia es 80. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a explorar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 1,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que estoy solo en biblioteca; me siento tranquilo y mi energia es 80. Deseo quiero lograr: Leer todos los libros de la biblioteca. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 1,
+      "tipo": "accion",
+      "agente": "Nara",
+      "texto": "Nara decide construir en biblioteca. Creo que estoy solo en biblioteca; me siento tranquilo y mi energia es 80. Deseo quiero lograr: Leer todos los libros de la biblioteca. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 1,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que estoy solo en taller; me siento inquieto y mi energia es 80. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 1,
+      "tipo": "accion",
+      "agente": "Rui",
+      "texto": "Rui decide construir en taller. Creo que estoy solo en taller; me siento inquieto y mi energia es 80. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 1,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que estoy solo en mercado; me siento alegre y mi energia es 80. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 1,
+      "tipo": "accion",
+      "agente": "Mara",
+      "texto": "Mara decide explorar en mercado. Creo que estoy solo en mercado; me siento alegre y mi energia es 80. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 2,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que veo cerca a Tomas en bosque; recuerdo: explorar bosque; me siento curioso y mi energia es 72. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 2,
+      "tipo": "accion",
+      "agente": "Lia",
+      "texto": "Lia decide explorar en bosque. Creo que veo cerca a Tomas en bosque; recuerdo: explorar bosque; me siento curioso y mi energia es 72. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 2,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que veo cerca a Lia en bosque; recuerdo: explorar plaza; me siento curioso y mi energia es 72. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Lia."
+    },
+    {
+      "tick": 2,
+      "tipo": "dialogo",
+      "agente": "Tomas",
+      "texto": "Tomas le dice a Lia: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 2,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que estoy solo en biblioteca; recuerdo: construir en biblioteca; me siento inquieto y mi energia es 70. Deseo quiero lograr: Leer todos los libros de la biblioteca. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 2,
+      "tipo": "accion",
+      "agente": "Nara",
+      "texto": "Nara decide construir en biblioteca. Creo que estoy solo en biblioteca; recuerdo: construir en biblioteca; me siento inquieto y mi energia es 70. Deseo quiero lograr: Leer todos los libros de la biblioteca. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 2,
+      "tipo": "crecimiento",
+      "agente": "Nara",
+      "texto": "Nara crece: su ambicion pasa de 0.60 a 0.63 tras vivir 'construir'."
+    },
+    {
+      "tick": 2,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que estoy solo en plaza; recuerdo: construir en taller; me siento inquieto y mi energia es 70. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 2,
+      "tipo": "accion",
+      "agente": "Rui",
+      "texto": "Rui decide construir en plaza. Creo que estoy solo en plaza; recuerdo: construir en taller; me siento inquieto y mi energia es 70. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 2,
+      "tipo": "crecimiento",
+      "agente": "Rui",
+      "texto": "Rui crece: su ambicion pasa de 0.90 a 0.93 tras vivir 'construir'."
+    },
+    {
+      "tick": 2,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que estoy solo en mercado; recuerdo: explorar mercado; me siento curioso y mi energia es 72. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 2,
+      "tipo": "accion",
+      "agente": "Mara",
+      "texto": "Mara decide explorar en mercado. Creo que estoy solo en mercado; recuerdo: explorar mercado; me siento curioso y mi energia es 72. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 3,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que estoy solo en mercado; recuerdo: explorar bosque; explorar bosque; dialogo con Tomas; me siento curioso y mi energia es 64. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 3,
+      "tipo": "accion",
+      "agente": "Lia",
+      "texto": "Lia decide explorar en mercado. Creo que estoy solo en mercado; recuerdo: explorar bosque; explorar bosque; dialogo con Tomas; me siento curioso y mi energia es 64. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 3,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que veo cerca a Rui en plaza; recuerdo: explorar plaza; dialogo con Lia; me siento alegre y mi energia es 69. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Rui."
+    },
+    {
+      "tick": 3,
+      "tipo": "dialogo",
+      "agente": "Tomas",
+      "texto": "Tomas le dice a Rui: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 3,
+      "tipo": "crecimiento",
+      "agente": "Tomas",
+      "texto": "Tomas crece: su sociabilidad pasa de 0.90 a 0.93 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 3,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que veo cerca a Mara en biblioteca; recuerdo: construir en biblioteca; construir en biblioteca; me siento inquieto y mi energia es 60. Deseo quiero lograr: Leer todos los libros de la biblioteca. Asi que voy a hablar porque tras valorar mis rasgos, mi energia y lo que recuerdo. Mi objetivo es Mara."
+    },
+    {
+      "tick": 3,
+      "tipo": "dialogo",
+      "agente": "Nara",
+      "texto": "Nara le dice a Mara: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 3,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que veo cerca a Tomas en plaza; recuerdo: construir en taller; construir en plaza; dialogo con Tomas; me siento inquieto y mi energia es 60. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 3,
+      "tipo": "accion",
+      "agente": "Rui",
+      "texto": "Rui decide construir en plaza. Creo que veo cerca a Tomas en plaza; recuerdo: construir en taller; construir en plaza; dialogo con Tomas; me siento inquieto y mi energia es 60. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 3,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que veo cerca a Nara en biblioteca; recuerdo: explorar mercado; explorar mercado; dialogo con Nara; me siento curioso y mi energia es 64. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Nara."
+    },
+    {
+      "tick": 3,
+      "tipo": "dialogo",
+      "agente": "Mara",
+      "texto": "Mara le dice a Nara: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 3,
+      "tipo": "crecimiento",
+      "agente": "Mara",
+      "texto": "Mara crece: su sociabilidad pasa de 0.80 a 0.83 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 3,
+      "tipo": "crecimiento",
+      "agente": "Nara",
+      "texto": "Nara crece: su sociabilidad pasa de 0.40 a 0.43 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 4,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que estoy solo en mercado; recuerdo: explorar bosque; dialogo con Tomas; explorar mercado; me siento curioso y mi energia es 56. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 4,
+      "tipo": "accion",
+      "agente": "Lia",
+      "texto": "Lia decide explorar en mercado. Creo que estoy solo en mercado; recuerdo: explorar bosque; dialogo con Tomas; explorar mercado; me siento curioso y mi energia es 56. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 4,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que veo cerca a Rui en plaza; recuerdo: explorar plaza; dialogo con Lia; dialogo con Rui; me siento alegre y mi energia es 66. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Rui."
+    },
+    {
+      "tick": 4,
+      "tipo": "dialogo",
+      "agente": "Tomas",
+      "texto": "Tomas le dice a Rui: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 4,
+      "tipo": "crecimiento",
+      "agente": "Rui",
+      "texto": "Rui crece: su sociabilidad pasa de 0.50 a 0.53 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 4,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que veo cerca a Mara en biblioteca; recuerdo: construir en biblioteca; dialogo con Mara; dialogo con Mara; me siento alegre y mi energia es 57. Deseo quiero lograr: Leer todos los libros de la biblioteca. Asi que voy a hablar porque tras valorar mis rasgos, mi energia y lo que recuerdo. Mi objetivo es Mara."
+    },
+    {
+      "tick": 4,
+      "tipo": "dialogo",
+      "agente": "Nara",
+      "texto": "Nara le dice a Mara: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 4,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que veo cerca a Tomas en plaza; recuerdo: dialogo con Tomas; construir en plaza; dialogo con Tomas; me siento inquieto y mi energia es 50. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a hablar porque tras valorar mis rasgos, mi energia y lo que recuerdo. Mi objetivo es Tomas."
+    },
+    {
+      "tick": 4,
+      "tipo": "dialogo",
+      "agente": "Rui",
+      "texto": "Rui le dice a Tomas: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 4,
+      "tipo": "crecimiento",
+      "agente": "Tomas",
+      "texto": "Tomas crece: su sociabilidad pasa de 0.93 a 0.96 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 4,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que veo cerca a Nara en biblioteca; recuerdo: dialogo con Nara; dialogo con Nara; dialogo con Nara; me siento alegre y mi energia es 61. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Nara."
+    },
+    {
+      "tick": 4,
+      "tipo": "dialogo",
+      "agente": "Mara",
+      "texto": "Mara le dice a Nara: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 4,
+      "tipo": "crecimiento",
+      "agente": "Mara",
+      "texto": "Mara crece: su sociabilidad pasa de 0.83 a 0.86 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 4,
+      "tipo": "crecimiento",
+      "agente": "Nara",
+      "texto": "Nara crece: su sociabilidad pasa de 0.43 a 0.46 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 5,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que veo cerca a Nara, Mara en bosque; recuerdo: dialogo con Tomas; explorar mercado; explorar mercado; me siento curioso y mi energia es 48. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 5,
+      "tipo": "accion",
+      "agente": "Lia",
+      "texto": "Lia decide explorar en bosque. Creo que veo cerca a Nara, Mara en bosque; recuerdo: dialogo con Tomas; explorar mercado; explorar mercado; me siento curioso y mi energia es 48. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 5,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que estoy solo en plaza; recuerdo: dialogo con Rui; dialogo con Rui; dialogo con Rui; me siento alegre y mi energia es 63. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a explorar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 5,
+      "tipo": "accion",
+      "agente": "Tomas",
+      "texto": "Tomas decide explorar en plaza. Creo que estoy solo en plaza; recuerdo: dialogo con Rui; dialogo con Rui; dialogo con Rui; me siento alegre y mi energia es 63. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a explorar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 5,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que veo cerca a Lia, Mara en bosque; recuerdo: dialogo con Mara; dialogo con Mara; dialogo con Mara; me siento alegre y mi energia es 54. Deseo quiero lograr: Leer todos los libros de la biblioteca. Asi que voy a hablar porque tras valorar mis rasgos, mi energia y lo que recuerdo. Mi objetivo es Lia."
+    },
+    {
+      "tick": 5,
+      "tipo": "dialogo",
+      "agente": "Nara",
+      "texto": "Nara le dice a Lia: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 5,
+      "tipo": "crecimiento",
+      "agente": "Lia",
+      "texto": "Lia crece: su sociabilidad pasa de 0.60 a 0.63 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 5,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que estoy solo en mercado; recuerdo: construir en plaza; dialogo con Tomas; dialogo con Tomas; me siento alegre y mi energia es 47. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 5,
+      "tipo": "accion",
+      "agente": "Rui",
+      "texto": "Rui decide construir en mercado. Creo que estoy solo en mercado; recuerdo: construir en plaza; dialogo con Tomas; dialogo con Tomas; me siento alegre y mi energia es 47. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 5,
+      "tipo": "crecimiento",
+      "agente": "Rui",
+      "texto": "Rui crece: su ambicion pasa de 0.93 a 0.96 tras vivir 'construir'."
+    },
+    {
+      "tick": 5,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que veo cerca a Lia, Nara en bosque; recuerdo: dialogo con Nara; dialogo con Nara; dialogo con Nara; me siento alegre y mi energia es 58. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Lia."
+    },
+    {
+      "tick": 5,
+      "tipo": "dialogo",
+      "agente": "Mara",
+      "texto": "Mara le dice a Lia: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 6,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que veo cerca a Nara, Mara en bosque; recuerdo: explorar bosque; dialogo con Nara; dialogo con Mara; me siento curioso y mi energia es 40. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 6,
+      "tipo": "accion",
+      "agente": "Lia",
+      "texto": "Lia decide explorar en bosque. Creo que veo cerca a Nara, Mara en bosque; recuerdo: explorar bosque; dialogo con Nara; dialogo con Mara; me siento curioso y mi energia es 40. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 6,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que estoy solo en plaza; recuerdo: dialogo con Rui; dialogo con Rui; explorar plaza; me siento curioso y mi energia es 55. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a explorar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 6,
+      "tipo": "accion",
+      "agente": "Tomas",
+      "texto": "Tomas decide explorar en plaza. Creo que estoy solo en plaza; recuerdo: dialogo con Rui; dialogo con Rui; explorar plaza; me siento curioso y mi energia es 55. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a explorar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 6,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que veo cerca a Lia, Mara en bosque; recuerdo: dialogo con Mara; dialogo con Mara; dialogo con Lia; me siento alegre y mi energia es 51. Deseo quiero lograr: Leer todos los libros de la biblioteca. Asi que voy a hablar porque tras valorar mis rasgos, mi energia y lo que recuerdo. Mi objetivo es Lia."
+    },
+    {
+      "tick": 6,
+      "tipo": "dialogo",
+      "agente": "Nara",
+      "texto": "Nara le dice a Lia: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 6,
+      "tipo": "crecimiento",
+      "agente": "Nara",
+      "texto": "Nara crece: su sociabilidad pasa de 0.46 a 0.49 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 6,
+      "tipo": "crecimiento",
+      "agente": "Lia",
+      "texto": "Lia crece: su sociabilidad pasa de 0.63 a 0.66 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 6,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que estoy solo en mercado; recuerdo: dialogo con Tomas; dialogo con Tomas; construir en mercado; me siento inquieto y mi energia es 37. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 6,
+      "tipo": "accion",
+      "agente": "Rui",
+      "texto": "Rui decide construir en mercado. Creo que estoy solo en mercado; recuerdo: dialogo con Tomas; dialogo con Tomas; construir en mercado; me siento inquieto y mi energia es 37. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 6,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que veo cerca a Lia, Nara en bosque; recuerdo: dialogo con Nara; dialogo con Nara; dialogo con Lia; me siento alegre y mi energia es 55. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Lia."
+    },
+    {
+      "tick": 6,
+      "tipo": "dialogo",
+      "agente": "Mara",
+      "texto": "Mara le dice a Lia: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 6,
+      "tipo": "crecimiento",
+      "agente": "Mara",
+      "texto": "Mara crece: su sociabilidad pasa de 0.86 a 0.89 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 6,
+      "tipo": "caos",
+      "agente": null,
+      "texto": "Nara encuentra algo inesperado en bosque: un objeto antiguo que nadie habia visto antes."
+    },
+    {
+      "tick": 7,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que veo cerca a Nara, Mara en bosque; recuerdo: explorar bosque; dialogo con Nara; dialogo con Mara; acaba de ocurrir: Nara encuentra algo inesperado en bosque: un objeto antiguo que nadie habia visto antes.; me siento curioso y mi energia es 32. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 7,
+      "tipo": "accion",
+      "agente": "Lia",
+      "texto": "Lia decide explorar en bosque. Creo que veo cerca a Nara, Mara en bosque; recuerdo: explorar bosque; dialogo con Nara; dialogo con Mara; acaba de ocurrir: Nara encuentra algo inesperado en bosque: un objeto antiguo que nadie habia visto antes.; me siento curioso y mi energia es 32. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 7,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que estoy solo en plaza; recuerdo: dialogo con Rui; explorar plaza; explorar plaza; acaba de ocurrir: Nara encuentra algo inesperado en bosque: un objeto antiguo que nadie habia visto antes.; me siento curioso y mi energia es 47. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a explorar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 7,
+      "tipo": "accion",
+      "agente": "Tomas",
+      "texto": "Tomas decide explorar en plaza. Creo que estoy solo en plaza; recuerdo: dialogo con Rui; explorar plaza; explorar plaza; acaba de ocurrir: Nara encuentra algo inesperado en bosque: un objeto antiguo que nadie habia visto antes.; me siento curioso y mi energia es 47. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a explorar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 7,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que veo cerca a Lia, Mara en bosque; recuerdo: dialogo con Lia; dialogo con Lia; descubrimiento en bosque; acaba de ocurrir: Nara encuentra algo inesperado en bosque: un objeto antiguo que nadie habia visto antes.; me siento curioso y mi energia es 53. Deseo quiero lograr: Leer todos los libros de la biblioteca. Asi que voy a hablar porque tras valorar mis rasgos, mi energia y lo que recuerdo. Mi objetivo es Lia."
+    },
+    {
+      "tick": 7,
+      "tipo": "dialogo",
+      "agente": "Nara",
+      "texto": "Nara le dice a Lia: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 7,
+      "tipo": "crecimiento",
+      "agente": "Lia",
+      "texto": "Lia crece: su sociabilidad pasa de 0.66 a 0.69 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 7,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que estoy solo en mercado; recuerdo: dialogo con Tomas; construir en mercado; construir en mercado; acaba de ocurrir: Nara encuentra algo inesperado en bosque: un objeto antiguo que nadie habia visto antes.; me siento cansado y mi energia es 27. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 7,
+      "tipo": "accion",
+      "agente": "Rui",
+      "texto": "Rui decide descansar en mercado. Creo que estoy solo en mercado; recuerdo: dialogo con Tomas; construir en mercado; construir en mercado; acaba de ocurrir: Nara encuentra algo inesperado en bosque: un objeto antiguo que nadie habia visto antes.; me siento cansado y mi energia es 27. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 7,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que veo cerca a Lia, Nara en bosque; recuerdo: dialogo con Nara; dialogo con Lia; dialogo con Lia; acaba de ocurrir: Nara encuentra algo inesperado en bosque: un objeto antiguo que nadie habia visto antes.; me siento alegre y mi energia es 52. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Lia."
+    },
+    {
+      "tick": 7,
+      "tipo": "dialogo",
+      "agente": "Mara",
+      "texto": "Mara le dice a Lia: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 8,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que veo cerca a Nara, Mara en bosque; recuerdo: explorar bosque; dialogo con Nara; dialogo con Mara; me siento cansado y mi energia es 24. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 8,
+      "tipo": "accion",
+      "agente": "Lia",
+      "texto": "Lia decide descansar en bosque. Creo que veo cerca a Nara, Mara en bosque; recuerdo: explorar bosque; dialogo con Nara; dialogo con Mara; me siento cansado y mi energia es 24. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 8,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que estoy solo en plaza; recuerdo: explorar plaza; explorar plaza; explorar plaza; me siento curioso y mi energia es 39. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a descansar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 8,
+      "tipo": "accion",
+      "agente": "Tomas",
+      "texto": "Tomas decide descansar en plaza. Creo que estoy solo en plaza; recuerdo: explorar plaza; explorar plaza; explorar plaza; me siento curioso y mi energia es 39. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a descansar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 8,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que veo cerca a Lia, Mara en bosque; recuerdo: dialogo con Lia; descubrimiento en bosque; dialogo con Lia; me siento alegre y mi energia es 50. Deseo quiero lograr: Leer todos los libros de la biblioteca. Asi que voy a hablar porque tras valorar mis rasgos, mi energia y lo que recuerdo. Mi objetivo es Lia."
+    },
+    {
+      "tick": 8,
+      "tipo": "dialogo",
+      "agente": "Nara",
+      "texto": "Nara le dice a Lia: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 8,
+      "tipo": "crecimiento",
+      "agente": "Nara",
+      "texto": "Nara crece: su sociabilidad pasa de 0.49 a 0.52 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 8,
+      "tipo": "crecimiento",
+      "agente": "Lia",
+      "texto": "Lia crece: su sociabilidad pasa de 0.69 a 0.72 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 8,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que estoy solo en mercado; recuerdo: dialogo con Tomas; construir en mercado; construir en mercado; me siento tranquilo y mi energia es 47. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 8,
+      "tipo": "accion",
+      "agente": "Rui",
+      "texto": "Rui decide construir en mercado. Creo que estoy solo en mercado; recuerdo: dialogo con Tomas; construir en mercado; construir en mercado; me siento tranquilo y mi energia es 47. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 8,
+      "tipo": "crecimiento",
+      "agente": "Rui",
+      "texto": "Rui crece: su ambicion pasa de 0.96 a 0.99 tras vivir 'construir'."
+    },
+    {
+      "tick": 8,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que veo cerca a Lia, Nara en bosque; recuerdo: dialogo con Lia; dialogo con Lia; dialogo con Lia; me siento alegre y mi energia es 49. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Lia."
+    },
+    {
+      "tick": 8,
+      "tipo": "dialogo",
+      "agente": "Mara",
+      "texto": "Mara le dice a Lia: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 8,
+      "tipo": "crecimiento",
+      "agente": "Mara",
+      "texto": "Mara crece: su sociabilidad pasa de 0.89 a 0.92 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 9,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que estoy solo en taller; recuerdo: dialogo con Mara; dialogo con Nara; dialogo con Mara; me siento tranquilo y mi energia es 44. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 9,
+      "tipo": "accion",
+      "agente": "Lia",
+      "texto": "Lia decide explorar en taller. Creo que estoy solo en taller; recuerdo: dialogo con Mara; dialogo con Nara; dialogo con Mara; me siento tranquilo y mi energia es 44. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 9,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que estoy solo en plaza; recuerdo: explorar plaza; explorar plaza; explorar plaza; me siento tranquilo y mi energia es 59. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a explorar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 9,
+      "tipo": "accion",
+      "agente": "Tomas",
+      "texto": "Tomas decide explorar en plaza. Creo que estoy solo en plaza; recuerdo: explorar plaza; explorar plaza; explorar plaza; me siento tranquilo y mi energia es 59. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a explorar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 9,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que veo cerca a Mara en bosque; recuerdo: descubrimiento en bosque; dialogo con Lia; dialogo con Lia; me siento alegre y mi energia es 47. Deseo quiero lograr: Leer todos los libros de la biblioteca. Asi que voy a hablar porque tras valorar mis rasgos, mi energia y lo que recuerdo. Mi objetivo es Mara."
+    },
+    {
+      "tick": 9,
+      "tipo": "dialogo",
+      "agente": "Nara",
+      "texto": "Nara le dice a Mara: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 9,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que estoy solo en mercado; recuerdo: construir en mercado; construir en mercado; construir en mercado; me siento inquieto y mi energia es 37. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 9,
+      "tipo": "accion",
+      "agente": "Rui",
+      "texto": "Rui decide construir en mercado. Creo que estoy solo en mercado; recuerdo: construir en mercado; construir en mercado; construir en mercado; me siento inquieto y mi energia es 37. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 9,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que veo cerca a Nara en bosque; recuerdo: dialogo con Lia; dialogo con Lia; dialogo con Nara; me siento alegre y mi energia es 46. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Nara."
+    },
+    {
+      "tick": 9,
+      "tipo": "dialogo",
+      "agente": "Mara",
+      "texto": "Mara le dice a Nara: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 9,
+      "tipo": "crecimiento",
+      "agente": "Mara",
+      "texto": "Mara crece: su sociabilidad pasa de 0.92 a 0.95 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 9,
+      "tipo": "crecimiento",
+      "agente": "Nara",
+      "texto": "Nara crece: su sociabilidad pasa de 0.52 a 0.55 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 9,
+      "tipo": "caos",
+      "agente": null,
+      "texto": "Escasez en el mercado: faltan provisiones y todos deben pensar dos veces antes de gastar energia."
+    },
+    {
+      "tick": 10,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que estoy solo en biblioteca; recuerdo: dialogo con Mara; explorar taller; escasez: faltan provisiones; acaba de ocurrir: Escasez en el mercado: faltan provisiones y todos deben pensar dos veces antes de gastar energia.; me siento inquieto y mi energia es 26. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 10,
+      "tipo": "accion",
+      "agente": "Lia",
+      "texto": "Lia decide descansar en biblioteca. Creo que estoy solo en biblioteca; recuerdo: dialogo con Mara; explorar taller; escasez: faltan provisiones; acaba de ocurrir: Escasez en el mercado: faltan provisiones y todos deben pensar dos veces antes de gastar energia.; me siento inquieto y mi energia es 26. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 10,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que veo cerca a Rui en mercado; recuerdo: explorar plaza; explorar plaza; escasez: faltan provisiones; acaba de ocurrir: Escasez en el mercado: faltan provisiones y todos deben pensar dos veces antes de gastar energia.; me siento inquieto y mi energia es 41. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Rui."
+    },
+    {
+      "tick": 10,
+      "tipo": "dialogo",
+      "agente": "Tomas",
+      "texto": "Tomas le dice a Rui: \"desde la escasez ando mas cauto, ¿tu como lo llevas?\""
+    },
+    {
+      "tick": 10,
+      "tipo": "crecimiento",
+      "agente": "Rui",
+      "texto": "Rui crece: su sociabilidad pasa de 0.53 a 0.56 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 10,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que veo cerca a Mara en bosque; recuerdo: dialogo con Mara; dialogo con Mara; escasez: faltan provisiones; acaba de ocurrir: Escasez en el mercado: faltan provisiones y todos deben pensar dos veces antes de gastar energia.; me siento inquieto y mi energia es 34. Deseo quiero lograr: Leer todos los libros de la biblioteca. Asi que voy a hablar porque tras valorar mis rasgos, mi energia y lo que recuerdo. Mi objetivo es Mara."
+    },
+    {
+      "tick": 10,
+      "tipo": "dialogo",
+      "agente": "Nara",
+      "texto": "Nara le dice a Mara: \"desde la escasez ando mas cauto, ¿tu como lo llevas?\""
+    },
+    {
+      "tick": 10,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que veo cerca a Tomas en mercado; recuerdo: construir en mercado; escasez: faltan provisiones; dialogo con Tomas; acaba de ocurrir: Escasez en el mercado: faltan provisiones y todos deben pensar dos veces antes de gastar energia.; me siento inquieto y mi energia es 17. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 10,
+      "tipo": "accion",
+      "agente": "Rui",
+      "texto": "Rui decide descansar en mercado. Creo que veo cerca a Tomas en mercado; recuerdo: construir en mercado; escasez: faltan provisiones; dialogo con Tomas; acaba de ocurrir: Escasez en el mercado: faltan provisiones y todos deben pensar dos veces antes de gastar energia.; me siento inquieto y mi energia es 17. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 10,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que veo cerca a Nara en bosque; recuerdo: dialogo con Nara; escasez: faltan provisiones; dialogo con Nara; acaba de ocurrir: Escasez en el mercado: faltan provisiones y todos deben pensar dos veces antes de gastar energia.; me siento inquieto y mi energia es 33. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Nara."
+    },
+    {
+      "tick": 10,
+      "tipo": "dialogo",
+      "agente": "Mara",
+      "texto": "Mara le dice a Nara: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 10,
+      "tipo": "crecimiento",
+      "agente": "Mara",
+      "texto": "Mara crece: su sociabilidad pasa de 0.95 a 0.98 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 10,
+      "tipo": "crecimiento",
+      "agente": "Nara",
+      "texto": "Nara crece: su sociabilidad pasa de 0.55 a 0.58 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 11,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que estoy solo en biblioteca; recuerdo: dialogo con Mara; explorar taller; escasez: faltan provisiones; me siento tranquilo y mi energia es 46. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a observar porque tras valorar mis rasgos, mi energia y lo que recuerdo. La escasez que vivi me hace ser cauto."
+    },
+    {
+      "tick": 11,
+      "tipo": "accion",
+      "agente": "Lia",
+      "texto": "Lia decide observar en biblioteca. Creo que estoy solo en biblioteca; recuerdo: dialogo con Mara; explorar taller; escasez: faltan provisiones; me siento tranquilo y mi energia es 46. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a observar porque tras valorar mis rasgos, mi energia y lo que recuerdo. La escasez que vivi me hace ser cauto."
+    },
+    {
+      "tick": 11,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que veo cerca a Rui en taller; recuerdo: explorar plaza; escasez: faltan provisiones; dialogo con Rui; me siento alegre y mi energia es 38. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Rui."
+    },
+    {
+      "tick": 11,
+      "tipo": "dialogo",
+      "agente": "Tomas",
+      "texto": "Tomas le dice a Rui: \"desde la escasez ando mas cauto, ¿tu como lo llevas?\""
+    },
+    {
+      "tick": 11,
+      "tipo": "crecimiento",
+      "agente": "Tomas",
+      "texto": "Tomas crece: su sociabilidad pasa de 0.96 a 0.99 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 11,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que veo cerca a Mara en bosque; recuerdo: escasez: faltan provisiones; dialogo con Mara; dialogo con Mara; me siento alegre y mi energia es 31. Deseo quiero lograr: Leer todos los libros de la biblioteca. Asi que voy a hablar porque tras valorar mis rasgos, mi energia y lo que recuerdo. Mi objetivo es Mara."
+    },
+    {
+      "tick": 11,
+      "tipo": "dialogo",
+      "agente": "Nara",
+      "texto": "Nara le dice a Mara: \"desde la escasez ando mas cauto, ¿tu como lo llevas?\""
+    },
+    {
+      "tick": 11,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que veo cerca a Tomas en taller; recuerdo: escasez: faltan provisiones; dialogo con Tomas; dialogo con Tomas; me siento tranquilo y mi energia es 37. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a hablar porque tras valorar mis rasgos, mi energia y lo que recuerdo. Mi objetivo es Tomas."
+    },
+    {
+      "tick": 11,
+      "tipo": "dialogo",
+      "agente": "Rui",
+      "texto": "Rui le dice a Tomas: \"desde la escasez ando mas cauto, ¿tu como lo llevas?\""
+    },
+    {
+      "tick": 11,
+      "tipo": "crecimiento",
+      "agente": "Rui",
+      "texto": "Rui crece: su sociabilidad pasa de 0.56 a 0.59 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 11,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que veo cerca a Nara en bosque; recuerdo: dialogo con Nara; dialogo con Nara; dialogo con Nara; me siento alegre y mi energia es 30. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Nara."
+    },
+    {
+      "tick": 11,
+      "tipo": "dialogo",
+      "agente": "Mara",
+      "texto": "Mara le dice a Nara: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 11,
+      "tipo": "crecimiento",
+      "agente": "Mara",
+      "texto": "Mara crece: su sociabilidad pasa de 0.98 a 1.00 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 11,
+      "tipo": "crecimiento",
+      "agente": "Nara",
+      "texto": "Nara crece: su sociabilidad pasa de 0.58 a 0.61 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 11,
+      "tipo": "caos",
+      "agente": null,
+      "texto": "Un rumor corre por taller: dicen que Rui y Mara esconden algo. La confianza entre ellos tiembla."
+    },
+    {
+      "tick": 12,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que veo cerca a Nara en biblioteca; recuerdo: dialogo con Mara; explorar taller; escasez: faltan provisiones; acaba de ocurrir: Un rumor corre por taller: dicen que Rui y Mara esconden algo. La confianza entre ellos tiembla.; me siento tranquilo y mi energia es 44. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Nara."
+    },
+    {
+      "tick": 12,
+      "tipo": "dialogo",
+      "agente": "Lia",
+      "texto": "Lia le dice a Nara: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 12,
+      "tipo": "crecimiento",
+      "agente": "Lia",
+      "texto": "Lia crece: su sociabilidad pasa de 0.72 a 0.75 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 12,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que veo cerca a Rui en taller; recuerdo: dialogo con Rui; dialogo con Rui; dialogo con Rui; acaba de ocurrir: Un rumor corre por taller: dicen que Rui y Mara esconden algo. La confianza entre ellos tiembla.; me siento alegre y mi energia es 35. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Rui."
+    },
+    {
+      "tick": 12,
+      "tipo": "dialogo",
+      "agente": "Tomas",
+      "texto": "Tomas le dice a Rui: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 12,
+      "tipo": "crecimiento",
+      "agente": "Tomas",
+      "texto": "Tomas crece: su sociabilidad pasa de 0.99 a 1.00 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 12,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que veo cerca a Lia en biblioteca; recuerdo: dialogo con Mara; dialogo con Mara; dialogo con Lia; acaba de ocurrir: Un rumor corre por taller: dicen que Rui y Mara esconden algo. La confianza entre ellos tiembla.; me siento cansado y mi energia es 28. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 12,
+      "tipo": "accion",
+      "agente": "Nara",
+      "texto": "Nara decide descansar en biblioteca. Creo que veo cerca a Lia en biblioteca; recuerdo: dialogo con Mara; dialogo con Mara; dialogo con Lia; acaba de ocurrir: Un rumor corre por taller: dicen que Rui y Mara esconden algo. La confianza entre ellos tiembla.; me siento cansado y mi energia es 28. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 12,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que veo cerca a Tomas en taller; recuerdo: dialogo con Tomas; rumor sobre Mara; dialogo con Tomas; acaba de ocurrir: Un rumor corre por taller: dicen que Rui y Mara esconden algo. La confianza entre ellos tiembla.; me siento inquieto y mi energia es 34. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 12,
+      "tipo": "accion",
+      "agente": "Rui",
+      "texto": "Rui decide construir en taller. Creo que veo cerca a Tomas en taller; recuerdo: dialogo con Tomas; rumor sobre Mara; dialogo con Tomas; acaba de ocurrir: Un rumor corre por taller: dicen que Rui y Mara esconden algo. La confianza entre ellos tiembla.; me siento inquieto y mi energia es 34. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 12,
+      "tipo": "crecimiento",
+      "agente": "Rui",
+      "texto": "Rui crece: su ambicion pasa de 0.99 a 1.00 tras vivir 'construir'."
+    },
+    {
+      "tick": 12,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que estoy solo en bosque; recuerdo: dialogo con Nara; dialogo con Nara; dialogo con Nara; acaba de ocurrir: Un rumor corre por taller: dicen que Rui y Mara esconden algo. La confianza entre ellos tiembla.; me siento cansado y mi energia es 27. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 12,
+      "tipo": "accion",
+      "agente": "Mara",
+      "texto": "Mara decide descansar en bosque. Creo que estoy solo en bosque; recuerdo: dialogo con Nara; dialogo con Nara; dialogo con Nara; acaba de ocurrir: Un rumor corre por taller: dicen que Rui y Mara esconden algo. La confianza entre ellos tiembla.; me siento cansado y mi energia es 27. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 12,
+      "tipo": "caos",
+      "agente": null,
+      "texto": "Rui encuentra algo inesperado en plaza: un objeto antiguo que nadie habia visto antes."
+    },
+    {
+      "tick": 13,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que estoy solo en biblioteca; recuerdo: explorar taller; escasez: faltan provisiones; dialogo con Nara; acaba de ocurrir: Rui encuentra algo inesperado en plaza: un objeto antiguo que nadie habia visto antes.; me siento alegre y mi energia es 41. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a observar porque tras valorar mis rasgos, mi energia y lo que recuerdo. La escasez que vivi me hace ser cauto."
+    },
+    {
+      "tick": 13,
+      "tipo": "accion",
+      "agente": "Lia",
+      "texto": "Lia decide observar en biblioteca. Creo que estoy solo en biblioteca; recuerdo: explorar taller; escasez: faltan provisiones; dialogo con Nara; acaba de ocurrir: Rui encuentra algo inesperado en plaza: un objeto antiguo que nadie habia visto antes.; me siento alegre y mi energia es 41. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a observar porque tras valorar mis rasgos, mi energia y lo que recuerdo. La escasez que vivi me hace ser cauto."
+    },
+    {
+      "tick": 13,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que estoy solo en taller; recuerdo: dialogo con Rui; dialogo con Rui; dialogo con Rui; acaba de ocurrir: Rui encuentra algo inesperado en plaza: un objeto antiguo que nadie habia visto antes.; me siento alegre y mi energia es 32. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a descansar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 13,
+      "tipo": "accion",
+      "agente": "Tomas",
+      "texto": "Tomas decide descansar en taller. Creo que estoy solo en taller; recuerdo: dialogo con Rui; dialogo con Rui; dialogo con Rui; acaba de ocurrir: Rui encuentra algo inesperado en plaza: un objeto antiguo que nadie habia visto antes.; me siento alegre y mi energia es 32. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a descansar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 13,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que estoy solo en mercado; recuerdo: dialogo con Mara; dialogo con Mara; dialogo con Lia; acaba de ocurrir: Rui encuentra algo inesperado en plaza: un objeto antiguo que nadie habia visto antes.; me siento tranquilo y mi energia es 48. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 13,
+      "tipo": "accion",
+      "agente": "Nara",
+      "texto": "Nara decide construir en mercado. Creo que estoy solo en mercado; recuerdo: dialogo con Mara; dialogo con Mara; dialogo con Lia; acaba de ocurrir: Rui encuentra algo inesperado en plaza: un objeto antiguo que nadie habia visto antes.; me siento tranquilo y mi energia es 48. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 13,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que estoy solo en plaza; recuerdo: dialogo con Tomas; construir en taller; descubrimiento en plaza; acaba de ocurrir: Rui encuentra algo inesperado en plaza: un objeto antiguo que nadie habia visto antes.; me siento curioso y mi energia es 29. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 13,
+      "tipo": "accion",
+      "agente": "Rui",
+      "texto": "Rui decide descansar en plaza. Creo que estoy solo en plaza; recuerdo: dialogo con Tomas; construir en taller; descubrimiento en plaza; acaba de ocurrir: Rui encuentra algo inesperado en plaza: un objeto antiguo que nadie habia visto antes.; me siento curioso y mi energia es 29. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 13,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que estoy solo en bosque; recuerdo: dialogo con Nara; dialogo con Nara; dialogo con Nara; acaba de ocurrir: Rui encuentra algo inesperado en plaza: un objeto antiguo que nadie habia visto antes.; me siento tranquilo y mi energia es 47. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 13,
+      "tipo": "accion",
+      "agente": "Mara",
+      "texto": "Mara decide explorar en bosque. Creo que estoy solo en bosque; recuerdo: dialogo con Nara; dialogo con Nara; dialogo con Nara; acaba de ocurrir: Rui encuentra algo inesperado en plaza: un objeto antiguo que nadie habia visto antes.; me siento tranquilo y mi energia es 47. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 14,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que estoy solo en biblioteca; recuerdo: explorar taller; escasez: faltan provisiones; dialogo con Nara; me siento alegre y mi energia es 39. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a observar porque tras valorar mis rasgos, mi energia y lo que recuerdo. La escasez que vivi me hace ser cauto."
+    },
+    {
+      "tick": 14,
+      "tipo": "accion",
+      "agente": "Lia",
+      "texto": "Lia decide observar en biblioteca. Creo que estoy solo en biblioteca; recuerdo: explorar taller; escasez: faltan provisiones; dialogo con Nara; me siento alegre y mi energia es 39. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a observar porque tras valorar mis rasgos, mi energia y lo que recuerdo. La escasez que vivi me hace ser cauto."
+    },
+    {
+      "tick": 14,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que estoy solo en taller; recuerdo: dialogo con Rui; dialogo con Rui; dialogo con Rui; me siento tranquilo y mi energia es 52. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a explorar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 14,
+      "tipo": "accion",
+      "agente": "Tomas",
+      "texto": "Tomas decide explorar en taller. Creo que estoy solo en taller; recuerdo: dialogo con Rui; dialogo con Rui; dialogo con Rui; me siento tranquilo y mi energia es 52. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a explorar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 14,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que estoy solo en mercado; recuerdo: dialogo con Mara; dialogo con Lia; construir en mercado; me siento inquieto y mi energia es 38. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 14,
+      "tipo": "accion",
+      "agente": "Nara",
+      "texto": "Nara decide construir en mercado. Creo que estoy solo en mercado; recuerdo: dialogo con Mara; dialogo con Lia; construir en mercado; me siento inquieto y mi energia es 38. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 14,
+      "tipo": "crecimiento",
+      "agente": "Nara",
+      "texto": "Nara crece: su ambicion pasa de 0.63 a 0.66 tras vivir 'construir'."
+    },
+    {
+      "tick": 14,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que estoy solo en plaza; recuerdo: dialogo con Tomas; construir en taller; descubrimiento en plaza; me siento tranquilo y mi energia es 49. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 14,
+      "tipo": "accion",
+      "agente": "Rui",
+      "texto": "Rui decide construir en plaza. Creo que estoy solo en plaza; recuerdo: dialogo con Tomas; construir en taller; descubrimiento en plaza; me siento tranquilo y mi energia es 49. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 14,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que estoy solo en bosque; recuerdo: dialogo con Nara; dialogo con Nara; explorar bosque; me siento curioso y mi energia es 39. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 14,
+      "tipo": "accion",
+      "agente": "Mara",
+      "texto": "Mara decide explorar en bosque. Creo que estoy solo en bosque; recuerdo: dialogo con Nara; dialogo con Nara; explorar bosque; me siento curioso y mi energia es 39. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 14,
+      "tipo": "crecimiento",
+      "agente": "Rui",
+      "texto": "Rui crece: su curiosidad pasa de 0.50 a 0.53 tras vivir 'descubrimiento'."
+    },
+    {
+      "tick": 14,
+      "tipo": "caos",
+      "agente": null,
+      "texto": "Rui encuentra algo inesperado en plaza: un objeto antiguo que nadie habia visto antes."
+    },
+    {
+      "tick": 15,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que estoy solo en biblioteca; recuerdo: explorar taller; escasez: faltan provisiones; dialogo con Nara; acaba de ocurrir: Rui encuentra algo inesperado en plaza: un objeto antiguo que nadie habia visto antes.; me siento alegre y mi energia es 37. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a observar porque tras valorar mis rasgos, mi energia y lo que recuerdo. La escasez que vivi me hace ser cauto."
+    },
+    {
+      "tick": 15,
+      "tipo": "accion",
+      "agente": "Lia",
+      "texto": "Lia decide observar en biblioteca. Creo que estoy solo en biblioteca; recuerdo: explorar taller; escasez: faltan provisiones; dialogo con Nara; acaba de ocurrir: Rui encuentra algo inesperado en plaza: un objeto antiguo que nadie habia visto antes.; me siento alegre y mi energia es 37. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a observar porque tras valorar mis rasgos, mi energia y lo que recuerdo. La escasez que vivi me hace ser cauto."
+    },
+    {
+      "tick": 15,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que veo cerca a Nara en taller; recuerdo: dialogo con Rui; dialogo con Rui; explorar taller; acaba de ocurrir: Rui encuentra algo inesperado en plaza: un objeto antiguo que nadie habia visto antes.; me siento curioso y mi energia es 44. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Nara."
+    },
+    {
+      "tick": 15,
+      "tipo": "dialogo",
+      "agente": "Tomas",
+      "texto": "Tomas le dice a Nara: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 15,
+      "tipo": "crecimiento",
+      "agente": "Nara",
+      "texto": "Nara crece: su sociabilidad pasa de 0.61 a 0.64 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 15,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que veo cerca a Tomas en taller; recuerdo: construir en mercado; construir en mercado; dialogo con Tomas; acaba de ocurrir: Rui encuentra algo inesperado en plaza: un objeto antiguo que nadie habia visto antes.; me siento cansado y mi energia es 28. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 15,
+      "tipo": "accion",
+      "agente": "Nara",
+      "texto": "Nara decide descansar en taller. Creo que veo cerca a Tomas en taller; recuerdo: construir en mercado; construir en mercado; dialogo con Tomas; acaba de ocurrir: Rui encuentra algo inesperado en plaza: un objeto antiguo que nadie habia visto antes.; me siento cansado y mi energia es 28. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 15,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que estoy solo en plaza; recuerdo: descubrimiento en plaza; construir en plaza; descubrimiento en plaza; acaba de ocurrir: Rui encuentra algo inesperado en plaza: un objeto antiguo que nadie habia visto antes.; me siento curioso y mi energia es 44. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 15,
+      "tipo": "accion",
+      "agente": "Rui",
+      "texto": "Rui decide construir en plaza. Creo que estoy solo en plaza; recuerdo: descubrimiento en plaza; construir en plaza; descubrimiento en plaza; acaba de ocurrir: Rui encuentra algo inesperado en plaza: un objeto antiguo que nadie habia visto antes.; me siento curioso y mi energia es 44. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 15,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que estoy solo en bosque; recuerdo: dialogo con Nara; explorar bosque; explorar bosque; acaba de ocurrir: Rui encuentra algo inesperado en plaza: un objeto antiguo que nadie habia visto antes.; me siento curioso y mi energia es 31. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 15,
+      "tipo": "accion",
+      "agente": "Mara",
+      "texto": "Mara decide explorar en bosque. Creo que estoy solo en bosque; recuerdo: dialogo con Nara; explorar bosque; explorar bosque; acaba de ocurrir: Rui encuentra algo inesperado en plaza: un objeto antiguo que nadie habia visto antes.; me siento curioso y mi energia es 31. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 16,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que estoy solo en bosque; recuerdo: explorar taller; escasez: faltan provisiones; dialogo con Nara; me siento alegre y mi energia es 35. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a observar porque tras valorar mis rasgos, mi energia y lo que recuerdo. La escasez que vivi me hace ser cauto."
+    },
+    {
+      "tick": 16,
+      "tipo": "accion",
+      "agente": "Lia",
+      "texto": "Lia decide observar en bosque. Creo que estoy solo en bosque; recuerdo: explorar taller; escasez: faltan provisiones; dialogo con Nara; me siento alegre y mi energia es 35. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a observar porque tras valorar mis rasgos, mi energia y lo que recuerdo. La escasez que vivi me hace ser cauto."
+    },
+    {
+      "tick": 16,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que veo cerca a Nara, Mara en taller; recuerdo: dialogo con Rui; explorar taller; dialogo con Nara; me siento alegre y mi energia es 41. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Nara."
+    },
+    {
+      "tick": 16,
+      "tipo": "dialogo",
+      "agente": "Tomas",
+      "texto": "Tomas le dice a Nara: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 16,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que veo cerca a Tomas, Mara en taller; recuerdo: construir en mercado; dialogo con Tomas; dialogo con Tomas; me siento tranquilo y mi energia es 48. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a hablar porque tras valorar mis rasgos, mi energia y lo que recuerdo. Mi objetivo es Tomas."
+    },
+    {
+      "tick": 16,
+      "tipo": "dialogo",
+      "agente": "Nara",
+      "texto": "Nara le dice a Tomas: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 16,
+      "tipo": "crecimiento",
+      "agente": "Nara",
+      "texto": "Nara crece: su sociabilidad pasa de 0.64 a 0.67 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 16,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que estoy solo en plaza; recuerdo: construir en plaza; descubrimiento en plaza; construir en plaza; me siento inquieto y mi energia es 34. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 16,
+      "tipo": "accion",
+      "agente": "Rui",
+      "texto": "Rui decide construir en plaza. Creo que estoy solo en plaza; recuerdo: construir en plaza; descubrimiento en plaza; construir en plaza; me siento inquieto y mi energia es 34. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 16,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que veo cerca a Tomas, Nara en taller; recuerdo: explorar bosque; explorar bosque; explorar bosque; me siento cansado y mi energia es 23. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 16,
+      "tipo": "accion",
+      "agente": "Mara",
+      "texto": "Mara decide descansar en taller. Creo que veo cerca a Tomas, Nara en taller; recuerdo: explorar bosque; explorar bosque; explorar bosque; me siento cansado y mi energia es 23. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 17,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que veo cerca a Tomas en bosque; recuerdo: explorar taller; escasez: faltan provisiones; dialogo con Nara; me siento alegre y mi energia es 33. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Tomas."
+    },
+    {
+      "tick": 17,
+      "tipo": "dialogo",
+      "agente": "Lia",
+      "texto": "Lia le dice a Tomas: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 17,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que veo cerca a Lia en bosque; recuerdo: dialogo con Nara; dialogo con Nara; dialogo con Lia; me siento alegre y mi energia es 38. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Lia."
+    },
+    {
+      "tick": 17,
+      "tipo": "dialogo",
+      "agente": "Tomas",
+      "texto": "Tomas le dice a Lia: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 17,
+      "tipo": "crecimiento",
+      "agente": "Lia",
+      "texto": "Lia crece: su sociabilidad pasa de 0.75 a 0.78 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 17,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que veo cerca a Mara en taller; recuerdo: dialogo con Tomas; dialogo con Tomas; dialogo con Tomas; me siento alegre y mi energia es 45. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a hablar porque tras valorar mis rasgos, mi energia y lo que recuerdo. Mi objetivo es Mara."
+    },
+    {
+      "tick": 17,
+      "tipo": "dialogo",
+      "agente": "Nara",
+      "texto": "Nara le dice a Mara: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 17,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que estoy solo en plaza; recuerdo: descubrimiento en plaza; construir en plaza; construir en plaza; me siento cansado y mi energia es 24. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 17,
+      "tipo": "accion",
+      "agente": "Rui",
+      "texto": "Rui decide descansar en plaza. Creo que estoy solo en plaza; recuerdo: descubrimiento en plaza; construir en plaza; construir en plaza; me siento cansado y mi energia es 24. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 17,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que veo cerca a Nara en taller; recuerdo: explorar bosque; explorar bosque; dialogo con Nara; me siento tranquilo y mi energia es 43. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Nara."
+    },
+    {
+      "tick": 17,
+      "tipo": "dialogo",
+      "agente": "Mara",
+      "texto": "Mara le dice a Nara: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 17,
+      "tipo": "crecimiento",
+      "agente": "Nara",
+      "texto": "Nara crece: su sociabilidad pasa de 0.67 a 0.70 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 18,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que veo cerca a Mara en taller; recuerdo: dialogo con Nara; dialogo con Tomas; dialogo con Tomas; me siento alegre y mi energia es 30. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Mara."
+    },
+    {
+      "tick": 18,
+      "tipo": "dialogo",
+      "agente": "Lia",
+      "texto": "Lia le dice a Mara: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 18,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que veo cerca a Nara en bosque; recuerdo: dialogo con Nara; dialogo con Lia; dialogo con Lia; me siento alegre y mi energia es 35. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Nara."
+    },
+    {
+      "tick": 18,
+      "tipo": "dialogo",
+      "agente": "Tomas",
+      "texto": "Tomas le dice a Nara: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 18,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que veo cerca a Tomas en bosque; recuerdo: dialogo con Mara; dialogo con Mara; dialogo con Tomas; me siento alegre y mi energia es 42. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Tomas."
+    },
+    {
+      "tick": 18,
+      "tipo": "dialogo",
+      "agente": "Nara",
+      "texto": "Nara le dice a Tomas: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 18,
+      "tipo": "crecimiento",
+      "agente": "Nara",
+      "texto": "Nara crece: su sociabilidad pasa de 0.70 a 0.73 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 18,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que estoy solo en plaza; recuerdo: descubrimiento en plaza; construir en plaza; construir en plaza; me siento tranquilo y mi energia es 44. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 18,
+      "tipo": "accion",
+      "agente": "Rui",
+      "texto": "Rui decide construir en plaza. Creo que estoy solo en plaza; recuerdo: descubrimiento en plaza; construir en plaza; construir en plaza; me siento tranquilo y mi energia es 44. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 18,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que veo cerca a Lia en taller; recuerdo: dialogo con Nara; dialogo con Nara; dialogo con Lia; me siento alegre y mi energia es 40. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Lia."
+    },
+    {
+      "tick": 18,
+      "tipo": "dialogo",
+      "agente": "Mara",
+      "texto": "Mara le dice a Lia: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 18,
+      "tipo": "crecimiento",
+      "agente": "Lia",
+      "texto": "Lia crece: su sociabilidad pasa de 0.78 a 0.81 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 18,
+      "tipo": "caos",
+      "agente": null,
+      "texto": "Una visita inesperada llega al mundo: una viajera desconocida saluda a Rui en plaza y le deja una idea nueva."
+    },
+    {
+      "tick": 19,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que veo cerca a Rui en plaza; recuerdo: dialogo con Tomas; dialogo con Mara; dialogo con Mara; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Rui en plaza y le deja una idea nueva.; me siento cansado y mi energia es 27. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 19,
+      "tipo": "accion",
+      "agente": "Lia",
+      "texto": "Lia decide descansar en plaza. Creo que veo cerca a Rui en plaza; recuerdo: dialogo con Tomas; dialogo con Mara; dialogo con Mara; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Rui en plaza y le deja una idea nueva.; me siento cansado y mi energia es 27. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 19,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que estoy solo en mercado; recuerdo: dialogo con Lia; dialogo con Nara; dialogo con Nara; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Rui en plaza y le deja una idea nueva.; me siento alegre y mi energia es 32. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a descansar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 19,
+      "tipo": "accion",
+      "agente": "Tomas",
+      "texto": "Tomas decide descansar en mercado. Creo que estoy solo en mercado; recuerdo: dialogo con Lia; dialogo con Nara; dialogo con Nara; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Rui en plaza y le deja una idea nueva.; me siento alegre y mi energia es 32. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a descansar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 19,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que estoy solo en bosque; recuerdo: dialogo con Mara; dialogo con Tomas; dialogo con Tomas; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Rui en plaza y le deja una idea nueva.; me siento alegre y mi energia es 39. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 19,
+      "tipo": "accion",
+      "agente": "Nara",
+      "texto": "Nara decide construir en bosque. Creo que estoy solo en bosque; recuerdo: dialogo con Mara; dialogo con Tomas; dialogo con Tomas; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Rui en plaza y le deja una idea nueva.; me siento alegre y mi energia es 39. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 19,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que veo cerca a Lia en plaza; recuerdo: construir en plaza; construir en plaza; visita_inesperada: conoci a una viajera; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Rui en plaza y le deja una idea nueva.; me siento curioso y mi energia es 34. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 19,
+      "tipo": "accion",
+      "agente": "Rui",
+      "texto": "Rui decide construir en plaza. Creo que veo cerca a Lia en plaza; recuerdo: construir en plaza; construir en plaza; visita_inesperada: conoci a una viajera; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Rui en plaza y le deja una idea nueva.; me siento curioso y mi energia es 34. Deseo quiero lograr: Construir un taller mejor para todos. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 19,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que estoy solo en taller; recuerdo: dialogo con Nara; dialogo con Lia; dialogo con Lia; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Rui en plaza y le deja una idea nueva.; me siento alegre y mi energia es 37. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 19,
+      "tipo": "accion",
+      "agente": "Mara",
+      "texto": "Mara decide explorar en taller. Creo que estoy solo en taller; recuerdo: dialogo con Nara; dialogo con Lia; dialogo con Lia; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Rui en plaza y le deja una idea nueva.; me siento alegre y mi energia es 37. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 20,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que veo cerca a Rui en plaza; recuerdo: dialogo con Tomas; dialogo con Mara; dialogo con Mara; me siento tranquilo y mi energia es 47. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Rui."
+    },
+    {
+      "tick": 20,
+      "tipo": "dialogo",
+      "agente": "Lia",
+      "texto": "Lia le dice a Rui: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 20,
+      "tipo": "crecimiento",
+      "agente": "Rui",
+      "texto": "Rui crece: su sociabilidad pasa de 0.59 a 0.62 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 20,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que veo cerca a Nara en bosque; recuerdo: dialogo con Lia; dialogo con Nara; dialogo con Nara; me siento tranquilo y mi energia es 52. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Nara."
+    },
+    {
+      "tick": 20,
+      "tipo": "dialogo",
+      "agente": "Tomas",
+      "texto": "Tomas le dice a Nara: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 20,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que veo cerca a Tomas en bosque; recuerdo: dialogo con Tomas; construir en bosque; dialogo con Tomas; me siento cansado y mi energia es 29. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 20,
+      "tipo": "accion",
+      "agente": "Nara",
+      "texto": "Nara decide descansar en bosque. Creo que veo cerca a Tomas en bosque; recuerdo: dialogo con Tomas; construir en bosque; dialogo con Tomas; me siento cansado y mi energia es 29. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 20,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que veo cerca a Lia en plaza; recuerdo: visita_inesperada: conoci a una viajera; construir en plaza; dialogo con Lia; me siento cansado y mi energia es 24. Deseo quiero lograr: Construir un taller mejor para todos; quiero estar con otros. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 20,
+      "tipo": "accion",
+      "agente": "Rui",
+      "texto": "Rui decide descansar en plaza. Creo que veo cerca a Lia en plaza; recuerdo: visita_inesperada: conoci a una viajera; construir en plaza; dialogo con Lia; me siento cansado y mi energia es 24. Deseo quiero lograr: Construir un taller mejor para todos; quiero estar con otros. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 20,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que estoy solo en taller; recuerdo: dialogo con Lia; dialogo con Lia; explorar taller; me siento cansado y mi energia es 29. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 20,
+      "tipo": "accion",
+      "agente": "Mara",
+      "texto": "Mara decide descansar en taller. Creo que estoy solo en taller; recuerdo: dialogo con Lia; dialogo con Lia; explorar taller; me siento cansado y mi energia es 29. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 21,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que veo cerca a Rui en plaza; recuerdo: dialogo con Mara; dialogo con Mara; dialogo con Rui; me siento alegre y mi energia es 44. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Rui."
+    },
+    {
+      "tick": 21,
+      "tipo": "dialogo",
+      "agente": "Lia",
+      "texto": "Lia le dice a Rui: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 21,
+      "tipo": "crecimiento",
+      "agente": "Lia",
+      "texto": "Lia crece: su sociabilidad pasa de 0.81 a 0.84 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 21,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que veo cerca a Nara en bosque; recuerdo: dialogo con Nara; dialogo con Nara; dialogo con Nara; me siento alegre y mi energia es 49. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Nara."
+    },
+    {
+      "tick": 21,
+      "tipo": "dialogo",
+      "agente": "Tomas",
+      "texto": "Tomas le dice a Nara: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 21,
+      "tipo": "crecimiento",
+      "agente": "Nara",
+      "texto": "Nara crece: su sociabilidad pasa de 0.73 a 0.76 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 21,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que veo cerca a Tomas en bosque; recuerdo: construir en bosque; dialogo con Tomas; dialogo con Tomas; me siento tranquilo y mi energia es 49. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Tomas."
+    },
+    {
+      "tick": 21,
+      "tipo": "dialogo",
+      "agente": "Nara",
+      "texto": "Nara le dice a Tomas: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 21,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que veo cerca a Lia en plaza; recuerdo: construir en plaza; dialogo con Lia; dialogo con Lia; me siento tranquilo y mi energia es 44. Deseo quiero lograr: Construir un taller mejor para todos; quiero estar con otros. Asi que voy a hablar porque tras valorar mis rasgos, mi energia y lo que recuerdo. Mi objetivo es Lia."
+    },
+    {
+      "tick": 21,
+      "tipo": "dialogo",
+      "agente": "Rui",
+      "texto": "Rui le dice a Lia: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 21,
+      "tipo": "crecimiento",
+      "agente": "Rui",
+      "texto": "Rui crece: su sociabilidad pasa de 0.62 a 0.65 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 21,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que estoy solo en taller; recuerdo: dialogo con Lia; dialogo con Lia; explorar taller; me siento tranquilo y mi energia es 49. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 21,
+      "tipo": "accion",
+      "agente": "Mara",
+      "texto": "Mara decide explorar en taller. Creo que estoy solo en taller; recuerdo: dialogo con Lia; dialogo con Lia; explorar taller; me siento tranquilo y mi energia es 49. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 21,
+      "tipo": "caos",
+      "agente": null,
+      "texto": "Una visita inesperada llega al mundo: una viajera desconocida saluda a Lia en plaza y le deja una idea nueva."
+    },
+    {
+      "tick": 22,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que veo cerca a Tomas, Rui en plaza; recuerdo: dialogo con Rui; dialogo con Rui; visita_inesperada: conoci a una viajera; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Lia en plaza y le deja una idea nueva.; me siento curioso y mi energia es 41. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Tomas."
+    },
+    {
+      "tick": 22,
+      "tipo": "dialogo",
+      "agente": "Lia",
+      "texto": "Lia le dice a Tomas: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 22,
+      "tipo": "crecimiento",
+      "agente": "Lia",
+      "texto": "Lia crece: su sociabilidad pasa de 0.84 a 0.87 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 22,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que veo cerca a Lia, Rui en plaza; recuerdo: dialogo con Nara; dialogo con Nara; dialogo con Lia; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Lia en plaza y le deja una idea nueva.; me siento alegre y mi energia es 46. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Lia."
+    },
+    {
+      "tick": 22,
+      "tipo": "dialogo",
+      "agente": "Tomas",
+      "texto": "Tomas le dice a Lia: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 22,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que estoy solo en bosque; recuerdo: dialogo con Tomas; dialogo con Tomas; dialogo con Tomas; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Lia en plaza y le deja una idea nueva.; me siento alegre y mi energia es 46. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 22,
+      "tipo": "accion",
+      "agente": "Nara",
+      "texto": "Nara decide construir en bosque. Creo que estoy solo en bosque; recuerdo: dialogo con Tomas; dialogo con Tomas; dialogo con Tomas; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Lia en plaza y le deja una idea nueva.; me siento alegre y mi energia es 46. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 22,
+      "tipo": "crecimiento",
+      "agente": "Nara",
+      "texto": "Nara crece: su ambicion pasa de 0.66 a 0.69 tras vivir 'construir'."
+    },
+    {
+      "tick": 22,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que veo cerca a Lia, Tomas en plaza; recuerdo: dialogo con Lia; dialogo con Lia; dialogo con Lia; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Lia en plaza y le deja una idea nueva.; me siento alegre y mi energia es 41. Deseo quiero lograr: Construir un taller mejor para todos; quiero estar con otros. Asi que voy a hablar porque tras valorar mis rasgos, mi energia y lo que recuerdo. Mi objetivo es Lia."
+    },
+    {
+      "tick": 22,
+      "tipo": "dialogo",
+      "agente": "Rui",
+      "texto": "Rui le dice a Lia: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 22,
+      "tipo": "crecimiento",
+      "agente": "Lia",
+      "texto": "Lia crece: su sociabilidad pasa de 0.87 a 0.90 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 22,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que estoy solo en taller; recuerdo: dialogo con Lia; explorar taller; explorar taller; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Lia en plaza y le deja una idea nueva.; me siento curioso y mi energia es 41. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 22,
+      "tipo": "accion",
+      "agente": "Mara",
+      "texto": "Mara decide explorar en taller. Creo que estoy solo en taller; recuerdo: dialogo con Lia; explorar taller; explorar taller; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Lia en plaza y le deja una idea nueva.; me siento curioso y mi energia es 41. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 23,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que veo cerca a Tomas en plaza; recuerdo: dialogo con Tomas; dialogo con Tomas; dialogo con Rui; me siento alegre y mi energia es 38. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Tomas."
+    },
+    {
+      "tick": 23,
+      "tipo": "dialogo",
+      "agente": "Lia",
+      "texto": "Lia le dice a Tomas: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 23,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que veo cerca a Lia en plaza; recuerdo: dialogo con Lia; dialogo con Lia; dialogo con Lia; me siento alegre y mi energia es 43. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Lia."
+    },
+    {
+      "tick": 23,
+      "tipo": "dialogo",
+      "agente": "Tomas",
+      "texto": "Tomas le dice a Lia: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 23,
+      "tipo": "crecimiento",
+      "agente": "Lia",
+      "texto": "Lia crece: su sociabilidad pasa de 0.90 a 0.93 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 23,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que estoy solo en bosque; recuerdo: dialogo con Tomas; dialogo con Tomas; construir en bosque; me siento inquieto y mi energia es 36. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 23,
+      "tipo": "accion",
+      "agente": "Nara",
+      "texto": "Nara decide construir en bosque. Creo que estoy solo en bosque; recuerdo: dialogo con Tomas; dialogo con Tomas; construir en bosque; me siento inquieto y mi energia es 36. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 23,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que veo cerca a Mara en taller; recuerdo: dialogo con Lia; dialogo con Lia; dialogo con Lia; me siento alegre y mi energia es 38. Deseo quiero lograr: Construir un taller mejor para todos; quiero estar con otros. Asi que voy a hablar porque tras valorar mis rasgos, mi energia y lo que recuerdo. Mi objetivo es Mara."
+    },
+    {
+      "tick": 23,
+      "tipo": "dialogo",
+      "agente": "Rui",
+      "texto": "Rui le dice a Mara: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 23,
+      "tipo": "crecimiento",
+      "agente": "Rui",
+      "texto": "Rui crece: su sociabilidad pasa de 0.65 a 0.68 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 23,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que veo cerca a Rui en taller; recuerdo: explorar taller; explorar taller; dialogo con Rui; me siento curioso y mi energia es 33. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Rui."
+    },
+    {
+      "tick": 23,
+      "tipo": "dialogo",
+      "agente": "Mara",
+      "texto": "Mara le dice a Rui: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 24,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que veo cerca a Tomas en plaza; recuerdo: dialogo con Rui; dialogo con Tomas; dialogo con Tomas; me siento alegre y mi energia es 35. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Tomas."
+    },
+    {
+      "tick": 24,
+      "tipo": "dialogo",
+      "agente": "Lia",
+      "texto": "Lia le dice a Tomas: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 24,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que veo cerca a Lia en plaza; recuerdo: dialogo con Lia; dialogo con Lia; dialogo con Lia; me siento alegre y mi energia es 40. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Lia."
+    },
+    {
+      "tick": 24,
+      "tipo": "dialogo",
+      "agente": "Tomas",
+      "texto": "Tomas le dice a Lia: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 24,
+      "tipo": "crecimiento",
+      "agente": "Lia",
+      "texto": "Lia crece: su sociabilidad pasa de 0.93 a 0.96 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 24,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que estoy solo en bosque; recuerdo: dialogo con Tomas; construir en bosque; construir en bosque; me siento cansado y mi energia es 26. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 24,
+      "tipo": "accion",
+      "agente": "Nara",
+      "texto": "Nara decide descansar en bosque. Creo que estoy solo en bosque; recuerdo: dialogo con Tomas; construir en bosque; construir en bosque; me siento cansado y mi energia es 26. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 24,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que veo cerca a Mara en taller; recuerdo: dialogo con Lia; dialogo con Mara; dialogo con Mara; me siento alegre y mi energia es 35. Deseo quiero lograr: Construir un taller mejor para todos; quiero estar con otros. Asi que voy a hablar porque tras valorar mis rasgos, mi energia y lo que recuerdo. Mi objetivo es Mara."
+    },
+    {
+      "tick": 24,
+      "tipo": "dialogo",
+      "agente": "Rui",
+      "texto": "Rui le dice a Mara: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 24,
+      "tipo": "crecimiento",
+      "agente": "Rui",
+      "texto": "Rui crece: su sociabilidad pasa de 0.68 a 0.71 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 24,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que veo cerca a Rui en taller; recuerdo: dialogo con Rui; dialogo con Rui; dialogo con Rui; me siento alegre y mi energia es 30. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Rui."
+    },
+    {
+      "tick": 24,
+      "tipo": "dialogo",
+      "agente": "Mara",
+      "texto": "Mara le dice a Rui: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 24,
+      "tipo": "caos",
+      "agente": null,
+      "texto": "Una visita inesperada llega al mundo: una viajera desconocida saluda a Lia en plaza y le deja una idea nueva."
+    },
+    {
+      "tick": 25,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que estoy solo en plaza; recuerdo: dialogo con Tomas; dialogo con Tomas; visita_inesperada: conoci a una viajera; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Lia en plaza y le deja una idea nueva.; me siento curioso y mi energia es 32. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 25,
+      "tipo": "accion",
+      "agente": "Lia",
+      "texto": "Lia decide explorar en plaza. Creo que estoy solo en plaza; recuerdo: dialogo con Tomas; dialogo con Tomas; visita_inesperada: conoci a una viajera; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Lia en plaza y le deja una idea nueva.; me siento curioso y mi energia es 32. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque mi curiosidad me empuja a descubrir algo nuevo."
+    },
+    {
+      "tick": 25,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que estoy solo en mercado; recuerdo: dialogo con Lia; dialogo con Lia; dialogo con Lia; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Lia en plaza y le deja una idea nueva.; me siento alegre y mi energia es 37. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a descansar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 25,
+      "tipo": "accion",
+      "agente": "Tomas",
+      "texto": "Tomas decide descansar en mercado. Creo que estoy solo en mercado; recuerdo: dialogo con Lia; dialogo con Lia; dialogo con Lia; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Lia en plaza y le deja una idea nueva.; me siento alegre y mi energia es 37. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a descansar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 25,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que estoy solo en bosque; recuerdo: dialogo con Tomas; construir en bosque; construir en bosque; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Lia en plaza y le deja una idea nueva.; me siento tranquilo y mi energia es 46. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 25,
+      "tipo": "accion",
+      "agente": "Nara",
+      "texto": "Nara decide construir en bosque. Creo que estoy solo en bosque; recuerdo: dialogo con Tomas; construir en bosque; construir en bosque; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Lia en plaza y le deja una idea nueva.; me siento tranquilo y mi energia es 46. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 25,
+      "tipo": "crecimiento",
+      "agente": "Nara",
+      "texto": "Nara crece: su ambicion pasa de 0.69 a 0.72 tras vivir 'construir'."
+    },
+    {
+      "tick": 25,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que veo cerca a Mara en taller; recuerdo: dialogo con Mara; dialogo con Mara; dialogo con Mara; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Lia en plaza y le deja una idea nueva.; me siento alegre y mi energia es 32. Deseo quiero lograr: Construir un taller mejor para todos; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Mara."
+    },
+    {
+      "tick": 25,
+      "tipo": "dialogo",
+      "agente": "Rui",
+      "texto": "Rui le dice a Mara: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 25,
+      "tipo": "crecimiento",
+      "agente": "Rui",
+      "texto": "Rui crece: su sociabilidad pasa de 0.71 a 0.74 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 25,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que veo cerca a Rui en taller; recuerdo: dialogo con Rui; dialogo con Rui; dialogo con Rui; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Lia en plaza y le deja una idea nueva.; me siento cansado y mi energia es 27. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 25,
+      "tipo": "accion",
+      "agente": "Mara",
+      "texto": "Mara decide descansar en taller. Creo que veo cerca a Rui en taller; recuerdo: dialogo con Rui; dialogo con Rui; dialogo con Rui; acaba de ocurrir: Una visita inesperada llega al mundo: una viajera desconocida saluda a Lia en plaza y le deja una idea nueva.; me siento cansado y mi energia es 27. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 25,
+      "tipo": "caos",
+      "agente": null,
+      "texto": "Lia encuentra algo inesperado en bosque: un objeto antiguo que nadie habia visto antes."
+    },
+    {
+      "tick": 26,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que estoy solo en bosque; recuerdo: visita_inesperada: conoci a una viajera; explorar plaza; descubrimiento en bosque; acaba de ocurrir: Lia encuentra algo inesperado en bosque: un objeto antiguo que nadie habia visto antes.; me siento curioso y mi energia es 29. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 26,
+      "tipo": "accion",
+      "agente": "Lia",
+      "texto": "Lia decide descansar en bosque. Creo que estoy solo en bosque; recuerdo: visita_inesperada: conoci a una viajera; explorar plaza; descubrimiento en bosque; acaba de ocurrir: Lia encuentra algo inesperado en bosque: un objeto antiguo que nadie habia visto antes.; me siento curioso y mi energia es 29. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 26,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que veo cerca a Rui en mercado; recuerdo: dialogo con Lia; dialogo con Lia; dialogo con Lia; acaba de ocurrir: Lia encuentra algo inesperado en bosque: un objeto antiguo que nadie habia visto antes.; me siento tranquilo y mi energia es 57. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Rui."
+    },
+    {
+      "tick": 26,
+      "tipo": "dialogo",
+      "agente": "Tomas",
+      "texto": "Tomas le dice a Rui: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 26,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que veo cerca a Mara en biblioteca; recuerdo: construir en bosque; construir en bosque; construir en bosque; acaba de ocurrir: Lia encuentra algo inesperado en bosque: un objeto antiguo que nadie habia visto antes.; me siento inquieto y mi energia es 36. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Mara."
+    },
+    {
+      "tick": 26,
+      "tipo": "dialogo",
+      "agente": "Nara",
+      "texto": "Nara le dice a Mara: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 26,
+      "tipo": "crecimiento",
+      "agente": "Nara",
+      "texto": "Nara crece: su sociabilidad pasa de 0.76 a 0.79 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 26,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que veo cerca a Tomas en mercado; recuerdo: dialogo con Mara; dialogo con Mara; dialogo con Tomas; acaba de ocurrir: Lia encuentra algo inesperado en bosque: un objeto antiguo que nadie habia visto antes.; me siento cansado y mi energia es 29. Deseo quiero lograr: Construir un taller mejor para todos; quiero estar con otros. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 26,
+      "tipo": "accion",
+      "agente": "Rui",
+      "texto": "Rui decide descansar en mercado. Creo que veo cerca a Tomas en mercado; recuerdo: dialogo con Mara; dialogo con Mara; dialogo con Tomas; acaba de ocurrir: Lia encuentra algo inesperado en bosque: un objeto antiguo que nadie habia visto antes.; me siento cansado y mi energia es 29. Deseo quiero lograr: Construir un taller mejor para todos; quiero estar con otros. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 26,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que veo cerca a Nara en biblioteca; recuerdo: dialogo con Rui; dialogo con Rui; dialogo con Nara; acaba de ocurrir: Lia encuentra algo inesperado en bosque: un objeto antiguo que nadie habia visto antes.; me siento tranquilo y mi energia es 47. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Nara."
+    },
+    {
+      "tick": 26,
+      "tipo": "dialogo",
+      "agente": "Mara",
+      "texto": "Mara le dice a Nara: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 27,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que estoy solo en bosque; recuerdo: visita_inesperada: conoci a una viajera; explorar plaza; descubrimiento en bosque; me siento tranquilo y mi energia es 49. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 27,
+      "tipo": "accion",
+      "agente": "Lia",
+      "texto": "Lia decide explorar en bosque. Creo que estoy solo en bosque; recuerdo: visita_inesperada: conoci a una viajera; explorar plaza; descubrimiento en bosque; me siento tranquilo y mi energia es 49. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a explorar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 27,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que estoy solo en mercado; recuerdo: dialogo con Lia; dialogo con Lia; dialogo con Rui; me siento alegre y mi energia es 54. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a explorar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 27,
+      "tipo": "accion",
+      "agente": "Tomas",
+      "texto": "Tomas decide explorar en mercado. Creo que estoy solo en mercado; recuerdo: dialogo con Lia; dialogo con Lia; dialogo con Rui; me siento alegre y mi energia es 54. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a explorar porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 27,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que veo cerca a Mara en biblioteca; recuerdo: construir en bosque; dialogo con Mara; dialogo con Mara; me siento alegre y mi energia es 33. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Mara."
+    },
+    {
+      "tick": 27,
+      "tipo": "dialogo",
+      "agente": "Nara",
+      "texto": "Nara le dice a Mara: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 27,
+      "tipo": "crecimiento",
+      "agente": "Nara",
+      "texto": "Nara crece: su sociabilidad pasa de 0.79 a 0.82 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 27,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que estoy solo en plaza; recuerdo: dialogo con Mara; dialogo con Mara; dialogo con Tomas; me siento tranquilo y mi energia es 49. Deseo quiero lograr: Construir un taller mejor para todos; quiero estar con otros. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 27,
+      "tipo": "accion",
+      "agente": "Rui",
+      "texto": "Rui decide construir en plaza. Creo que estoy solo en plaza; recuerdo: dialogo con Mara; dialogo con Mara; dialogo con Tomas; me siento tranquilo y mi energia es 49. Deseo quiero lograr: Construir un taller mejor para todos; quiero estar con otros. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 27,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que veo cerca a Nara en biblioteca; recuerdo: dialogo con Nara; dialogo con Nara; dialogo con Nara; me siento alegre y mi energia es 44. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Nara."
+    },
+    {
+      "tick": 27,
+      "tipo": "dialogo",
+      "agente": "Mara",
+      "texto": "Mara le dice a Nara: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 27,
+      "tipo": "caos",
+      "agente": null,
+      "texto": "Una tormenta repentina azota el mundo: viento, lluvia y truenos interrumpen todos los planes."
+    },
+    {
+      "tick": 28,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que veo cerca a Tomas en bosque; recuerdo: descubrimiento en bosque; explorar bosque; tormenta: la tormenta me sorprendio; acaba de ocurrir: Una tormenta repentina azota el mundo: viento, lluvia y truenos interrumpen todos los planes.; me siento inquieto y mi energia es 26. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 28,
+      "tipo": "accion",
+      "agente": "Lia",
+      "texto": "Lia decide descansar en bosque. Creo que veo cerca a Tomas en bosque; recuerdo: descubrimiento en bosque; explorar bosque; tormenta: la tormenta me sorprendio; acaba de ocurrir: Una tormenta repentina azota el mundo: viento, lluvia y truenos interrumpen todos los planes.; me siento inquieto y mi energia es 26. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 28,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que veo cerca a Lia en bosque; recuerdo: dialogo con Rui; explorar mercado; tormenta: la tormenta me sorprendio; acaba de ocurrir: Una tormenta repentina azota el mundo: viento, lluvia y truenos interrumpen todos los planes.; me siento inquieto y mi energia es 31. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Lia."
+    },
+    {
+      "tick": 28,
+      "tipo": "dialogo",
+      "agente": "Tomas",
+      "texto": "Tomas le dice a Lia: \"la tormenta me dejo pensando, ¿a ti tambien te afecto?\""
+    },
+    {
+      "tick": 28,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que veo cerca a Mara en biblioteca; recuerdo: dialogo con Mara; dialogo con Mara; tormenta: la tormenta me sorprendio; acaba de ocurrir: Una tormenta repentina azota el mundo: viento, lluvia y truenos interrumpen todos los planes.; me siento inquieto y mi energia es 15. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 28,
+      "tipo": "accion",
+      "agente": "Nara",
+      "texto": "Nara decide descansar en biblioteca. Creo que veo cerca a Mara en biblioteca; recuerdo: dialogo con Mara; dialogo con Mara; tormenta: la tormenta me sorprendio; acaba de ocurrir: Una tormenta repentina azota el mundo: viento, lluvia y truenos interrumpen todos los planes.; me siento inquieto y mi energia es 15. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 28,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que estoy solo en plaza; recuerdo: dialogo con Tomas; construir en plaza; tormenta: la tormenta me sorprendio; acaba de ocurrir: Una tormenta repentina azota el mundo: viento, lluvia y truenos interrumpen todos los planes.; me siento inquieto y mi energia es 24. Deseo quiero lograr: Construir un taller mejor para todos; quiero estar con otros. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 28,
+      "tipo": "accion",
+      "agente": "Rui",
+      "texto": "Rui decide descansar en plaza. Creo que estoy solo en plaza; recuerdo: dialogo con Tomas; construir en plaza; tormenta: la tormenta me sorprendio; acaba de ocurrir: Una tormenta repentina azota el mundo: viento, lluvia y truenos interrumpen todos los planes.; me siento inquieto y mi energia es 24. Deseo quiero lograr: Construir un taller mejor para todos; quiero estar con otros. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 28,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que veo cerca a Nara en biblioteca; recuerdo: dialogo con Nara; dialogo con Nara; tormenta: la tormenta me sorprendio; acaba de ocurrir: Una tormenta repentina azota el mundo: viento, lluvia y truenos interrumpen todos los planes.; me siento inquieto y mi energia es 26. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 28,
+      "tipo": "accion",
+      "agente": "Mara",
+      "texto": "Mara decide descansar en biblioteca. Creo que veo cerca a Nara en biblioteca; recuerdo: dialogo con Nara; dialogo con Nara; tormenta: la tormenta me sorprendio; acaba de ocurrir: Una tormenta repentina azota el mundo: viento, lluvia y truenos interrumpen todos los planes.; me siento inquieto y mi energia es 26. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 29,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que veo cerca a Tomas en bosque; recuerdo: explorar bosque; tormenta: la tormenta me sorprendio; dialogo con Tomas; me siento tranquilo y mi energia es 46. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Tomas."
+    },
+    {
+      "tick": 29,
+      "tipo": "dialogo",
+      "agente": "Lia",
+      "texto": "Lia le dice a Tomas: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 29,
+      "tipo": "crecimiento",
+      "agente": "Lia",
+      "texto": "Lia crece: su sociabilidad pasa de 0.96 a 0.99 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 29,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que veo cerca a Lia en bosque; recuerdo: tormenta: la tormenta me sorprendio; dialogo con Lia; dialogo con Lia; me siento cansado y mi energia es 28. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 29,
+      "tipo": "accion",
+      "agente": "Tomas",
+      "texto": "Tomas decide descansar en bosque. Creo que veo cerca a Lia en bosque; recuerdo: tormenta: la tormenta me sorprendio; dialogo con Lia; dialogo con Lia; me siento cansado y mi energia es 28. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a descansar porque estoy agotado y necesito recuperar fuerzas."
+    },
+    {
+      "tick": 29,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que veo cerca a Mara en biblioteca; recuerdo: dialogo con Mara; dialogo con Mara; tormenta: la tormenta me sorprendio; me siento tranquilo y mi energia es 35. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Mara."
+    },
+    {
+      "tick": 29,
+      "tipo": "dialogo",
+      "agente": "Nara",
+      "texto": "Nara le dice a Mara: \"la tormenta me dejo pensando, ¿a ti tambien te afecto?\""
+    },
+    {
+      "tick": 29,
+      "tipo": "crecimiento",
+      "agente": "Nara",
+      "texto": "Nara crece: su sociabilidad pasa de 0.82 a 0.85 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 29,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que estoy solo en plaza; recuerdo: dialogo con Tomas; construir en plaza; tormenta: la tormenta me sorprendio; me siento tranquilo y mi energia es 44. Deseo quiero lograr: Construir un taller mejor para todos; quiero estar con otros. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 29,
+      "tipo": "accion",
+      "agente": "Rui",
+      "texto": "Rui decide construir en plaza. Creo que estoy solo en plaza; recuerdo: dialogo con Tomas; construir en plaza; tormenta: la tormenta me sorprendio; me siento tranquilo y mi energia es 44. Deseo quiero lograr: Construir un taller mejor para todos; quiero estar con otros. Asi que voy a construir porque tras valorar mis rasgos, mi energia y lo que recuerdo."
+    },
+    {
+      "tick": 29,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que veo cerca a Nara en biblioteca; recuerdo: dialogo con Nara; tormenta: la tormenta me sorprendio; dialogo con Nara; me siento tranquilo y mi energia es 46. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Nara."
+    },
+    {
+      "tick": 29,
+      "tipo": "dialogo",
+      "agente": "Mara",
+      "texto": "Mara le dice a Nara: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 30,
+      "tipo": "pensamiento",
+      "agente": "Lia",
+      "texto": "Creo que veo cerca a Tomas, Nara en bosque; recuerdo: tormenta: la tormenta me sorprendio; dialogo con Tomas; dialogo con Tomas; me siento alegre y mi energia es 43. Deseo quiero lograr: Descubrir un lugar secreto del bosque; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Tomas."
+    },
+    {
+      "tick": 30,
+      "tipo": "dialogo",
+      "agente": "Lia",
+      "texto": "Lia le dice a Tomas: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 30,
+      "tipo": "pensamiento",
+      "agente": "Tomas",
+      "texto": "Creo que veo cerca a Lia, Nara en bosque; recuerdo: dialogo con Lia; dialogo con Lia; dialogo con Lia; me siento tranquilo y mi energia es 48. Deseo quiero lograr: Hacer tres amigos nuevos en la plaza; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Lia."
+    },
+    {
+      "tick": 30,
+      "tipo": "dialogo",
+      "agente": "Tomas",
+      "texto": "Tomas le dice a Lia: \"estoy trabajando en una meta que me importa mucho, ¿y tu?\""
+    },
+    {
+      "tick": 30,
+      "tipo": "crecimiento",
+      "agente": "Lia",
+      "texto": "Lia crece: su sociabilidad pasa de 0.99 a 1.00 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 30,
+      "tipo": "pensamiento",
+      "agente": "Nara",
+      "texto": "Creo que veo cerca a Lia, Tomas en bosque; recuerdo: tormenta: la tormenta me sorprendio; dialogo con Mara; dialogo con Mara; me siento alegre y mi energia es 32. Deseo quiero lograr: Leer todos los libros de la biblioteca; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Lia."
+    },
+    {
+      "tick": 30,
+      "tipo": "dialogo",
+      "agente": "Nara",
+      "texto": "Nara le dice a Lia: \"la tormenta me dejo pensando, ¿a ti tambien te afecto?\""
+    },
+    {
+      "tick": 30,
+      "tipo": "crecimiento",
+      "agente": "Nara",
+      "texto": "Nara crece: su sociabilidad pasa de 0.85 a 0.88 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 30,
+      "tipo": "pensamiento",
+      "agente": "Rui",
+      "texto": "Creo que veo cerca a Mara en plaza; recuerdo: construir en plaza; tormenta: la tormenta me sorprendio; construir en plaza; me siento inquieto y mi energia es 34. Deseo quiero lograr: Construir un taller mejor para todos; quiero estar con otros. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Mara."
+    },
+    {
+      "tick": 30,
+      "tipo": "dialogo",
+      "agente": "Rui",
+      "texto": "Rui le dice a Mara: \"la tormenta me dejo pensando, ¿a ti tambien te afecto?\""
+    },
+    {
+      "tick": 30,
+      "tipo": "crecimiento",
+      "agente": "Rui",
+      "texto": "Rui crece: su sociabilidad pasa de 0.74 a 0.77 tras vivir 'dialogo'."
+    },
+    {
+      "tick": 30,
+      "tipo": "pensamiento",
+      "agente": "Mara",
+      "texto": "Creo que veo cerca a Rui en plaza; recuerdo: dialogo con Nara; dialogo con Nara; dialogo con Rui; me siento alegre y mi energia es 43. Deseo quiero lograr: Organizar un mercado de trueque semanal; quiero estar con otros; quiero descubrir cosas nuevas. Asi que voy a hablar porque me gusta la compania y hay alguien cerca. Mi objetivo es Rui."
+    },
+    {
+      "tick": 30,
+      "tipo": "dialogo",
+      "agente": "Mara",
+      "texto": "Mara le dice a Rui: \"tengo la cabeza llena de cosas por descubrir, ¿has visto algo nuevo por aqui ultimamente?\""
+    },
+    {
+      "tick": 30,
+      "tipo": "crecimiento",
+      "agente": "Lia",
+      "texto": "Lia crece: su paciencia pasa de 0.50 a 0.55 tras vivir 'tormenta'."
+    },
+    {
+      "tick": 30,
+      "tipo": "crecimiento",
+      "agente": "Tomas",
+      "texto": "Tomas crece: su paciencia pasa de 0.60 a 0.65 tras vivir 'tormenta'."
+    },
+    {
+      "tick": 30,
+      "tipo": "crecimiento",
+      "agente": "Nara",
+      "texto": "Nara crece: su paciencia pasa de 0.90 a 0.95 tras vivir 'tormenta'."
+    },
+    {
+      "tick": 30,
+      "tipo": "crecimiento",
+      "agente": "Rui",
+      "texto": "Rui crece: su paciencia pasa de 0.40 a 0.45 tras vivir 'tormenta'."
+    },
+    {
+      "tick": 30,
+      "tipo": "crecimiento",
+      "agente": "Mara",
+      "texto": "Mara crece: su paciencia pasa de 0.30 a 0.35 tras vivir 'tormenta'."
+    },
+    {
+      "tick": 30,
+      "tipo": "caos",
+      "agente": null,
+      "texto": "Una tormenta repentina azota el mundo: viento, lluvia y truenos interrumpen todos los planes."
+    }
+  ]
+}

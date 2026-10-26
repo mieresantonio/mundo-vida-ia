@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mundo Vida IA — Visor</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 1rem;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: #12141a; color: #e8eaf0; line-height: 1.5;
+  }
+  h1 { font-size: 1.5rem; margin: 0 0 .25rem; }
+  h2 { font-size: 1.15rem; margin: 2rem 0 .75rem; border-bottom: 1px solid #2a2f3d; padding-bottom: .3rem; }
+  .sub { color: #9aa3b8; margin: 0 0 1.5rem; }
+  #error {
+    display: none; background: #3a1d1d; border: 1px solid #a33;
+    border-radius: 8px; padding: 1rem; margin-bottom: 1rem;
+  }
+  #error code { background: #1c1c1c; padding: .1rem .4rem; border-radius: 4px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .card {
+    background: #1c202b; border: 1px solid #2a2f3d; border-radius: 10px; padding: 1rem;
+  }
+  .card h3 { margin: 0 0 .5rem; font-size: 1.05rem; }
+  .card p { margin: .3rem 0; color: #c9cede; }
+  .card .meta { color: #9aa3b8; font-size: .9rem; }
+  .rasgos { width: 100%; border-collapse: collapse; margin-top: .5rem; font-size: .9rem; }
+  .rasgos th { text-align: left; color: #9aa3b8; font-weight: 600; }
+  .rasgos td, .rasgos th { padding: .2rem .4rem .2rem 0; }
+  .up { color: #5ec27a; }
+  .down { color: #e06a5a; }
+  .same { color: #9aa3b8; }
+  .filtros { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+  .filtros button {
+    background: #232838; color: #e8eaf0; border: 1px solid #2a2f3d;
+    border-radius: 20px; padding: .35rem .9rem; cursor: pointer; font-size: .9rem;
+  }
+  .filtros button.activo { background: #3a5a8c; border-color: #5a84c4; }
+  .evento {
+    background: #1c202b; border: 1px solid #2a2f3d; border-left: 4px solid #5a84c4;
+    border-radius: 8px; padding: .7rem 1rem; margin-bottom: .6rem;
+  }
+  .evento .tick { color: #9aa3b8; font-size: .85rem; }
+  .evento .tipo {
+    display: inline-block; font-size: .75rem; text-transform: uppercase; letter-spacing: .05em;
+    background: #232838; border-radius: 4px; padding: .1rem .45rem; margin-left: .4rem;
+  }
+  .evento .agente { font-weight: 600; }
+  .evento.caos { border-left-color: #e06a5a; }
+  .evento.dialogo { border-left-color: #5ec27a; }
+  .evento.crecimiento { border-left-color: #d9a441; }
+  .evento.accion { border-left-color: #7a6fd0; }
+  .pensamiento {
+    background: #1c202b; border: 1px solid #2a2f3d; border-radius: 8px;
+    padding: .7rem 1rem; margin-bottom: .6rem; font-style: italic;
+  }
+  .pensamiento .quien { font-style: normal; font-weight: 600; color: #9aa3b8; font-size: .85rem; }
+  .vacio { color: #9aa3b8; }
+  @media (max-width: 480px) { body { padding: .75rem; } h1 { font-size: 1.25rem; } }
+</style>
+</head>
+<body>
+<h1>🌍 Mundo Vida IA</h1>
+<p class="sub" id="resumen">Cargando registro…</p>
+
+<div id="error">
+  <strong>No se pudo cargar el registro.</strong>
+  <p>Primero genera la simulación ejecutando:</p>
+  <p><code>python3 simulacion/demo.py</code></p>
+  <p>desde la raíz del repositorio, y vuelve a abrir esta página.</p>
+</div>
+
+<main id="contenido" hidden>
+  <h2>Agentes</h2>
+  <div class="grid" id="agentes"></div>
+
+  <h2>Pensamientos internos</h2>
+  <div id="pensamientos"></div>
+
+  <h2>Línea de tiempo</h2>
+  <div class="filtros" id="filtros"></div>
+  <div id="eventos"></div>
+</main>
+
+<script>
+const RASGOS = ["curiosidad", "sociabilidad", "paciencia", "ambicion"];
+const TIPOS = ["todos", "pensamiento", "dialogo", "caos", "accion", "crecimiento"];
+let eventosTodos = [];
+let filtroActual = "todos";
+
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+    return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c];
+  });
+}
+
+function fmt(n) { return Number(n).toFixed(2); }
+
+function cambio(inicial, final) {
+  var d = Number(final) - Number(inicial);
+  if (d > 0.001) return '<span class="up">▲ +' + fmt(d) + "</span>";
+  if (d < -0.001) return '<span class="down">▼ ' + fmt(d) + "</span>";
+  return '<span class="same">→ 0.00</span>';
+}
+
+function tarjetaAgente(a) {
+  var filas = RASGOS.map(function (r) {
+    var ini = a.rasgos_iniciales ? a.rasgos_iniciales[r] : undefined;
+    var fin = a.rasgos_finales ? a.rasgos_finales[r] : undefined;
+    if (ini === undefined || fin === undefined) return "";
+    return "<tr><td>" + esc(r) + "</td><td>" + fmt(ini) + "</td><td>" + fmt(fin) +
+      "</td><td>" + cambio(ini, fin) + "</td></tr>";
+  }).join("");
+  var metas = (a.metas || []).map(function (m) { return "<li>" + esc(m) + "</li>"; }).join("");
+  return "<article class=\"card\"><h3>" + esc(a.nombre) + "</h3>" +
+    "<p class=\"meta\">Ánimo: " + esc(a.animo) + " · Energía: " + esc(a.energia) + "</p>" +
+    "<p class=\"meta\">Recuerdos: " + (a.recuerdos ? a.recuerdos.length : 0) + "</p>" +
+    "<table class=\"rasgos\"><tr><th>Rasgo</th><th>Inicial</th><th>Final</th><th>Cambio</th></tr>" +
+    filas + "</table>" +
+    "<p>Metas:</p><ul>" + (metas || "<li class=\"vacio\">Sin metas registradas</li>") + "</ul></article>";
+}
+
+function eventoHTML(e) {
+  return "<article class=\"evento " + esc(e.tipo) + "\">" +
+    "<span class=\"tick\">Tick " + esc(e.tick) + "</span>" +
+    "<span class=\"tipo\">" + esc(e.tipo) + "</span>" +
+    (e.agente ? " <span class=\"agente\">" + esc(e.agente) + "</span>" : "") +
+    "<p>" + esc(e.texto) + "</p></article>";
+}
+
+function pintarEventos() {
+  var lista = filtroActual === "todos"
+    ? eventosTodos
+    : eventosTodos.filter(function (e) { return e.tipo === filtroActual; });
+  document.getElementById("eventos").innerHTML = lista.length
+    ? lista.map(eventoHTML).join("")
+    : "<p class=\"vacio\">Sin eventos de este tipo.</p>";
+  document.querySelectorAll("#filtros button").forEach(function (b) {
+    b.classList.toggle("activo", b.dataset.tipo === filtroActual);
+  });
+}
+
+function pintarFiltros() {
+  document.getElementById("filtros").innerHTML = TIPOS.map(function (t) {
+    return "<button data-tipo=\"" + t + "\">" + esc(t) + "</button>";
+  }).join("");
+  document.querySelectorAll("#filtros button").forEach(function (b) {
+    b.addEventListener("click", function () { filtroActual = b.dataset.tipo; pintarEventos(); });
+  });
+}
+
+function pintar(datos) {
+  document.getElementById("resumen").textContent =
+    "Ticks: " + datos.meta.ticks + " · Semilla: " + datos.meta.semilla +
+    " · Agentes: " + datos.agentes.length + " · Eventos: " + datos.eventos.length;
+  document.getElementById("agentes").innerHTML =
+    datos.agentes.map(tarjetaAgente).join("");
+  var pensamientos = datos.eventos.filter(function (e) { return e.tipo === "pensamiento"; });
+  document.getElementById("pensamientos").innerHTML = pensamientos.length
+    ? pensamientos.map(function (e) {
+        return "<div class=\"pensamiento\"><span class=\"quien\">Tick " + esc(e.tick) +
+          (e.agente ? " · " + esc(e.agente) : "") + "</span><p>“" + esc(e.texto) + "”</p></div>";
+      }).join("")
+    : "<p class=\"vacio\">Sin pensamientos registrados todavía.</p>";
+  eventosTodos = datos.eventos;
+  pintarFiltros();
+  pintarEventos();
+  document.getElementById("contenido").hidden = false;
+}
+
+function mostrarError() {
+  document.getElementById("error").style.display = "block";
+  document.getElementById("resumen").textContent = "Sin registro disponible.";
+}
+
+async function cargar() {
+  var rutas = ["../registro.json", "registro.json"];
+  for (var i = 0; i < rutas.length; i++) {
+    try {
+      var resp = await fetch(rutas[i]);
+      if (!resp.ok) continue;
+      var datos = await resp.json();
+      if (!datos || !datos.meta || !Array.isArray(datos.agentes) || !Array.isArray(datos.eventos)) continue;
+      pintar(datos);
+      return;
+    } catch (err) { /* probar la siguiente ruta */ }
+  }
+  mostrarError();
+}
+
+cargar();
+</script>
+</body>
+</html>
