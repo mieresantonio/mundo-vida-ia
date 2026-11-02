@@ -30,6 +30,8 @@ python3 -m simulacion.demo
 Ambas vías hacen lo mismo y producen el mismo registro. La demo crea 5 agentes, corre 30 ticks, imprime la historia en pantalla y guarda
 el registro completo en `registro.json` (raíz) y en `visor/registro.json`.
 
+Tests: `python3 -m unittest discover` desde la raíz del proyecto corre la suite permanente de `tests/` (20 tests, solo biblioteca estándar) que fija los invariantes verificados en los ciclos anteriores: rechazos del motor, determinismo del registro y textos acentuados.
+
 Para ver el resultado en el visor, sirve la carpeta por HTTP (el navegador
 bloquea leer archivos locales directamente) y abre `visor/index.html`:
 
