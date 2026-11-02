@@ -1,10 +1,10 @@
-"""Dialogo y relaciones entre agentes.
+"""Diálogo y relaciones entre agentes.
 
-Codigo 100% original, escrito desde cero para mundo-vida-ia.
+Código 100% original, escrito desde cero para mundo-vida-ia.
 Los mensajes se componen a partir del pensamiento del hablante
 (plantillas elegidas por el contenido de ese pensamiento),
-no son texto aleatorio sin relacion con lo pensado.
-Solo usa la biblioteca estandar de Python.
+no son texto aleatorio sin relación con lo pensado.
+Solo usa la biblioteca estándar de Python.
 """
 
 _AUMENTO_CONFIANZA = 0.05
@@ -23,29 +23,29 @@ def hablar(emisor, receptor, pensamiento):
     """Genera un mensaje del emisor al receptor y sube la confianza mutua.
 
     Devuelve el texto del mensaje. La confianza sube en ambos sentidos
-    en cada dialogo, asi que dialogar repetidamente crea amistad.
+    en cada diálogo, así que dialogar repetidamente crea amistad.
     """
     texto = (pensamiento or "").lower()
     nombre_receptor = receptor.nombre
     if "descubrimiento" in texto or "descubrir" in texto:
         cuerpo = ("tengo la cabeza llena de cosas por descubrir, "
-                  "¿has visto algo nuevo por aqui ultimamente?")
+                  "¿has visto algo nuevo por aquí últimamente?")
     elif "cansado" in texto or "agotado" in texto or "descansar" in texto:
         cuerpo = "estoy algo cansado, pero me alegra charlar un rato contigo."
     elif "escasez" in texto:
-        cuerpo = ("desde la escasez ando mas cauto, "
-                  "¿tu como lo llevas?")
+        cuerpo = ("desde la escasez ando más cauto, "
+                  "¿tú cómo lo llevas?")
     elif "tormenta" in texto:
-        cuerpo = ("la tormenta me dejo pensando, "
-                  "¿a ti tambien te afecto?")
+        cuerpo = ("la tormenta me dejó pensando, "
+                  "¿a ti también te afectó?")
     elif "meta" in texto or "quiero lograr" in texto or "proyecto" in texto:
-        cuerpo = "estoy trabajando en una meta que me importa mucho, ¿y tu?"
+        cuerpo = "estoy trabajando en una meta que me importa mucho, ¿y tú?"
     elif "solo" in texto:
-        cuerpo = "estaba solo por aqui y me alegra encontrarte."
+        cuerpo = "estaba solo por aquí y me alegra encontrarte."
     elif "curiosidad" in texto or "curioso" in texto:
         cuerpo = "mi curiosidad no me deja quieto, ¿me cuentas algo interesante?"
     else:
-        cuerpo = "¿como te va hoy? Me gustaria saber en que andas."
+        cuerpo = "¿cómo te va hoy? Me gustaría saber en qué andas."
     mensaje = "%s le dice a %s: \"%s\"" % (emisor.nombre, nombre_receptor, cuerpo)
     _subir_confianza(emisor, nombre_receptor)
     _subir_confianza(receptor, emisor.nombre)
@@ -57,7 +57,7 @@ def colaborar(agentes, proyecto):
 
     proyecto puede ser un nombre (str) o un diccionario de proyecto
     devuelto por una llamada anterior. Cada llamada suma progreso
-    segun el numero de participantes y su ambicion media; al llegar
+    según el número de participantes y su ambición media; al llegar
     a 100 el proyecto se marca completado. Devuelve el diccionario
     del proyecto, que incluye mensaje, progreso y completado.
     """

@@ -1,7 +1,7 @@
 """Agente con razonamiento creencias-deseos-intenciones (BDI).
 
-Codigo 100% original, escrito desde cero para mundo-vida-ia.
-Solo usa la biblioteca estandar de Python.
+Código 100% original, escrito desde cero para mundo-vida-ia.
+Solo usa la biblioteca estándar de Python.
 """
 
 RASGOS_VALIDOS = ("curiosidad", "sociabilidad", "paciencia", "ambicion")
@@ -14,7 +14,7 @@ _COSTE_ENERGIA = {
     "hablar": 3,
     "explorar": 8,
     "construir": 10,
-    "descansar": -20,  # negativo = recupera energia
+    "descansar": -20,  # negativo = recupera energía
     "colaborar": 7,
     "observar": 2,
 }
@@ -51,7 +51,7 @@ class Agente:
         self._ultima_percepcion = None
         self._ultimo_pensamiento = None
         # Contadores internos usados por experiencia.py (no forman parte
-        # de la API publica, pero se guardan aqui para no perderlos).
+        # de la API pública, pero se guardan aquí para no perderlos).
         self._conteo_experiencias = {}
 
     # -- estado ---------------------------------------------------------
@@ -75,11 +75,11 @@ class Agente:
             self.animo = "inquieto"
         elif accion == "descansar":
             self.animo = "tranquilo"
-        # "observar" no cambia el animo: el agente sigue como estaba.
+        # "observar" no cambia el ánimo: el agente sigue como estaba.
 
-    # -- percepcion -----------------------------------------------------
+    # -- percepción -----------------------------------------------------
     def percibir(self, mundo):
-        """Construye el diccionario de percepcion a partir del mundo.
+        """Construye el diccionario de percepción a partir del mundo.
 
         Acepta cualquier objeto mundo que exponga tick_actual,
         lugar_de()/lugares, agentes_en() o los atributos equivalentes
@@ -112,12 +112,12 @@ class Agente:
 
     # -- razonamiento BDI ----------------------------------------------
     def pensar(self, percepcion):
-        """Creencias -> deseos -> intencion, sin eleccion aleatoria.
+        """Creencias -> deseos -> intención, sin elección aleatoria.
 
-        Creencias: recuerdos + percepcion actual.
+        Creencias: recuerdos + percepción actual.
         Deseos: metas del agente.
-        Intencion: la accion con mayor puntuacion segun rasgos,
-        energia, animo, compania y recuerdos, con reglas duras
+        Intención: la acción con mayor puntuación según rasgos,
+        energía, ánimo, compañía y recuerdos, con reglas duras
         prioritarias que garantizan coherencia con los rasgos.
         """
         cercanos = list(percepcion.get("agentes_cercanos") or [])
@@ -145,7 +145,7 @@ class Agente:
         if evento:
             creencias.append("acaba de ocurrir: " + str(evento))
         creencias.append(
-            "me siento %s y mi energia es %d" % (self.animo, self.energia)
+            "me siento %s y mi energía es %d" % (self.animo, self.energia)
         )
 
         deseos = []
@@ -157,20 +157,20 @@ class Agente:
             deseos.append("quiero descubrir cosas nuevas")
 
         # Reglas duras, en orden de prioridad (coherencia garantizada):
-        # 1. Sin energia, descansar. 2. Muy sociable + compania, hablar.
+        # 1. Sin energía, descansar. 2. Muy sociable + compañía, hablar.
         # 3. Muy curioso + sin descubrimiento reciente, explorar.
         if self.energia < 30:
             accion, objetivo = "descansar", None
             razon = "estoy agotado y necesito recuperar fuerzas"
         elif self.rasgos["sociabilidad"] >= 0.7 and cercanos:
             accion, objetivo = "hablar", cercanos[0]
-            razon = "me gusta la compania y hay alguien cerca"
+            razon = "me gusta la compañía y hay alguien cerca"
         elif (self.rasgos["curiosidad"] >= 0.7 and not hubo_descubrimiento
               and not vivio_escasez):
             accion, objetivo = "explorar", None
             razon = "mi curiosidad me empuja a descubrir algo nuevo"
         else:
-            # Puntuacion determinista para el resto de casos.
+            # Puntuación determinista para el resto de casos.
             p = {
                 "hablar": 0.0,
                 "explorar": 0.0,
@@ -202,27 +202,27 @@ class Agente:
                 p["observar"] += 2
                 p["explorar"] -= 2
             if vivio_escasez:
-                # La escasez vivida vuelve al agente mas cauto:
+                # La escasez vivida vuelve al agente más cauto:
                 # prefiere observar antes que salir a explorar.
                 p["observar"] += 4
                 p["explorar"] -= 5
                 p["construir"] -= 2
             if self.energia < 45:
                 p["descansar"] += 3
-            # Desempate determinista segun este orden fijo.
+            # Desempate determinista según este orden fijo.
             orden = ("hablar", "colaborar", "explorar", "construir",
                      "observar", "descansar")
             accion = max(orden, key=lambda a: (p[a], -orden.index(a)))
             objetivo = cercanos[0] if accion in ("hablar", "colaborar") and cercanos else None
-            razon = "tras valorar mis rasgos, mi energia y lo que recuerdo"
+            razon = "tras valorar mis rasgos, mi energía y lo que recuerdo"
 
         pensamiento = (
             "Creo que " + "; ".join(creencias) + ". "
             + ("Deseo " + "; ".join(deseos) + ". " if deseos else "")
-            + "Asi que voy a " + accion + " porque " + razon + "."
+            + "Así que voy a " + accion + " porque " + razon + "."
         )
         if vivio_escasez and accion == "observar":
-            pensamiento += " La escasez que vivi me hace ser cauto."
+            pensamiento += " La escasez que viví me hace ser cauto."
         if objetivo:
             pensamiento += " Mi objetivo es " + str(objetivo) + "."
 
@@ -235,8 +235,8 @@ class Agente:
         return resultado
 
     def decidir(self, percepcion=None):
-        """Devuelve la decision actual; sin argumento usa la ultima
-        percepcion conocida (o una percepcion vacia si no hay ninguna)."""
+        """Devuelve la decisión actual; sin argumento usa la última
+        percepción conocida (o una percepción vacía si no hay ninguna)."""
         if percepcion is None:
             percepcion = self._ultima_percepcion or {
                 "tick": 0,
@@ -248,11 +248,11 @@ class Agente:
         return self.pensar(percepcion)
 
     def actuar(self, mundo, decision=None):
-        """Ejecuta la decision en el mundo y devuelve un evento.
+        """Ejecuta la decisión en el mundo y devuelve un evento.
 
         El evento tiene las claves tick, tipo, agente y texto, y
-        ademas accion, objetivo y pensamiento para que mundo.py
-        pueda convertirlo en dialogo o colaboracion cuando toca.
+        además acción, objetivo y pensamiento para que mundo.py
+        pueda convertirlo en diálogo o colaboración cuando toca.
         """
         if decision is None:
             decision = self.pensar(self.percibir(mundo))

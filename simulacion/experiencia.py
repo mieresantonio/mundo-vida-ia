@@ -1,10 +1,10 @@
 """Registro de experiencias y crecimiento de los agentes.
 
-Codigo 100% original, escrito desde cero para mundo-vida-ia.
+Código 100% original, escrito desde cero para mundo-vida-ia.
 Cada evento vivido queda en la memoria del agente y, al acumular
 suficientes experiencias de un mismo tipo, un rasgo cambia un poco
 (siempre dentro de 0.0-1.0) y las metas pueden evolucionar.
-Solo usa la biblioteca estandar de Python.
+Solo usa la biblioteca estándar de Python.
 """
 
 # Tipo de experiencia -> (rasgo que crece, incremento por hito).
@@ -26,18 +26,28 @@ def _clasificar(texto, tipo_sugerido=None):
     if tipo_sugerido:
         return tipo_sugerido
     bajo = (texto or "").lower()
-    for palabra in ("tormenta", "escasez", "descubrimiento", "celebracion",
-                    "dialogo", "colaborar", "construir"):
+    # Se aceptan también las formas acentuadas («celebración»,
+    # «diálogo») porque los textos de memoria ya van acentuados; el
+    # tipo devuelto es siempre el identificador sin tilde.
+    for palabra, tipo in (("tormenta", "tormenta"),
+                          ("escasez", "escasez"),
+                          ("descubrimiento", "descubrimiento"),
+                          ("celebracion", "celebracion"),
+                          ("celebración", "celebracion"),
+                          ("dialogo", "dialogo"),
+                          ("diálogo", "dialogo"),
+                          ("colaborar", "colaborar"),
+                          ("construir", "construir")):
         if palabra in bajo:
-            return palabra
+            return tipo
     return "vivencia"
 
 
 def registrar_experiencia(agente, evento_texto, tipo=None):
-    """Anade un evento a la memoria y aplica crecimiento si toca.
+    """Añade un evento a la memoria y aplica crecimiento si toca.
 
     Devuelve un diccionario con el rasgo cambiado (o None) y la
-    meta nueva anadida (o None), para que el mundo lo registre
+    meta nueva añadida (o None), para que el mundo lo registre
     como evento de tipo "crecimiento". Nunca devuelve None:
     siempre informa de lo ocurrido, aunque no haya cambio.
     """
@@ -61,8 +71,8 @@ def registrar_experiencia(agente, evento_texto, tipo=None):
 
     meta_nueva = None
     if tipo in ("colaborar", "construir") and conteo.get("__logros__", 0) >= 0:
-        # La evolucion de metas se gestiona en evolucionar_metas();
-        # aqui solo se deja constancia de que hubo un logro.
+        # La evolución de metas se gestiona en evolucionar_metas();
+        # aquí solo se deja constancia de que hubo un logro.
         pass
     return {
         "tipo": tipo,
@@ -73,13 +83,13 @@ def registrar_experiencia(agente, evento_texto, tipo=None):
 
 
 def evolucionar_metas(agente, meta_completada=None, nueva_meta=None):
-    """Quita una meta completada y anade una derivada de lo vivido.
+    """Quita una meta completada y añade una derivada de lo vivido.
 
     Si no se indica meta completada, se retira la primera meta
     solo cuando el agente ya acumula al menos 4 recuerdos, para
     no vaciar sus metas demasiado pronto. Si no se indica meta
-    nueva, se deriva una de los recuerdos mas recientes.
-    Devuelve la meta nueva anadida, o None si no hubo cambio.
+    nueva, se deriva una de los recuerdos más recientes.
+    Devuelve la meta nueva añadida, o None si no hubo cambio.
     """
     if meta_completada is not None:
         if meta_completada in agente.metas:
@@ -93,13 +103,13 @@ def evolucionar_metas(agente, meta_completada=None, nueva_meta=None):
         if "colabor" in ultimo.lower():
             nueva_meta = "Compartir lo aprendido colaborando con otros"
         elif "descubrimiento" in ultimo.lower():
-            nueva_meta = "Explorar un lugar nuevo tras el ultimo descubrimiento"
+            nueva_meta = "Explorar un lugar nuevo tras el último descubrimiento"
         elif "tormenta" in ultimo.lower():
-            nueva_meta = "Ayudar a otros a prepararse para la proxima tormenta"
+            nueva_meta = "Ayudar a otros a prepararse para la próxima tormenta"
         elif "escasez" in ultimo.lower():
             nueva_meta = "Guardar recursos para tiempos de escasez"
         else:
-            nueva_meta = "Convertir lo vivido en algo util para los demas"
+            nueva_meta = "Convertir lo vivido en algo útil para los demás"
     if nueva_meta not in agente.metas:
         agente.metas.append(nueva_meta)
     return nueva_meta

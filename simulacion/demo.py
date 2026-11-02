@@ -1,8 +1,8 @@
-"""Demo de mundo-vida-ia: 5 agentes, 30 ticks, historia en espanol.
+"""Demo de mundo-vida-ia: 5 agentes, 30 ticks, historia en español.
 
-Codigo 100% original, escrito desde cero para mundo-vida-ia.
-Semilla fija (42) para que cada ejecucion sea reproducible.
-Solo usa la biblioteca estandar de Python.
+Código 100% original, escrito desde cero para mundo-vida-ia.
+Semilla fija (42) para que cada ejecución sea reproducible.
+Solo usa la biblioteca estándar de Python.
 """
 
 import json
@@ -83,9 +83,9 @@ def main():
         mundo.agregar_agente(agente)
 
     print("=== MUNDO-VIDA-IA ===")
-    print("5 agentes despiertan en un mundo pequeno: plaza, biblioteca, "
+    print("5 agentes despiertan en un mundo pequeño: plaza, biblioteca, "
           "taller, bosque y mercado.")
-    print("Cada uno piensa, actua, habla, colabora... y el caos interviene.\n")
+    print("Cada uno piensa, actúa, habla, colabora... y el caos interviene.\n")
 
     for _ in range(TICKS):
         antes = len(mundo.eventos)
@@ -98,7 +98,7 @@ def main():
                 print("  [piensa %s] %s"
                       % (evento["agente"], evento["texto"]))
             elif tipo == "dialogo":
-                print("  [dialogo] %s" % evento["texto"])
+                print("  [diálogo] %s" % evento["texto"])
             elif tipo == "caos":
                 print("  [CAOS] %s" % evento["texto"])
             elif tipo == "crecimiento":
@@ -123,12 +123,12 @@ def main():
             json.dump(registro, f, ensure_ascii=False, indent=2)
     dialogos = sum(1 for e in registro["eventos"] if e["tipo"] == "dialogo")
     caos = sum(1 for e in registro["eventos"] if e["tipo"] == "caos")
-    print("=== FIN DE LA SIMULACION ===")
-    print("Ticks: %d | Dialogos: %d | Eventos de caos: %d"
+    print("=== FIN DE LA SIMULACIÓN ===")
+    print("Ticks: %d | Diálogos: %d | Eventos de caos: %d"
           % (TICKS, dialogos, caos))
     for agente in registro["agentes"]:
         cambio = agente["rasgos_finales"] != agente["rasgos_iniciales"]
-        print("  %s: animo=%s, energia=%d, rasgos cambiaron=%s"
+        print("  %s: ánimo=%s, energía=%d, rasgos cambiaron=%s"
               % (agente["nombre"], agente["animo"], agente["energia"], cambio))
     for ruta in rutas:
         print("Registro guardado en: %s" % ruta)

@@ -88,6 +88,10 @@
 <script>
 const RASGOS = ["curiosidad", "sociabilidad", "paciencia", "ambicion"];
 const TIPOS = ["todos", "pensamiento", "dialogo", "caos", "accion", "crecimiento"];
+// Etiquetas legibles: los valores internos van sin tilde porque son
+// identificadores del registro; al mostrarlos se acentúan.
+const RASGO_TEXTO = {"ambicion": "ambición"};
+const TIPO_TEXTO = {"dialogo": "diálogo", "accion": "acción"};
 let eventosTodos = [];
 let filtroActual = "todos";
 
@@ -111,7 +115,7 @@ function tarjetaAgente(a) {
     var ini = a.rasgos_iniciales ? a.rasgos_iniciales[r] : undefined;
     var fin = a.rasgos_finales ? a.rasgos_finales[r] : undefined;
     if (ini === undefined || fin === undefined) return "";
-    return "<tr><td>" + esc(r) + "</td><td>" + fmt(ini) + "</td><td>" + fmt(fin) +
+    return "<tr><td>" + esc(RASGO_TEXTO[r] || r) + "</td><td>" + fmt(ini) + "</td><td>" + fmt(fin) +
       "</td><td>" + cambio(ini, fin) + "</td></tr>";
   }).join("");
   var metas = (a.metas || []).map(function (m) { return "<li>" + esc(m) + "</li>"; }).join("");
@@ -126,7 +130,7 @@ function tarjetaAgente(a) {
 function eventoHTML(e) {
   return "<article class=\"evento " + esc(e.tipo) + "\">" +
     "<span class=\"tick\">Tick " + esc(e.tick) + "</span>" +
-    "<span class=\"tipo\">" + esc(e.tipo) + "</span>" +
+    "<span class=\"tipo\">" + esc(TIPO_TEXTO[e.tipo] || e.tipo) + "</span>" +
     (e.agente ? " <span class=\"agente\">" + esc(e.agente) + "</span>" : "") +
     "<p>" + esc(e.texto) + "</p></article>";
 }
@@ -145,7 +149,7 @@ function pintarEventos() {
 
 function pintarFiltros() {
   document.getElementById("filtros").innerHTML = TIPOS.map(function (t) {
-    return "<button data-tipo=\"" + t + "\">" + esc(t) + "</button>";
+    return "<button data-tipo=\"" + t + "\">" + esc(TIPO_TEXTO[t] || t) + "</button>";
   }).join("");
   document.querySelectorAll("#filtros button").forEach(function (b) {
     b.addEventListener("click", function () { filtroActual = b.dataset.tipo; pintarEventos(); });

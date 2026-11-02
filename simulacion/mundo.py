@@ -1,7 +1,7 @@
 """Mundo simulado: lugares, bucle de ticks y eventos de caos.
 
-Codigo 100% original, escrito desde cero para mundo-vida-ia.
-Solo usa la biblioteca estandar de Python.
+Código 100% original, escrito desde cero para mundo-vida-ia.
+Solo usa la biblioteca estándar de Python.
 """
 
 import random
@@ -11,9 +11,9 @@ from experiencia import registrar_experiencia, evolucionar_metas
 from interaccion import hablar, colaborar
 
 LUGARES = {
-    "plaza": "el corazon del pueblo, donde todos se cruzan",
+    "plaza": "el corazón del pueblo, donde todos se cruzan",
     "biblioteca": "silenciosa, llena de libros y mapas viejos",
-    "taller": "olor a madera y herramientas; aqui se construye",
+    "taller": "olor a madera y herramientas; aquí se construye",
     "bosque": "senderos, claros y sonidos que invitan a explorar",
     "mercado": "puestos, trueques y noticias de todos lados",
 }
@@ -30,9 +30,16 @@ TIPOS_CAOS = (
 _PROBABILIDAD_CAOS = 0.3
 _PROBABILIDAD_MOVIMIENTO = 0.2
 
+# Nombres legibles para los textos generados: las claves internas
+# (rasgos y tipos de experiencia) se mantienen sin tildes porque son
+# identificadores que usan el código y el visor; al mostrarlas en un
+# texto para personas se acentúan con estos mapas.
+_RASGO_TEXTO = {"ambicion": "ambición"}
+_TIPO_TEXTO = {"dialogo": "diálogo", "celebracion": "celebración"}
+
 
 class Mundo:
-    """Contiene agentes, lugares y el reloj de la simulacion."""
+    """Contiene agentes, lugares y el reloj de la simulación."""
 
     def __init__(self, semilla=42):
         self.semilla = int(semilla)
@@ -83,8 +90,10 @@ class Mundo:
             self._registrar(
                 "crecimiento", agente.nombre,
                 "%s crece: su %s pasa de %.2f a %.2f tras vivir '%s'."
-                % (agente.nombre, cambio["rasgo"], cambio["antes"],
-                   cambio["despues"], resultado["tipo"]))
+                % (agente.nombre,
+                   _RASGO_TEXTO.get(cambio["rasgo"], cambio["rasgo"]),
+                   cambio["antes"], cambio["despues"],
+                   _TIPO_TEXTO.get(resultado["tipo"], resultado["tipo"])))
 
     # -- caos -------------------------------------------------------------
     def generar_caos(self):
@@ -104,10 +113,10 @@ class Mundo:
                 agente.animo = "inquieto"
                 self._crecimiento(
                     agente, registrar_experiencia(
-                        agente, "tormenta: la tormenta me sorprendio", "tormenta"))
+                        agente, "tormenta: la tormenta me sorprendió", "tormenta"))
         elif tipo == "descubrimiento":
             texto = ("%s encuentra algo inesperado en %s: un objeto "
-                     "antiguo que nadie habia visto antes."
+                     "antiguo que nadie había visto antes."
                      % (objetivo.nombre, objetivo.lugar))
             objetivo.animo = "curioso"
             objetivo.energia = min(100, objetivo.energia + 5)
@@ -117,7 +126,7 @@ class Mundo:
                     "descubrimiento"))
         elif tipo == "escasez":
             texto = ("Escasez en el mercado: faltan provisiones y todos "
-                     "deben pensar dos veces antes de gastar energia.")
+                     "deben pensar dos veces antes de gastar energía.")
             for agente in self.agentes:
                 agente.energia = max(0, agente.energia - 10)
                 agente.animo = "inquieto"
@@ -125,14 +134,14 @@ class Mundo:
                     agente, registrar_experiencia(
                         agente, "escasez: faltan provisiones", "escasez"))
         elif tipo == "celebracion":
-            texto = ("Celebracion espontanea en la plaza: musica, "
+            texto = ("Celebración espontánea en la plaza: música, "
                      "comida compartida y risas para todos.")
             for agente in self.agentes:
                 agente.energia = min(100, agente.energia + 10)
                 agente.animo = "alegre"
                 self._crecimiento(
                     agente, registrar_experiencia(
-                        agente, "celebracion en la plaza", "celebracion"))
+                        agente, "celebración en la plaza", "celebracion"))
             vecinos = self.agentes_en("plaza")
             for i, nombre_a in enumerate(vecinos):
                 for nombre_b in vecinos[i + 1:]:
@@ -163,7 +172,7 @@ class Mundo:
             objetivo.animo = "curioso"
             self._crecimiento(
                 objetivo, registrar_experiencia(
-                    objetivo, "visita_inesperada: conoci a una viajera",
+                    objetivo, "visita_inesperada: conocí a una viajera",
                     "visita_inesperada"))
         self.evento_reciente = texto
         self._registrar("caos", None, texto)
@@ -193,10 +202,10 @@ class Mundo:
                 self._registrar("dialogo", agente.nombre, mensaje)
                 self._crecimiento(
                     agente, registrar_experiencia(
-                        agente, "dialogo con " + receptor_nombre, "dialogo"))
+                        agente, "diálogo con " + receptor_nombre, "dialogo"))
                 self._crecimiento(
                     receptor, registrar_experiencia(
-                        receptor, "dialogo con " + agente.nombre, "dialogo"))
+                        receptor, "diálogo con " + agente.nombre, "dialogo"))
             elif accion == "colaborar" and cercanos:
                 companeros = [agente] + [
                     self._por_nombre[n] for n in cercanos[:2]
