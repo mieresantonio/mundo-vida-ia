@@ -6,6 +6,9 @@ Solo usa la biblioteca estandar de Python.
 
 RASGOS_VALIDOS = ("curiosidad", "sociabilidad", "paciencia", "ambicion")
 ACCIONES_VALIDAS = ("hablar", "explorar", "construir", "descansar", "colaborar", "observar")
+# Deben coincidir con las claves de LUGARES en mundo.py y con los
+# lugares documentados en como-unirse.md.
+LUGARES_VALIDOS = ("plaza", "biblioteca", "taller", "bosque", "mercado")
 
 _COSTE_ENERGIA = {
     "hablar": 3,
@@ -29,6 +32,10 @@ class Agente:
     """
 
     def __init__(self, nombre, rasgos, metas, lugar_inicial):
+        if str(lugar_inicial) not in LUGARES_VALIDOS:
+            raise ValueError(
+                "Lugar inicial no válido: %r. Debe ser uno de: %s."
+                % (lugar_inicial, ", ".join(LUGARES_VALIDOS)))
         self.nombre = str(nombre)
         rasgos = dict(rasgos or {})
         self.rasgos = {
@@ -249,9 +256,11 @@ class Agente:
         """
         if decision is None:
             decision = self.pensar(self.percibir(mundo))
-        accion = decision.get("accion", "observar")
+        accion = decision.get("accion")
         if accion not in ACCIONES_VALIDAS:
-            accion = "observar"
+            raise ValueError(
+                "Acción no válida: %r. Debe ser una de: %s."
+                % (accion, ", ".join(ACCIONES_VALIDAS)))
         coste = _COSTE_ENERGIA[accion]
         self.energia = max(0, min(100, self.energia - coste))
         self._actualizar_animo(accion)

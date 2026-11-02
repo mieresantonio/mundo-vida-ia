@@ -47,10 +47,12 @@ class Mundo:
 
     # -- agentes y lugares ----------------------------------------------
     def agregar_agente(self, agente):
+        if agente.lugar not in self.lugares:
+            raise ValueError(
+                "Lugar no válido para el agente %s: %r. Debe ser uno de: %s."
+                % (agente.nombre, agente.lugar, ", ".join(sorted(self.lugares))))
         self.agentes.append(agente)
         self._por_nombre[agente.nombre] = agente
-        if agente.lugar not in self.lugares:
-            agente.lugar = agente.lugar_inicial
         return agente
 
     def lugar_de(self, agente):

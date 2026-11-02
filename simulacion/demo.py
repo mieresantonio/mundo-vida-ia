@@ -108,7 +108,10 @@ def main():
         print()
 
     registro = construir_registro(mundo, agentes, rasgos_iniciales)
-    base = os.path.expanduser("~/workspace/mundo-vida-ia")
+    # Raíz del proyecto relativa a este script (demo.py vive en
+    # simulacion/, la raíz es su carpeta padre): así la demo escribe
+    # dentro del clon desde el que se ejecuta, esté donde esté.
+    base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     visor = os.path.join(base, "visor")
     os.makedirs(visor, exist_ok=True)
     rutas = [
