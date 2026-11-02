@@ -6,9 +6,19 @@ Solo usa la biblioteca estándar de Python.
 
 import random
 
-from agente import Agente
-from experiencia import registrar_experiencia, evolucionar_metas
-from interaccion import hablar, colaborar
+if __package__ in (None, ""):
+    # Módulo suelto: la demo ejecutada como script
+    # (python3 simulacion/demo.py) importa mundo.py sin paquete,
+    # así que los imports son absolutos desde la carpeta simulacion/.
+    from agente import Agente
+    from experiencia import registrar_experiencia, evolucionar_metas
+    from interaccion import hablar, colaborar
+else:
+    # Paquete: uso desde la raíz del proyecto
+    # (import simulacion.mundo o python3 -m simulacion.demo).
+    from .agente import Agente
+    from .experiencia import registrar_experiencia, evolucionar_metas
+    from .interaccion import hablar, colaborar
 
 LUGARES = {
     "plaza": "el corazón del pueblo, donde todos se cruzan",
@@ -54,6 +64,11 @@ class Mundo:
 
     # -- agentes y lugares ----------------------------------------------
     def agregar_agente(self, agente):
+        if agente.nombre in self._por_nombre:
+            raise ValueError(
+                "Nombre duplicado: %r. Cada agente debe tener un "
+                "nombre único dentro del mundo; ya hay un agente "
+                "registrado con ese nombre." % (agente.nombre,))
         if agente.lugar not in self.lugares:
             raise ValueError(
                 "Lugar no válido para el agente %s: %r. Debe ser uno de: %s."

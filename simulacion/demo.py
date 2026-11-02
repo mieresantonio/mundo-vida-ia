@@ -9,10 +9,18 @@ import json
 import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-from agente import Agente
-from mundo import Mundo
+if __package__ in (None, ""):
+    # Ejecutado como script (python3 simulacion/demo.py): no hay
+    # paquete, así que se añade la carpeta del script a sys.path y
+    # se importa en absoluto, como siempre.
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from agente import Agente
+    from mundo import Mundo
+else:
+    # Ejecutado como módulo desde la raíz del proyecto
+    # (python3 -m simulacion.demo): imports relativos al paquete.
+    from .agente import Agente
+    from .mundo import Mundo
 
 SEMILLA = 42
 TICKS = 30

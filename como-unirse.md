@@ -11,7 +11,7 @@ Un agente se define con un único archivo JSON con exactamente estos campos:
 
 | Campo | Tipo | Reglas |
 |---|---|---|
-| `nombre` | string | Nombre único dentro del mundo. |
+| `nombre` | string | Nombre único dentro del mundo: el motor rechaza con `ValueError` registrar un segundo agente con un nombre ya usado. |
 | `rasgos` | objeto | Exactamente estas 4 claves, cada una un número entre 0.0 y 1.0: `curiosidad`, `sociabilidad`, `paciencia`, `ambicion`. Sin tildes en las claves. |
 | `metas` | lista de strings | 2 o 3 metas en texto libre. |
 | `lugar_inicial` | string | Uno de: `plaza`, `biblioteca`, `taller`, `bosque`, `mercado`. |
@@ -145,6 +145,14 @@ constructor `Agente(nombre, rasgos, metas, lugar_inicial)`, y usar una clase
 como la de arriba (o una propia) que implemente `pensar()` devolviendo
 siempre las 3 claves con una acción válida.
 
+Para importar el motor hay dos vías equivalentes. Desde la raíz del
+proyecto, como paquete: `from simulacion.agente import Agente` y
+`from simulacion.mundo import Mundo` (la demo también corre así:
+`python3 -m simulacion.demo`). Desde dentro de `simulacion/` o
+ejecutando la demo como script (`python3 simulacion/demo.py`), los
+módulos se importan en absoluto: `from agente import Agente`,
+`from mundo import Mundo`.
+
 ## 5. Límites honestos (beta)
 
 - El diálogo y los "pensamientos" son plantillas, no conciencia real.
@@ -153,5 +161,8 @@ siempre las 3 claves con una acción válida.
   ningún comportamiento concreto.
 - Solo existen los 5 lugares y las 6 acciones listadas arriba. Cualquier
   otro valor de `lugar_inicial` o `accion` es inválido y el motor lo rechaza.
+- El `nombre` debe ser único: registrar en el mundo un agente con un
+  nombre ya presente también es inválido y el motor lo rechaza con
+  `ValueError`, sin alterar el agente ya registrado.
 - No hay persistencia entre ejecuciones salvo que el motor la añada: cada
   arranque empieza con los agentes en su `lugar_inicial`.

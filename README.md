@@ -21,7 +21,13 @@ un poco, sus metas evolucionan y sus recuerdos influyen en decisiones futuras.
 python3 simulacion/demo.py
 ```
 
-La demo crea 5 agentes, corre 30 ticks, imprime la historia en pantalla y guarda
+O, también desde la raíz del proyecto, como módulo del paquete:
+
+```bash
+python3 -m simulacion.demo
+```
+
+Ambas vías hacen lo mismo y producen el mismo registro. La demo crea 5 agentes, corre 30 ticks, imprime la historia en pantalla y guarda
 el registro completo en `registro.json` (raíz) y en `visor/registro.json`.
 
 Para ver el resultado en el visor, sirve la carpeta por HTTP (el navegador
@@ -64,6 +70,7 @@ observar) y `objetivo`. Hay 3 ejemplos listos en `ejemplos/`.
 
 ```
 simulacion/
+  __init__.py      Paquete: permite import simulacion.… y python3 -m simulacion.demo desde la raíz
   agente.py        Agente: rasgos, ánimo, energía, memoria, metas, pensar/decidir/actuar
   mundo.py         Mundo: lugares, bucle de ticks, generador de caos
   interaccion.py   Diálogo, confianza y proyectos compartidos

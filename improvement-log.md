@@ -1,5 +1,84 @@
 # Registro de mejoras — mundo-vida-ia
 
+## 2026-11-02 · Fase 2, Ciclo 4 (medias estructurales M-M3 y M-M4 de la revisión 2026-11-02)
+
+### MUNDO-M3 — Nombres duplicados corrompían el índice por nombre
+
+- **Hallazgo:** `Mundo.agregar_agente()` no comprobaba unicidad: dos
+  agentes con el mismo nombre quedaban en `self.agentes`, pero
+  `_por_nombre` apuntaba solo al segundo, así que `hablar`/`colaborar`
+  y `lugar_de()` resolvían siempre al equivocado y `agentes_en()`
+  devolvía el nombre dos veces. El protocolo ya exigía «nombre único
+  dentro del mundo» (`como-unirse.md` §1), pero el motor no lo hacía
+  cumplir.
+- **Opción elegida y por qué:** rechazar el duplicado con `ValueError`
+  al registrar, en vez de reindexar por una identidad distinta del
+  nombre. Es la opción coherente con el resto del motor: es el mismo
+  patrón que dejó el Ciclo 1 (MUNDO-A2) para lugares y acciones
+  inválidas —lo inválido se rechaza con `ValueError` y mensaje claro—,
+  y todo el motor se apoya en el nombre como identidad (percepción,
+  relaciones, eventos y el contrato del visor usan el nombre), así que
+  cambiar la clave habría sido un cambio mucho mayor sin promesa
+  documental que lo pidiera. Con el rechazo, código y documento
+  coinciden.
+- **Cambio:** `agregar_agente()` comprueba `agente.nombre in
+  self._por_nombre` ANTES de registrar y lanza
+  `ValueError: Nombre duplicado: '…'. Cada agente debe tener un
+  nombre único dentro del mundo; ya hay un agente registrado con ese
+  nombre.` El agente rechazado no queda en la lista ni toca el índice:
+  el ya registrado queda intacto. En `como-unirse.md`, la regla del
+  campo `nombre` (§1) ahora dice explícitamente que el motor rechaza
+  el duplicado con `ValueError`, y §5 lo reitera entre los límites.
+- **Verificaciones:** dos agentes llamados «Test» → `ValueError` con
+  ese mensaje, por las dos vías de import (paquete y módulo suelto);
+  tras el rechazo hay 1 solo agente, el índice sigue apuntando al
+  primero, `agentes_en("plaza")` lo devuelve una sola vez y el mundo
+  sigue corriendo ticks; re-registrar el mismo objeto también se
+  rechaza; duplicar un ejemplo cargado de `ejemplos/` también se
+  rechaza. Los 3 ejemplos válidos siguen cargando, agregándose (Nia,
+  Tomas, Lia, cada uno resoluble por su nombre) y ejecutando ticks.
+  Sin regresión del Ciclo 1: un `lugar_inicial` inventado sigue
+  lanzando su `ValueError`.
+
+### MUNDO-M4 — Imports absolutos sin paquete: el motor solo corría vía la demo
+
+- **Hallazgo:** `mundo.py` hacía `from agente import Agente` etc. sin
+  paquete y solo `demo.py` metía su carpeta en `sys.path`; no había
+  `__init__.py`. Desde la raíz del repo, `import simulacion.mundo` o
+  `python3 -m simulacion.demo` daban `ModuleNotFoundError`.
+- **Cambio:** `simulacion/` ahora es paquete (nuevo `__init__.py`,
+  solo docstring, sin imports al cargarse) y los dos módulos con
+  imports internos, `mundo.py` y `demo.py`, eligen la forma según
+  `__package__`: con paquete, imports relativos (`from .agente
+  import Agente`…); sin paquete (script suelto), los absolutos de
+  siempre, con la misma inserción en `sys.path` en `demo.py`.
+  `agente.py`, `experiencia.py` e `interaccion.py` no importan
+  módulos propios y no necesitaron cambios. El README documenta las
+  dos formas de correr la demo y `como-unirse.md` §4 documenta las
+  dos vías de import; la estructura del README incluye `__init__.py`.
+- **Verificaciones (triple, reforzada):**
+  1. `py_compile` limpio en los 6 archivos de `simulacion/` (los 5
+     módulos + `__init__.py`).
+  2. Smoke real por AMBAS vías en una copia en `/tmp/mundo-c4`:
+     `python3 simulacion/demo.py` y `python3 -m simulacion.demo`
+     completan los 30 ticks con salida de consola idéntica entre sí
+     («Ticks: 30 | Diálogos: 70 | Eventos de caos: 11») y registro
+     idéntico al conocido-bueno en raíz y en `visor/`; de propina,
+     `python3 demo.py` desde dentro de `simulacion/` y los imports
+     `from simulacion.… import …` / sueltos desde la raíz y desde
+     `simulacion/` también funcionan, y la vía módulo se ejecutó
+     además en el proyecto real con el mismo resultado.
+  3. Por contenido y comparación: el registro NO cambia con este
+     ciclo —MD5 `b56a5a928fcf5a2722665c8251a5aa7b` antes y después,
+     en las dos vías—, con 375 eventos y la misma distribución
+     (150 pensamiento · 80 acción · 70 diálogo · 64 crecimiento ·
+     11 caos) y los mismos recuerdos por agente (45/39/44/41/42);
+     las tildes del Ciclo 2 intactas en los textos (`energía` ×335,
+     `Así que` ×230, `compañía` ×53, `últimamente` ×30; formas sin
+     tilde en textos, 0). Ninguna verificación falló, así que no
+     hubo que revertir nada. Los `__pycache__` generados por las
+     comprobaciones se eliminaron al terminar (proyecto y copia).
+
 ## 2026-11-02 · Fase 2, Ciclo 3 (hallazgos MEDIA restantes de la revisión 2026-11-02)
 
 ### MUNDO-M1 — Sin `.gitignore` en todo el proyecto
