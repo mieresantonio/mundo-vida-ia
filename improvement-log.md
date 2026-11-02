@@ -1,5 +1,79 @@
 # Registro de mejoras — mundo-vida-ia
 
+## 2026-11-02 · Fase 2, Ciclo 3 (hallazgos MEDIA restantes de la revisión 2026-11-02)
+
+### MUNDO-M1 — Sin `.gitignore` en todo el proyecto
+
+- **Hallazgo:** no existía `.gitignore`: en cuanto se generara un
+  `__pycache__` (basta un `py_compile` o un import) entraría en el repo
+  público.
+- **Cambio:** creado `.gitignore` con `__pycache__/` y `*.pyc`, el mismo
+  criterio que ya usa rag-demo.
+- **Verificaciones:** el archivo existe con ese contenido exacto; tras
+  las comprobaciones de este ciclo, el proyecto quedó sin ningún
+  `__pycache__` ni `.pyc` (los generados por los smokes se eliminaron).
+
+### MUNDO-M2 — El README afirmaba una variabilidad que el determinismo desmiente
+
+- **Hallazgo:** el README decía que con semilla 42 «el conteo exacto de
+  eventos puede variar ligeramente entre corridas». Demostrado lo
+  contrario: no hay ninguna fuente de entropía fuera de
+  `random.Random(42)` y las corridas producen el registro idéntico byte
+  a byte.
+- **Cambio:** el punto de «Límites honestos» ahora dice la verdad: la
+  demo es completamente determinista sin cambios de código ni de datos
+  (los mismos 375 eventos con el mismo desglose), y el conteo solo
+  cambia si cambia el código o los datos — la diferencia histórica de
+  377 frente a 375 de `log.md` vino de una corrección de código
+  anterior, no de variabilidad.
+- **Verificaciones:** por contenido, el README contiene «completamente
+  determinista» y «byte a byte» y ya no contiene la frase vieja; la
+  afirmación se contrastó ejecutando la demo dos veces en este ciclo
+  (copia y proyecto): mismo MD5 en ambas, `b56a5a928fcf5a2722665c8251a5aa7b`.
+
+### Visor — diseño genérico: una decisión visual acotada
+
+- **Hallazgo:** el visor presentaba los tres síntomas de diseño genérico:
+  tipografía por defecto en todo, tarjetas de agente idénticas entre sí
+  y ritmo uniforme entre secciones.
+- **Cambio (una sola decisión coherente, solo en la hoja de estilos de
+  `visor/index.html`):** dos voces. Lo narrativo —titulares, nombres de
+  agente y pensamientos— va en serif del sistema (Georgia; sin fuentes
+  externas, el visor sigue funcionando sin red, como el proyecto) y con
+  ritmo amplio (titulares mayores, secciones más separadas,
+  pensamientos con interlineado 1,75 y filete dorado); lo informativo
+  —tablas de rasgos, eventos, filtros— sigue en sans compacta. De la
+  misma decisión sale que las tarjetas dejen de ser idénticas: cada una
+  lleva como acento superior un color de la paleta que el visor ya usa
+  para los tipos de evento, en rotación por posición (`nth-child`).
+  No se tocó ni el HTML ni el script.
+- **Verificaciones:**
+  1. `py_compile` limpio en los 5 módulos de `simulacion/` (el visor no
+     tiene Python, pero la demo que lo alimenta sí se recompiló).
+  2. Smoke real: demo de 30 ticks en una copia en `/tmp` y en el propio
+     proyecto, con registro coherente en ambos (las dos rutas de
+     guardado dentro de la copia/proyecto, como dejó el Ciclo 1); el
+     visor servido por HTTP respondió 200 en `/visor/` y en
+     `/registro.json`, con la CSS nueva servida. Servidor apagado al
+     terminar.
+  3. Por contenido y comparación contra el estado conocido-bueno: el
+     bloque `<script>` del visor es byte a byte idéntico al de antes
+     del cambio (mismo MD5, `fefa115bdf5e9f33bfce24bb7fcfb177`), así
+     que sigue leyendo las mismas claves del registro (`meta.ticks`,
+     `meta.semilla`, `rasgos_iniciales/finales`, `animo`, `energia`,
+     `metas`, `recuerdos`; eventos con `tick/tipo/agente/texto` y las
+     rutas `../registro.json` / `registro.json`); la hoja de estilos
+     contiene las cadenas decisivas de la decisión (`--serif: Georgia`,
+     acentos `nth-child(5n+2…5)`, interlineado 1,75 en pensamientos).
+     El registro no cambió: MD5 `b56a5a928fcf5a2722665c8251a5aa7b` en
+     raíz y en `visor/`, 30 ticks y 375 eventos con la misma
+     distribución (150 pensamiento · 80 acción · 70 diálogo ·
+     64 crecimiento · 11 caos) y los mismos recuerdos por agente
+     (45/39/44/41/42); las tildes del Ciclo 2 intactas en los textos
+     (`energía` ×335, `Así que` ×230, `compañía` ×53, `últimamente`
+     ×30; formas sin tilde, 0 — la clave JSON `"energia"` sigue
+     apareciendo ×5, una por agente, como manda el contrato).
+
 ## 2026-11-02 · Fase 2, Ciclo 2 (hallazgos MEDIA de la revisión 2026-11-02)
 
 ### MUNDO-M5 — El texto generado salía sistemáticamente sin tildes

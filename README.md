@@ -85,5 +85,9 @@ log.md             Registro de corridas y cambios
 - Los proyectos de colaboración existen y están verificados por pruebas, pero
   en la demo de 30 ticks rara vez se disparan (los agentes hablan mucho y se
   agrupan); el protagonismo de la demo es diálogo y caos.
-- La semilla fija (42) hace la demo reproducible en la misma máquina, pero el
-  conteo exacto de eventos puede variar ligeramente entre corridas.
+- La semilla fija (42) hace la demo completamente determinista: sin cambios
+  de código ni de datos, cada corrida produce exactamente el mismo registro,
+  byte a byte (los mismos 375 eventos con el mismo desglose). El conteo solo
+  cambia si cambia el código o los datos de entrada: la diferencia histórica
+  de 377 frente a 375 eventos que menciona `log.md` vino de una corrección de
+  código anterior a aquella corrida, no de variabilidad entre corridas.

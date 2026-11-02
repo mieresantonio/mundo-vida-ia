@@ -5,15 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mundo Vida IA — Visor</title>
 <style>
-  :root { color-scheme: dark; }
+  :root {
+    color-scheme: dark;
+    /* Decisión visual (Ciclo 3): dos voces. Lo narrativo —titulares,
+       nombres de agente y pensamientos— va en serif del sistema (sin
+       fuentes externas: el visor funciona sin red, como el proyecto);
+       lo informativo —tablas, eventos, filtros— sigue en sans compacta.
+       De esa misma decisión salen el ritmo (lo narrativo respira más que
+       lo informativo) y que las tarjetas dejen de ser idénticas: cada una
+       lleva como acento superior un color de la paleta que el visor ya
+       usa para los tipos de evento, en rotación por posición. Solo
+       cambia la hoja de estilos: el script y el contrato de datos con
+       registro.json quedan intactos. */
+    --serif: Georgia, "Times New Roman", Times, serif;
+  }
   * { box-sizing: border-box; }
   body {
     margin: 0; padding: 1rem;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     background: #12141a; color: #e8eaf0; line-height: 1.5;
   }
-  h1 { font-size: 1.5rem; margin: 0 0 .25rem; }
-  h2 { font-size: 1.15rem; margin: 2rem 0 .75rem; border-bottom: 1px solid #2a2f3d; padding-bottom: .3rem; }
+  h1 { font-family: var(--serif); font-size: 1.9rem; font-weight: 600; margin: 0 0 .25rem; }
+  h2 { font-family: var(--serif); font-size: 1.3rem; font-weight: 600; margin: 2.75rem 0 .9rem; border-bottom: 1px solid #2a2f3d; padding-bottom: .35rem; }
   .sub { color: #9aa3b8; margin: 0 0 1.5rem; }
   #error {
     display: none; background: #3a1d1d; border: 1px solid #a33;
@@ -22,9 +35,14 @@
   #error code { background: #1c1c1c; padding: .1rem .4rem; border-radius: 4px; }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
   .card {
-    background: #1c202b; border: 1px solid #2a2f3d; border-radius: 10px; padding: 1rem;
+    background: #1c202b; border: 1px solid #2a2f3d; border-top: 3px solid #5a84c4;
+    border-radius: 10px; padding: 1rem;
   }
-  .card h3 { margin: 0 0 .5rem; font-size: 1.05rem; }
+  .grid .card:nth-child(5n+2) { border-top-color: #5ec27a; }
+  .grid .card:nth-child(5n+3) { border-top-color: #d9a441; }
+  .grid .card:nth-child(5n+4) { border-top-color: #e06a5a; }
+  .grid .card:nth-child(5n+5) { border-top-color: #7a6fd0; }
+  .card h3 { font-family: var(--serif); margin: 0 0 .5rem; font-size: 1.3rem; font-weight: 600; }
   .card p { margin: .3rem 0; color: #c9cede; }
   .card .meta { color: #9aa3b8; font-size: .9rem; }
   .rasgos { width: 100%; border-collapse: collapse; margin-top: .5rem; font-size: .9rem; }
@@ -54,12 +72,18 @@
   .evento.crecimiento { border-left-color: #d9a441; }
   .evento.accion { border-left-color: #7a6fd0; }
   .pensamiento {
-    background: #1c202b; border: 1px solid #2a2f3d; border-radius: 8px;
-    padding: .7rem 1rem; margin-bottom: .6rem; font-style: italic;
+    background: #191d28; border: 1px solid #2a2f3d; border-left: 3px solid #d9a441; border-radius: 8px;
+    padding: 1rem 1.25rem; margin-bottom: .9rem;
+    font-family: var(--serif); font-style: italic; font-size: 1.06rem; line-height: 1.75;
   }
-  .pensamiento .quien { font-style: normal; font-weight: 600; color: #9aa3b8; font-size: .85rem; }
+  .pensamiento .quien {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-style: normal; font-weight: 600; color: #9aa3b8; font-size: .78rem;
+    text-transform: uppercase; letter-spacing: .06em;
+  }
+  .pensamiento p { margin: .35rem 0 0; }
   .vacio { color: #9aa3b8; }
-  @media (max-width: 480px) { body { padding: .75rem; } h1 { font-size: 1.25rem; } }
+  @media (max-width: 480px) { body { padding: .75rem; } h1 { font-size: 1.5rem; } }
 </style>
 </head>
 <body>
