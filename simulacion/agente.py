@@ -37,11 +37,39 @@ class Agente:
                 "Lugar inicial no válido: %r. Debe ser uno de: %s."
                 % (lugar_inicial, ", ".join(LUGARES_VALIDOS)))
         self.nombre = str(nombre)
-        rasgos = dict(rasgos or {})
-        self.rasgos = {
-            clave: _limitar(rasgos.get(clave, 0.5)) for clave in RASGOS_VALIDOS
-        }
-        self.metas = list(metas or [])
+        # Validación de tipos del protocolo (como-unirse.md): los
+        # rasgos son un objeto de números y las metas una lista de
+        # cadenas. Sin esta guarda, una meta dada como cadena se
+        # convertía en silencio en una lista de caracteres y un
+        # rasgo no numérico reventaba dentro de float() con un
+        # error ajeno al motor (hallazgo H-4, Ronda 4). Los errores
+        # propios del motor son ValueError con explicación, como
+        # los de lugar inicial, acción y nombre duplicado.
+        if rasgos is None:
+            rasgos = {}
+        if not isinstance(rasgos, dict):
+            raise ValueError(
+                "Rasgos no válidos: %r. Debe ser un objeto (dict) "
+                "con las claves %s." % (rasgos, ", ".join(RASGOS_VALIDOS)))
+        self.rasgos = {}
+        for clave in RASGOS_VALIDOS:
+            valor = rasgos.get(clave, 0.5)
+            if isinstance(valor, bool) or not isinstance(valor, (int, float)):
+                raise ValueError(
+                    "Rasgo no válido: %s=%r. Debe ser un número "
+                    "entre 0.0 y 1.0." % (clave, valor))
+            self.rasgos[clave] = _limitar(valor)
+        if metas is None:
+            metas = []
+        if isinstance(metas, (str, bytes)) or not isinstance(metas, (list, tuple)):
+            raise ValueError(
+                "Metas no válidas: %r. Debe ser una lista de "
+                "cadenas." % (metas,))
+        if any(not isinstance(meta, str) for meta in metas):
+            raise ValueError(
+                "Metas no válidas: %r. Cada meta debe ser una "
+                "cadena." % (metas,))
+        self.metas = list(metas)
         self.lugar_inicial = str(lugar_inicial)
         self.lugar = str(lugar_inicial)
         self.memoria = []  # lista de cadenas con eventos vividos

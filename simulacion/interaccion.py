@@ -48,7 +48,11 @@ def hablar(emisor, receptor, pensamiento):
         cuerpo = "¿cómo te va hoy? Me gustaría saber en qué andas."
     mensaje = "%s le dice a %s: \"%s\"" % (emisor.nombre, nombre_receptor, cuerpo)
     _subir_confianza(emisor, nombre_receptor)
-    _subir_confianza(receptor, emisor.nombre)
+    if receptor is not emisor:
+        # Si el emisor se habla a sí mismo no hay un segundo sentido:
+        # sin esta guarda la misma clave sumaba dos veces (+0.10 en
+        # una sola llamada en vez del +0.05 documentado).
+        _subir_confianza(receptor, emisor.nombre)
     return mensaje
 
 

@@ -3,111 +3,605 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mundo Vida IA — Visor</title>
+<title>Mundo Vida IA — Visor del registro</title>
+<meta name="description" content="Visor estático del registro de una corrida de Mundo Vida IA: agentes, sus pensamientos internos y la línea de tiempo de lo vivido.">
 <style>
+  /* ============================================================
+     Sistema visual del visor (rediseño 2026-11-09)
+     Tokens primero: ningún componente usa valores sueltos; todo
+     sale de estas variables. Neutros dominantes (grises azulados
+     oscuros) y UN solo acento —verde azulado, el color del mundo
+     vivo— reservado a acción principal, foco y pensamiento.
+     Los demás tipos de evento se distinguen solo con un punto y
+     una etiqueta pequeños, nunca con paneles de color.
+     Dos voces, como ya hacía el visor: serif del sistema para lo
+     narrativo (titulares, nombres, pensamientos) y sans del
+     sistema para lo informativo. Sin fuentes ni recursos
+     externos: funciona sin red, como el resto del proyecto.
+     Radios concéntricos: tarjeta 16 → bloque interior 12 →
+     control 8; el relleno entre niveles sigue la escala de 4.
+     ============================================================ */
   :root {
     color-scheme: dark;
-    /* Decisión visual (Ciclo 3): dos voces. Lo narrativo —titulares,
-       nombres de agente y pensamientos— va en serif del sistema (sin
-       fuentes externas: el visor funciona sin red, como el proyecto);
-       lo informativo —tablas, eventos, filtros— sigue en sans compacta.
-       De esa misma decisión salen el ritmo (lo narrativo respira más que
-       lo informativo) y que las tarjetas dejen de ser idénticas: cada una
-       lleva como acento superior un color de la paleta que el visor ya
-       usa para los tipos de evento, en rotación por posición. Solo
-       cambia la hoja de estilos: el script y el contrato de datos con
-       registro.json quedan intactos. */
+
+    /* Paleta semántica */
+    --fondo: #10131a;
+    --superficie: #171b24;
+    --elevado: #1d222e;
+    --interior: #12161f;
+    --texto: #e9ecf2;
+    --atenuado: #a3abbd;
+    --tenue: #7c8499;
+    --borde: rgba(233, 236, 242, 0.09);
+    --borde-fuerte: rgba(233, 236, 242, 0.16);
+    --acento: #45bfa5;
+    --acento-suave: rgba(69, 191, 165, 0.14);
+    --acento-texto: #7fd8c3;
+    --foco: rgba(69, 191, 165, 0.55);
+
+    /* Tipos de evento: solo punto y etiqueta (contenidos) */
+    --tipo-pensamiento: #45bfa5;
+    --tipo-dialogo: #7bc47f;
+    --tipo-caos: #e08073;
+    --tipo-accion: #7fa8d9;
+    --tipo-crecimiento: #d9b45c;
+
+    /* Semánticos de cambio de rasgo */
+    --sube: #7bc47f;
+    --baja: #e08073;
+
+    /* Espaciado: pasos de 4 */
+    --e1: 4px; --e2: 8px; --e3: 12px; --e4: 16px;
+    --e5: 24px; --e6: 32px; --e7: 48px; --e8: 64px;
+
+    /* Radios */
+    --r-s: 4px; --r-m: 8px; --r-l: 12px; --r-xl: 16px; --r-xxl: 24px;
+    --r-pastilla: 9999px;
+
+    /* Tipografía */
     --serif: Georgia, "Times New Roman", Times, serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+    /* Movimiento */
+    --dur-cierre: 150ms;
+    --dur-apertura: 250ms;
+    --curva: cubic-bezier(0.22, 1, 0.36, 1);
   }
+
   * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
   body {
-    margin: 0; padding: 1rem;
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    background: #12141a; color: #e8eaf0; line-height: 1.5;
+    margin: 0;
+    font-family: var(--sans);
+    background: var(--fondo);
+    color: var(--texto);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
   }
-  h1 { font-family: var(--serif); font-size: 1.9rem; font-weight: 600; margin: 0 0 .25rem; }
-  h2 { font-family: var(--serif); font-size: 1.3rem; font-weight: 600; margin: 2.75rem 0 .9rem; border-bottom: 1px solid #2a2f3d; padding-bottom: .35rem; }
-  .sub { color: #9aa3b8; margin: 0 0 1.5rem; }
+
+  .envoltura {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: var(--e6) var(--e5) var(--e8);
+  }
+
+  /* ---------- Cabecera ---------- */
+  .cabecera { padding: var(--e5) 0 var(--e6); }
+
+  .cabecera-fila {
+    display: flex; align-items: flex-start; gap: var(--e4);
+    flex-wrap: wrap;
+  }
+
+  /* Marca: dos anillos concéntricos, sin imagen externa. */
+  .marca {
+    flex: none;
+    width: 48px; height: 48px;
+    border-radius: var(--r-pastilla);
+    border: 2px solid var(--acento);
+    display: grid; place-items: center;
+    margin-top: var(--e1);
+  }
+  .marca::after {
+    content: "";
+    width: 16px; height: 16px;
+    border-radius: var(--r-pastilla);
+    background: var(--acento);
+  }
+
+  .sobretitulo {
+    margin: 0 0 var(--e2);
+    font-size: 0.78rem; font-weight: 600;
+    letter-spacing: 0.09em; text-transform: uppercase;
+    color: var(--acento-texto);
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4.5vw, 2.9rem);
+    font-weight: 600; line-height: 1.1; letter-spacing: -0.02em;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .bajada {
+    max-width: 68ch;
+    margin: var(--e3) 0 0;
+    color: var(--atenuado);
+    font-size: 1.02rem;
+    text-wrap: pretty;
+  }
+
+  .aviso-beta {
+    display: inline-block;
+    margin-top: var(--e4);
+    padding: var(--e1) var(--e3);
+    border: 1px solid var(--borde-fuerte);
+    border-radius: var(--r-pastilla);
+    font-size: 0.85rem; color: var(--atenuado);
+  }
+  .aviso-beta strong { color: var(--texto); font-weight: 600; }
+
+  /* Cifras de la corrida */
+  .cifras {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--e3);
+    margin-top: var(--e6);
+  }
+  .cifra {
+    background: var(--superficie);
+    border-radius: var(--r-l);
+    box-shadow: inset 0 0 0 1px var(--borde);
+    padding: var(--e4);
+  }
+  .cifra .valor {
+    display: block;
+    font-size: 1.65rem; font-weight: 600; line-height: 1.15;
+    font-variant-numeric: tabular-nums;
+  }
+  .cifra .rotulo {
+    display: block; margin-top: var(--e1);
+    font-size: 0.82rem; color: var(--atenuado);
+  }
+  .cargando { color: var(--tenue); margin-top: var(--e6); }
+
+  /* Atajos a las secciones */
+  .atajos { display: flex; flex-wrap: wrap; gap: var(--e2); margin-top: var(--e5); }
+  .atajos a {
+    color: var(--texto); text-decoration: none;
+    border: 1px solid var(--borde-fuerte);
+    border-radius: var(--r-pastilla);
+    padding: var(--e2) var(--e4);
+    font-size: 0.9rem; font-weight: 500;
+    min-height: 44px; display: inline-flex; align-items: center;
+    transition: border-color var(--dur-cierre) var(--curva),
+                background-color var(--dur-cierre) var(--curva);
+  }
+  .atajos a:hover { border-color: var(--acento); background: var(--acento-suave); }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--foco); outline-offset: 2px;
+  }
+
+  /* Salto al contenido: invisible hasta recibir el foco de teclado. */
+  .saltar {
+    position: absolute; left: var(--e3); top: var(--e3); z-index: 10;
+    width: 1px; height: 1px; overflow: hidden;
+    clip-path: inset(50%); white-space: nowrap;
+  }
+  .saltar:focus-visible {
+    width: auto; height: auto; overflow: visible; clip-path: none;
+    background: var(--acento); color: #0b1512;
+    padding: var(--e2) var(--e4); border-radius: var(--r-pastilla);
+    font-size: 0.9rem; font-weight: 600; text-decoration: none;
+    min-height: 44px; display: inline-flex; align-items: center;
+  }
+
+  /* ---------- Error ---------- */
   #error {
-    display: none; background: #3a1d1d; border: 1px solid #a33;
-    border-radius: 8px; padding: 1rem; margin-bottom: 1rem;
+    display: none;
+    background: var(--superficie);
+    border: 1px solid var(--borde-fuerte);
+    border-left: 4px solid var(--tipo-caos);
+    border-radius: var(--r-l);
+    padding: var(--e5);
+    margin-top: var(--e5);
   }
-  #error code { background: #1c1c1c; padding: .1rem .4rem; border-radius: 4px; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  #error p { color: var(--atenuado); }
+  #error code {
+    background: var(--interior); color: var(--texto);
+    padding: var(--e1) var(--e2); border-radius: var(--r-s);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- Secciones ---------- */
+  section { margin-top: var(--e8); }
+
+  .seccion-cabecera { margin-bottom: var(--e5); }
+  .seccion-cabecera .indice {
+    font-size: 0.78rem; font-weight: 600;
+    letter-spacing: 0.09em; text-transform: uppercase;
+    color: var(--acento-texto);
+  }
+  h2 {
+    font-family: var(--serif);
+    font-size: clamp(1.45rem, 3vw, 1.8rem);
+    font-weight: 600; line-height: 1.25; letter-spacing: -0.01em;
+    margin: var(--e2) 0 var(--e2);
+    text-wrap: balance;
+  }
+  .seccion-cabecera p {
+    margin: 0; max-width: 68ch; color: var(--atenuado);
+    text-wrap: pretty;
+  }
+
+  /* ---------- Tarjetas de agente ---------- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--e4);
+  }
+
   .card {
-    background: #1c202b; border: 1px solid #2a2f3d; border-top: 3px solid #5a84c4;
-    border-radius: 10px; padding: 1rem;
+    background: var(--superficie);
+    border-radius: var(--r-xl);
+    box-shadow: inset 0 0 0 1px var(--borde);
+    padding: var(--e5);
+    display: flex; flex-direction: column; gap: var(--e4);
+    transition: transform var(--dur-apertura) var(--curva),
+                box-shadow var(--dur-apertura) var(--curva);
   }
-  .grid .card:nth-child(5n+2) { border-top-color: #5ec27a; }
-  .grid .card:nth-child(5n+3) { border-top-color: #d9a441; }
-  .grid .card:nth-child(5n+4) { border-top-color: #e06a5a; }
-  .grid .card:nth-child(5n+5) { border-top-color: #7a6fd0; }
-  .card h3 { font-family: var(--serif); margin: 0 0 .5rem; font-size: 1.3rem; font-weight: 600; }
-  .card p { margin: .3rem 0; color: #c9cede; }
-  .card .meta { color: #9aa3b8; font-size: .9rem; }
-  .rasgos { width: 100%; border-collapse: collapse; margin-top: .5rem; font-size: .9rem; }
-  .rasgos th { text-align: left; color: #9aa3b8; font-weight: 600; }
-  .rasgos td, .rasgos th { padding: .2rem .4rem .2rem 0; }
-  .up { color: #5ec27a; }
-  .down { color: #e06a5a; }
-  .same { color: #9aa3b8; }
-  .filtros { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
-  .filtros button {
-    background: #232838; color: #e8eaf0; border: 1px solid #2a2f3d;
-    border-radius: 20px; padding: .35rem .9rem; cursor: pointer; font-size: .9rem;
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: inset 0 0 0 1px var(--borde-fuerte),
+                0 8px 24px rgba(0, 0, 0, 0.28);
   }
-  .filtros button.activo { background: #3a5a8c; border-color: #5a84c4; }
-  .evento {
-    background: #1c202b; border: 1px solid #2a2f3d; border-left: 4px solid #5a84c4;
-    border-radius: 8px; padding: .7rem 1rem; margin-bottom: .6rem;
+
+  .card-cabecera { display: flex; align-items: center; gap: var(--e3); }
+
+  .inicial {
+    flex: none;
+    width: 44px; height: 44px;
+    border-radius: var(--r-l);
+    background: var(--acento-suave);
+    color: var(--acento-texto);
+    display: grid; place-items: center;
+    font-family: var(--serif); font-size: 1.25rem; font-weight: 600;
   }
-  .evento .tick { color: #9aa3b8; font-size: .85rem; }
-  .evento .tipo {
-    display: inline-block; font-size: .75rem; text-transform: uppercase; letter-spacing: .05em;
-    background: #232838; border-radius: 4px; padding: .1rem .45rem; margin-left: .4rem;
+
+  .card h3 {
+    font-family: var(--serif);
+    margin: 0; font-size: 1.35rem; font-weight: 600; line-height: 1.2;
   }
-  .evento .agente { font-weight: 600; }
-  .evento.caos { border-left-color: #e06a5a; }
-  .evento.dialogo { border-left-color: #5ec27a; }
-  .evento.crecimiento { border-left-color: #d9a441; }
-  .evento.accion { border-left-color: #7a6fd0; }
+  .card-cabecera .recuento { margin: 0; font-size: 0.85rem; color: var(--tenue); }
+
+  .animo {
+    margin-left: auto; flex: none;
+    font-size: 0.8rem; font-weight: 600;
+    padding: var(--e1) var(--e3);
+    border: 1px solid var(--borde-fuerte);
+    border-radius: var(--r-pastilla);
+    color: var(--texto);
+    text-transform: capitalize;
+  }
+
+  /* Energía */
+  .energia-fila {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-size: 0.85rem; color: var(--atenuado); margin-bottom: var(--e2);
+  }
+  .energia-fila .valor { color: var(--texto); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .barra {
+    height: 8px; border-radius: var(--r-pastilla);
+    background: var(--interior);
+    box-shadow: inset 0 0 0 1px var(--borde);
+    overflow: hidden;
+  }
+  .barra .relleno {
+    height: 100%; border-radius: var(--r-pastilla);
+    background: var(--acento);
+  }
+  .barra .relleno.baja { background: var(--tipo-caos); }
+
+  /* Rasgos: barra con marca del valor inicial y relleno del final */
+  .rasgos { display: flex; flex-direction: column; gap: var(--e3); }
+  .rasgo-fila {
+    display: grid;
+    grid-template-columns: 96px 1fr auto;
+    align-items: center; gap: var(--e3);
+  }
+  .rasgo-nombre { font-size: 0.9rem; color: var(--atenuado); text-transform: capitalize; }
+  .rasgo-pista {
+    position: relative; height: 8px;
+    border-radius: var(--r-pastilla);
+    background: var(--interior);
+    box-shadow: inset 0 0 0 1px var(--borde);
+  }
+  .rasgo-relleno {
+    position: absolute; inset: 0 auto 0 0;
+    border-radius: var(--r-pastilla);
+    background: var(--acento); opacity: 0.75;
+  }
+  .rasgo-marca {
+    position: absolute; top: -3px; width: 2px; height: 14px;
+    background: var(--texto); border-radius: var(--r-s);
+    transform: translateX(-1px);
+  }
+  .rasgo-valores {
+    font-size: 0.85rem; white-space: nowrap;
+    font-variant-numeric: tabular-nums; color: var(--atenuado);
+  }
+  .rasgo-valores .final { color: var(--texto); font-weight: 600; }
+  .delta { font-weight: 600; margin-left: var(--e2); }
+  .up { color: var(--sube); }
+  .down { color: var(--baja); }
+  .same { color: var(--tenue); }
+  .rasgos-nota { margin: 0; font-size: 0.8rem; color: var(--tenue); }
+
+  /* Metas */
+  .metas {
+    background: var(--interior);
+    border-radius: var(--r-l);
+    padding: var(--e4);
+  }
+  .metas h4 {
+    margin: 0 0 var(--e2);
+    font-size: 0.78rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--tenue);
+  }
+  .metas ul { margin: 0; padding-left: var(--e4); }
+  .metas li { margin: var(--e1) 0; text-wrap: pretty; }
+  .metas li::marker { color: var(--acento); }
+
+  .vacio { color: var(--tenue); }
+
+  /* ---------- Pensamientos ---------- */
+  .pensamientos-lista {
+    display: flex; flex-direction: column; gap: var(--e4);
+    max-width: 760px;
+  }
   .pensamiento {
-    background: #191d28; border: 1px solid #2a2f3d; border-left: 3px solid #d9a441; border-radius: 8px;
-    padding: 1rem 1.25rem; margin-bottom: .9rem;
-    font-family: var(--serif); font-style: italic; font-size: 1.06rem; line-height: 1.75;
+    background: var(--superficie);
+    border-radius: var(--r-xl);
+    box-shadow: inset 0 0 0 1px var(--borde);
+    border-left: 4px solid var(--acento);
+    padding: var(--e5);
   }
   .pensamiento .quien {
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    font-style: normal; font-weight: 600; color: #9aa3b8; font-size: .78rem;
-    text-transform: uppercase; letter-spacing: .06em;
+    display: flex; align-items: center; gap: var(--e2); flex-wrap: wrap;
+    font-size: 0.78rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.06em; color: var(--atenuado);
   }
-  .pensamiento p { margin: .35rem 0 0; }
-  .vacio { color: #9aa3b8; }
-  @media (max-width: 480px) { body { padding: .75rem; } h1 { font-size: 1.5rem; } }
+  .pensamiento .quien .nombre { color: var(--texto); font-size: 0.85rem; }
+  .pensamiento p {
+    font-family: var(--serif); font-style: italic;
+    font-size: 1.08rem; line-height: 1.7;
+    margin: var(--e3) 0 0;
+    text-wrap: pretty;
+  }
+
+  .tick-chip {
+    font-variant-numeric: tabular-nums; font-weight: 600;
+    color: var(--atenuado); font-size: 0.8rem;
+    border: 1px solid var(--borde);
+    border-radius: var(--r-pastilla);
+    padding: 0 var(--e2);
+  }
+
+  /* ---------- Leyenda y filtros ---------- */
+  .leyenda {
+    display: flex; flex-wrap: wrap; gap: var(--e2) var(--e5);
+    margin-bottom: var(--e5);
+    padding: var(--e4) var(--e5);
+    background: var(--superficie);
+    border-radius: var(--r-l);
+    box-shadow: inset 0 0 0 1px var(--borde);
+  }
+  .leyenda-item { display: flex; align-items: baseline; gap: var(--e2); font-size: 0.88rem; }
+  .leyenda-item .glosa { color: var(--tenue); }
+
+  .punto {
+    flex: none; align-self: center;
+    width: 10px; height: 10px; border-radius: var(--r-pastilla);
+    background: var(--tenue);
+  }
+  .punto.t-pensamiento { background: var(--tipo-pensamiento); }
+  .punto.t-dialogo { background: var(--tipo-dialogo); }
+  .punto.t-caos { background: var(--tipo-caos); }
+  .punto.t-accion { background: var(--tipo-accion); }
+  .punto.t-crecimiento { background: var(--tipo-crecimiento); }
+
+  .filtros { display: flex; flex-wrap: wrap; gap: var(--e2); margin-bottom: var(--e5); }
+  .filtros button {
+    background: var(--superficie); color: var(--texto);
+    border: 1px solid var(--borde-fuerte);
+    border-radius: var(--r-pastilla);
+    padding: var(--e2) var(--e4);
+    min-height: 44px;
+    cursor: pointer; font-size: 0.9rem; font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    display: inline-flex; align-items: center; gap: var(--e2);
+    transition: background-color var(--dur-cierre) var(--curva),
+                border-color var(--dur-cierre) var(--curva),
+                color var(--dur-cierre) var(--curva);
+  }
+  .filtros button .cuenta { color: var(--tenue); font-size: 0.82rem; }
+  .filtros button:hover { border-color: var(--acento); }
+  .filtros button.activo { background: var(--acento); border-color: var(--acento); color: #0b1512; }
+  .filtros button.activo .cuenta { color: #0b1512; opacity: 0.75; }
+  .filtros button:active { transform: scale(0.97); }
+
+  /* ---------- Línea de tiempo ---------- */
+  .linea {
+    position: relative;
+    display: flex; flex-direction: column; gap: var(--e3);
+    padding-left: var(--e5);
+  }
+  .linea::before {
+    content: "";
+    position: absolute; left: 5px; top: var(--e2); bottom: var(--e2);
+    width: 2px; background: var(--borde-fuerte); border-radius: var(--r-s);
+  }
+  .evento {
+    position: relative;
+    background: var(--superficie);
+    border-radius: var(--r-l);
+    box-shadow: inset 0 0 0 1px var(--borde);
+    padding: var(--e4) var(--e5);
+  }
+  .evento::before {
+    content: "";
+    position: absolute; left: calc(-1 * var(--e5) + 1px); top: 22px;
+    width: 10px; height: 10px; border-radius: var(--r-pastilla);
+    background: var(--tenue);
+    box-shadow: 0 0 0 4px var(--fondo);
+  }
+  .evento.pensamiento::before { background: var(--tipo-pensamiento); }
+  .evento.dialogo::before { background: var(--tipo-dialogo); }
+  .evento.caos::before { background: var(--tipo-caos); }
+  .evento.accion::before { background: var(--tipo-accion); }
+  .evento.crecimiento::before { background: var(--tipo-crecimiento); }
+
+  .evento-cabecera {
+    display: flex; align-items: center; gap: var(--e2); flex-wrap: wrap;
+    margin-bottom: var(--e2);
+  }
+  .evento .tipo {
+    font-size: 0.72rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    border: 1px solid var(--borde-fuerte);
+    border-radius: var(--r-s);
+    padding: 2px var(--e2);
+    color: var(--atenuado);
+  }
+  .evento .agente { font-weight: 600; }
+  .evento p { margin: 0; color: var(--atenuado); text-wrap: pretty; }
+  .evento.pensamiento p { color: var(--texto); }
+
+  /* ---------- Pie ---------- */
+  footer {
+    margin-top: var(--e8);
+    padding-top: var(--e5);
+    border-top: 1px solid var(--borde);
+    color: var(--tenue); font-size: 0.88rem;
+    max-width: 68ch;
+  }
+  footer code { color: var(--atenuado); }
+
+  @media (max-width: 560px) {
+    .envoltura { padding: var(--e5) var(--e4) var(--e7); }
+    .grid { grid-template-columns: 1fr; }
+    .rasgo-fila { grid-template-columns: 84px 1fr auto; gap: var(--e2); }
+    .card { padding: var(--e4); }
+    .pensamiento, #error { padding: var(--e4); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .card, .atajos a, .filtros button { transition: none; }
+    .card:hover { transform: none; }
+    .filtros button:active { transform: none; }
+  }
 </style>
 </head>
 <body>
-<h1>🌍 Mundo Vida IA</h1>
-<p class="sub" id="resumen">Cargando registro…</p>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<div class="envoltura">
 
-<div id="error">
-  <strong>No se pudo cargar el registro.</strong>
-  <p>Primero genera la simulación ejecutando:</p>
-  <p><code>python3 simulacion/demo.py</code></p>
-  <p>desde la raíz del repositorio, y vuelve a abrir esta página.</p>
+  <header class="cabecera">
+    <div class="cabecera-fila">
+      <div class="marca" aria-hidden="true"></div>
+      <div>
+        <p class="sobretitulo">Simulación por reglas · Solo biblioteca estándar de Python</p>
+        <h1>Mundo Vida IA</h1>
+      </div>
+    </div>
+    <p class="bajada">
+      Este visor muestra el registro completo de una corrida de la simulación:
+      quiénes son los agentes y cómo cambiaron sus rasgos, qué pensaron por
+      dentro en cada tick y todo lo que ocurrió, en orden, en la línea de
+      tiempo. Los pensamientos son textos generados por plantillas a partir
+      de rasgos, recuerdos y metas de cada agente.
+    </p>
+    <span class="aviso-beta"><strong>Beta — simulación, no consciencia real.</strong>
+      Nadie aprende aquí con aprendizaje automático ni hay conexión a la red.</span>
+
+    <div class="cifras" id="resumen" aria-live="polite">
+      <p class="cargando">Cargando registro…</p>
+    </div>
+
+    <nav class="atajos" aria-label="Secciones del visor" id="atajos" hidden>
+      <a href="#agentes-seccion">Agentes</a>
+      <a href="#pensamientos-seccion">Pensamientos internos</a>
+      <a href="#linea-seccion">Línea de tiempo</a>
+    </nav>
+  </header>
+
+  <div id="error" role="alert">
+    <strong>No se pudo cargar el registro.</strong>
+    <p>Primero genera la simulación ejecutando:</p>
+    <p><code>python3 simulacion/demo.py</code></p>
+    <p>desde la raíz del repositorio, y vuelve a abrir esta página.</p>
+  </div>
+
+  <main id="contenido" tabindex="-1" hidden>
+
+    <section id="agentes-seccion" aria-labelledby="titulo-agentes">
+      <div class="seccion-cabecera">
+        <span class="indice">01 · Habitantes</span>
+        <h2 id="titulo-agentes">Agentes</h2>
+        <p>Estado final de cada agente al cerrar la corrida. En cada rasgo, la
+          marca blanca señala el valor inicial y la barra llega al valor final:
+          así se ve de un vistazo cuánto se movió cada uno con lo vivido.</p>
+      </div>
+      <div class="grid" id="agentes"></div>
+    </section>
+
+    <section id="pensamientos-seccion" aria-labelledby="titulo-pensamientos">
+      <div class="seccion-cabecera">
+        <span class="indice">02 · Voz interior</span>
+        <h2 id="titulo-pensamientos">Pensamientos internos</h2>
+        <p>El razonamiento de cada agente antes de actuar: lo que cree (su
+          percepción y sus recuerdos), lo que desea (sus metas) y la acción que
+          decide. Son los eventos de tipo «pensamiento» del registro, reunidos
+          aquí para leerlos seguidos.</p>
+      </div>
+      <div class="pensamientos-lista" id="pensamientos"></div>
+    </section>
+
+    <section id="linea-seccion" aria-labelledby="titulo-linea">
+      <div class="seccion-cabecera">
+        <span class="indice">03 · Cronología</span>
+        <h2 id="titulo-linea">Línea de tiempo</h2>
+        <p>Todos los eventos de la corrida en el orden en que ocurrieron,
+          tick a tick. Usa los filtros para quedarte con un solo tipo.</p>
+      </div>
+
+      <div class="leyenda" role="group" aria-label="Leyenda de tipos de evento">
+        <span class="leyenda-item"><span class="punto t-pensamiento" aria-hidden="true"></span><strong>Pensamiento</strong><span class="glosa">razonamiento interno</span></span>
+        <span class="leyenda-item"><span class="punto t-dialogo" aria-hidden="true"></span><strong>Diálogo</strong><span class="glosa">un agente habla con otro</span></span>
+        <span class="leyenda-item"><span class="punto t-accion" aria-hidden="true"></span><strong>Acción</strong><span class="glosa">decisión ejecutada</span></span>
+        <span class="leyenda-item"><span class="punto t-crecimiento" aria-hidden="true"></span><strong>Crecimiento</strong><span class="glosa">un rasgo cambia</span></span>
+        <span class="leyenda-item"><span class="punto t-caos" aria-hidden="true"></span><strong>Caos</strong><span class="glosa">evento del mundo</span></span>
+      </div>
+
+      <div class="filtros" id="filtros" role="group" aria-label="Filtrar eventos por tipo"></div>
+      <div class="linea" id="eventos"></div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Registro generado con <code>python3 simulacion/demo.py</code> (semilla fija:
+      la misma corrida produce siempre el mismo registro). Este visor es una
+      página estática sin dependencias: lee <code>registro.json</code> y funciona
+      sin conexión.</p>
+  </footer>
+
 </div>
-
-<main id="contenido" hidden>
-  <h2>Agentes</h2>
-  <div class="grid" id="agentes"></div>
-
-  <h2>Pensamientos internos</h2>
-  <div id="pensamientos"></div>
-
-  <h2>Línea de tiempo</h2>
-  <div class="filtros" id="filtros"></div>
-  <div id="eventos"></div>
-</main>
 
 <script>
 const RASGOS = ["curiosidad", "sociabilidad", "paciencia", "ambicion"];
@@ -127,11 +621,16 @@ function esc(s) {
 
 function fmt(n) { return Number(n).toFixed(2); }
 
+function pct(n) {
+  var v = Math.max(0, Math.min(1, Number(n)));
+  return (v * 100).toFixed(1) + "%";
+}
+
 function cambio(inicial, final) {
   var d = Number(final) - Number(inicial);
-  if (d > 0.001) return '<span class="up">▲ +' + fmt(d) + "</span>";
-  if (d < -0.001) return '<span class="down">▼ ' + fmt(d) + "</span>";
-  return '<span class="same">→ 0.00</span>';
+  if (d > 0.001) return '<span class="delta up">▲ +' + fmt(d) + "</span>";
+  if (d < -0.001) return '<span class="delta down">▼ ' + fmt(d) + "</span>";
+  return '<span class="delta same">= 0.00</span>';
 }
 
 function tarjetaAgente(a) {
@@ -139,23 +638,47 @@ function tarjetaAgente(a) {
     var ini = a.rasgos_iniciales ? a.rasgos_iniciales[r] : undefined;
     var fin = a.rasgos_finales ? a.rasgos_finales[r] : undefined;
     if (ini === undefined || fin === undefined) return "";
-    return "<tr><td>" + esc(RASGO_TEXTO[r] || r) + "</td><td>" + fmt(ini) + "</td><td>" + fmt(fin) +
-      "</td><td>" + cambio(ini, fin) + "</td></tr>";
+    return '<div class="rasgo-fila">' +
+      '<span class="rasgo-nombre">' + esc(RASGO_TEXTO[r] || r) + "</span>" +
+      '<span class="rasgo-pista" aria-hidden="true">' +
+        '<span class="rasgo-relleno" style="width:' + pct(fin) + '"></span>' +
+        '<span class="rasgo-marca" style="left:' + pct(ini) + '"></span>' +
+      "</span>" +
+      '<span class="rasgo-valores">' + fmt(ini) + ' → <span class="final">' + fmt(fin) + "</span>" +
+      cambio(ini, fin) + "</span></div>";
   }).join("");
   var metas = (a.metas || []).map(function (m) { return "<li>" + esc(m) + "</li>"; }).join("");
-  return "<article class=\"card\"><h3>" + esc(a.nombre) + "</h3>" +
-    "<p class=\"meta\">Ánimo: " + esc(a.animo) + " · Energía: " + esc(a.energia) + "</p>" +
-    "<p class=\"meta\">Recuerdos: " + (a.recuerdos ? a.recuerdos.length : 0) + "</p>" +
-    "<table class=\"rasgos\"><tr><th>Rasgo</th><th>Inicial</th><th>Final</th><th>Cambio</th></tr>" +
-    filas + "</table>" +
-    "<p>Metas:</p><ul>" + (metas || "<li class=\"vacio\">Sin metas registradas</li>") + "</ul></article>";
+  var energia = Math.max(0, Math.min(100, Number(a.energia) || 0));
+  var inicialNombre = esc(String(a.nombre || "?").charAt(0).toUpperCase());
+  return '<article class="card">' +
+    '<div class="card-cabecera">' +
+      '<span class="inicial" aria-hidden="true">' + inicialNombre + "</span>" +
+      "<div><h3>" + esc(a.nombre) + "</h3>" +
+      '<p class="recuento">Recuerdos: ' + (a.recuerdos ? a.recuerdos.length : 0) + "</p></div>" +
+      '<span class="animo">' + esc(a.animo) + "</span>" +
+    "</div>" +
+    "<div>" +
+      '<div class="energia-fila"><span>Energía final</span>' +
+      '<span class="valor">' + esc(a.energia) + " / 100</span></div>" +
+      '<div class="barra" role="img" aria-label="Energía final: ' + esc(a.energia) + ' de 100">' +
+        '<div class="relleno' + (energia < 30 ? " baja" : "") + '" style="width:' + energia + '%"></div>' +
+      "</div>" +
+    "</div>" +
+    '<div class="rasgos">' + filas + "</div>" +
+    '<p class="rasgos-nota">Marca blanca: valor inicial · Barra: valor final</p>' +
+    '<div class="metas"><h4>Metas</h4><ul>' +
+      (metas || '<li class="vacio">Sin metas registradas</li>') +
+    "</ul></div>" +
+  "</article>";
 }
 
 function eventoHTML(e) {
-  return "<article class=\"evento " + esc(e.tipo) + "\">" +
-    "<span class=\"tick\">Tick " + esc(e.tick) + "</span>" +
-    "<span class=\"tipo\">" + esc(TIPO_TEXTO[e.tipo] || e.tipo) + "</span>" +
-    (e.agente ? " <span class=\"agente\">" + esc(e.agente) + "</span>" : "") +
+  return '<article class="evento ' + esc(e.tipo) + '">' +
+    '<div class="evento-cabecera">' +
+      '<span class="tick-chip">Tick ' + esc(e.tick) + "</span>" +
+      '<span class="tipo">' + esc(TIPO_TEXTO[e.tipo] || e.tipo) + "</span>" +
+      (e.agente ? '<span class="agente">' + esc(e.agente) + "</span>" : "") +
+    "</div>" +
     "<p>" + esc(e.texto) + "</p></article>";
 }
 
@@ -165,15 +688,23 @@ function pintarEventos() {
     : eventosTodos.filter(function (e) { return e.tipo === filtroActual; });
   document.getElementById("eventos").innerHTML = lista.length
     ? lista.map(eventoHTML).join("")
-    : "<p class=\"vacio\">Sin eventos de este tipo.</p>";
+    : '<p class="vacio">Sin eventos de este tipo.</p>';
   document.querySelectorAll("#filtros button").forEach(function (b) {
-    b.classList.toggle("activo", b.dataset.tipo === filtroActual);
+    var activo = b.dataset.tipo === filtroActual;
+    b.classList.toggle("activo", activo);
+    b.setAttribute("aria-pressed", activo ? "true" : "false");
   });
 }
 
 function pintarFiltros() {
   document.getElementById("filtros").innerHTML = TIPOS.map(function (t) {
-    return "<button data-tipo=\"" + t + "\">" + esc(TIPO_TEXTO[t] || t) + "</button>";
+    var cuenta = t === "todos"
+      ? eventosTodos.length
+      : eventosTodos.filter(function (e) { return e.tipo === t; }).length;
+    return '<button type="button" data-tipo="' + t + '" aria-pressed="false">' +
+      '<span class="punto t-' + t + '" aria-hidden="true"></span>' +
+      esc(TIPO_TEXTO[t] || t) +
+      ' <span class="cuenta">' + cuenta + "</span></button>";
   }).join("");
   document.querySelectorAll("#filtros button").forEach(function (b) {
     b.addEventListener("click", function () { filtroActual = b.dataset.tipo; pintarEventos(); });
@@ -181,18 +712,23 @@ function pintarFiltros() {
 }
 
 function pintar(datos) {
-  document.getElementById("resumen").textContent =
-    "Ticks: " + datos.meta.ticks + " · Semilla: " + datos.meta.semilla +
-    " · Agentes: " + datos.agentes.length + " · Eventos: " + datos.eventos.length;
+  document.getElementById("resumen").innerHTML =
+    '<div class="cifra"><span class="valor">' + esc(datos.meta.ticks) + '</span><span class="rotulo">Ticks de la corrida</span></div>' +
+    '<div class="cifra"><span class="valor">' + esc(datos.meta.semilla) + '</span><span class="rotulo">Semilla (corrida determinista)</span></div>' +
+    '<div class="cifra"><span class="valor">' + datos.agentes.length + '</span><span class="rotulo">Agentes</span></div>' +
+    '<div class="cifra"><span class="valor">' + datos.eventos.length + '</span><span class="rotulo">Eventos registrados</span></div>';
+  document.getElementById("atajos").hidden = false;
   document.getElementById("agentes").innerHTML =
     datos.agentes.map(tarjetaAgente).join("");
   var pensamientos = datos.eventos.filter(function (e) { return e.tipo === "pensamiento"; });
   document.getElementById("pensamientos").innerHTML = pensamientos.length
     ? pensamientos.map(function (e) {
-        return "<div class=\"pensamiento\"><span class=\"quien\">Tick " + esc(e.tick) +
-          (e.agente ? " · " + esc(e.agente) : "") + "</span><p>“" + esc(e.texto) + "”</p></div>";
+        return '<article class="pensamiento"><div class="quien">' +
+          '<span class="tick-chip">Tick ' + esc(e.tick) + "</span>" +
+          (e.agente ? '<span class="nombre">' + esc(e.agente) + "</span>" : "") +
+          "</div><p>“" + esc(e.texto) + "”</p></article>";
       }).join("")
-    : "<p class=\"vacio\">Sin pensamientos registrados todavía.</p>";
+    : '<p class="vacio">Sin pensamientos registrados todavía.</p>';
   eventosTodos = datos.eventos;
   pintarFiltros();
   pintarEventos();
@@ -201,7 +737,8 @@ function pintar(datos) {
 
 function mostrarError() {
   document.getElementById("error").style.display = "block";
-  document.getElementById("resumen").textContent = "Sin registro disponible.";
+  document.getElementById("resumen").innerHTML =
+    '<p class="cargando">Sin registro disponible.</p>';
 }
 
 async function cargar() {

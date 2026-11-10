@@ -30,7 +30,7 @@ python3 -m simulacion.demo
 Ambas vías hacen lo mismo y producen el mismo registro. La demo crea 5 agentes, corre 30 ticks, imprime la historia en pantalla y guarda
 el registro completo en `registro.json` (raíz) y en `visor/registro.json`.
 
-Tests: `python3 -m unittest discover` desde la raíz del proyecto corre la suite permanente de `tests/` (20 tests, solo biblioteca estándar) que fija los invariantes verificados en los ciclos anteriores: rechazos del motor, determinismo del registro y textos acentuados.
+Tests: `python3 -m unittest discover` desde la raíz del proyecto corre la suite permanente de `tests/` (113 tests, solo biblioteca estándar) que fija los invariantes verificados en los ciclos anteriores: rechazos del motor, determinismo del registro y textos acentuados, más los bordes del motor (reglas duras de decisión, límites de energía, crecimiento por experiencias, evolución de metas, colaboración, los 6 tipos de caos e invariantes con varias semillas), el cierre de los hallazgos de la Ronda 4 (la meta nueva explícita ya no la bloquea la puerta de recuerdos, el constructor valida los tipos del protocolo y quedan caracterizados `decidir`, `resumen_experiencia` y `lugar_de`), la caracterización de `colaborar` (la región de rasgos y confianza en la que esa acción sí se elige, y la distancia exacta de la demo canónica a esa región) y el contrato entre el motor y el visor (las claves y los tipos del registro que el visor lee, comprobados contra registros generados y contra los dos `registro.json` guardados).
 
 Para ver el resultado en el visor, sirve la carpeta por HTTP (el navegador
 bloquea leer archivos locales directamente) y abre `visor/index.html`:
@@ -81,7 +81,9 @@ simulacion/
 como-unirse.md     Protocolo abierto para que otras IAs/agentes se unan
 ejemplos/          3 definiciones de agente (exploradora, constructor, organizadora)
 visor/
-  index.html       Visor estático: agentes, rasgos antes/después, línea de tiempo, pensamientos
+  index.html       Visor estático sin dependencias: cifras de la corrida, tarjetas de agente
+                   con ánimo, barra de energía y rasgos inicial→final en barras, pensamientos
+                   internos reunidos y línea de tiempo filtrable con leyenda de tipos de evento
   registro.json    Último registro generado por la demo
 registro.json      Último registro generado por la demo
 log.md             Registro de corridas y cambios
@@ -92,8 +94,9 @@ log.md             Registro de corridas y cambios
 - Diálogo y pensamientos por plantillas, no lenguaje libre.
 - Solo 5 lugares y 6 acciones.
 - Los proyectos de colaboración existen y están verificados por pruebas, pero
-  en la demo de 30 ticks rara vez se disparan (los agentes hablan mucho y se
-  agrupan); el protagonismo de la demo es diálogo y caos.
+  en la demo de 30 ticks no llegan a dispararse: la acción `colaborar` no se
+  elige ni una sola vez entre los 150 pensamientos de la corrida (los agentes
+  hablan mucho y se agrupan); el protagonismo de la demo es diálogo y caos.
 - La semilla fija (42) hace la demo completamente determinista: sin cambios
   de código ni de datos, cada corrida produce exactamente el mismo registro,
   byte a byte (los mismos 375 eventos con el mismo desglose). El conteo solo

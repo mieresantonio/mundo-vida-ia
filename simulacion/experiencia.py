@@ -69,11 +69,11 @@ def registrar_experiencia(agente, evento_texto, tipo=None):
         if nuevo != anterior:
             cambio = {"rasgo": rasgo, "antes": anterior, "despues": nuevo}
 
+    # La evolución de metas se gestiona en evolucionar_metas();
+    # este registro nunca añade metas, así que el campo va a None.
+    # (Ronda 4: se eliminó el bloque muerto que comprobaba una
+    # clave "__logros__" que ningún código crea ni lee.)
     meta_nueva = None
-    if tipo in ("colaborar", "construir") and conteo.get("__logros__", 0) >= 0:
-        # La evolución de metas se gestiona en evolucionar_metas();
-        # aquí solo se deja constancia de que hubo un logro.
-        pass
     return {
         "tipo": tipo,
         "texto": str(evento_texto),
@@ -87,17 +87,26 @@ def evolucionar_metas(agente, meta_completada=None, nueva_meta=None):
 
     Si no se indica meta completada, se retira la primera meta
     solo cuando el agente ya acumula al menos 4 recuerdos, para
-    no vaciar sus metas demasiado pronto. Si no se indica meta
-    nueva, se deriva una de los recuerdos más recientes.
-    Devuelve la meta nueva añadida, o None si no hubo cambio.
+    no vaciar sus metas demasiado pronto. Esa puerta protege la
+    retirada, no el alta: una meta nueva indicada explícitamente
+    se añade siempre (sin retirar ninguna si aún no toca retirar).
+    Si no se indica meta nueva, se deriva una de los recuerdos
+    más recientes. Devuelve la meta nueva añadida, o None si no
+    hubo cambio.
     """
     if meta_completada is not None:
         if meta_completada in agente.metas:
             agente.metas.remove(meta_completada)
     elif len(agente.memoria) >= 4 and agente.metas:
         agente.metas.pop(0)
-    else:
+    elif nueva_meta is None:
         return None
+    # Meta nueva explícita con menos de 4 recuerdos (o sin metas):
+    # se añade sin quitar ninguna. Bloquear también el alta
+    # descartaba la meta que Mundo.tick entrega al completar un
+    # proyecto: con ambición alta el proyecto se completa en 3
+    # colaboraciones (3 recuerdos) y nadie adoptaba la meta nueva
+    # (demostrado con sondas en la Ronda 4, ver log de la ronda).
     if nueva_meta is None:
         ultimo = agente.memoria[-1] if agente.memoria else "lo vivido"
         if "colabor" in ultimo.lower():
