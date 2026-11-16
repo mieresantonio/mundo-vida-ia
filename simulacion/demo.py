@@ -26,6 +26,19 @@ SEMILLA = 42
 TICKS = 30
 
 
+def asegurar_salida_utf8():
+    """La demo imprime español con tildes y eñes; en una consola
+    forzada a ASCII, el primer print() moría con UnicodeEncodeError
+    antes de simular y sin escribir el registro. Se pide UTF-8 con
+    reemplazo de lo no representable; si la salida no admite
+    reconfiguración (p. ej. un StringIO en tests), se deja como está.
+    """
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
+
+
 def crear_agentes():
     return [
         Agente("Lia", {
@@ -84,6 +97,7 @@ def construir_registro(mundo, agentes, rasgos_iniciales):
 
 
 def main():
+    asegurar_salida_utf8()
     mundo = Mundo(semilla=SEMILLA)
     agentes = crear_agentes()
     rasgos_iniciales = {a.nombre: dict(a.rasgos) for a in agentes}

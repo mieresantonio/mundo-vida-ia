@@ -294,9 +294,11 @@ class TestDemoComoPrograma(unittest.TestCase):
             os.path.join(destino, "simulacion"),
             ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
 
-    def _ejecutar(self, argumentos, cwd):
+    def _ejecutar(self, argumentos, cwd, entorno_extra=None):
         entorno = dict(os.environ)
         entorno.pop("PYTHONPATH", None)
+        if entorno_extra:
+            entorno.update(entorno_extra)
         resultado = subprocess.run(
             [sys.executable] + argumentos, cwd=cwd, env=entorno,
             capture_output=True, text=True, timeout=120)
@@ -347,6 +349,22 @@ class TestDemoComoPrograma(unittest.TestCase):
             os.makedirs(copia)
             self._copiar_proyecto(copia)
             self._ejecutar(["-m", "simulacion.demo"], cwd=copia)
+            self._comprobar_registro_de_la_copia(copia)
+
+    def test_modulo_con_consola_ascii_completa_la_demo(self):
+        """Ronda 16 nov 2026: con la E/S forzada a ASCII
+        (PYTHONIOENCODING=ascii), la demo moría con UnicodeEncodeError
+        en el primer print con «ñ», antes de simular y sin escribir
+        el registro (hallazgo de la ronda 22 del 9 nov, sin
+        corregir). Con la salida asegurada a UTF-8, la demo completa
+        y el registro es el conocido-bueno."""
+        with tempfile.TemporaryDirectory() as tmp:
+            copia = os.path.join(tmp, "proyecto")
+            os.makedirs(copia)
+            self._copiar_proyecto(copia)
+            self._ejecutar(
+                ["-m", "simulacion.demo"], cwd=copia,
+                entorno_extra={"PYTHONIOENCODING": "ascii"})
             self._comprobar_registro_de_la_copia(copia)
 
     def test_las_dos_vias_producen_el_mismo_registro(self):
