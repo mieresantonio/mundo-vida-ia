@@ -94,11 +94,14 @@ def evolucionar_metas(agente, meta_completada=None, nueva_meta=None):
     más recientes. Devuelve la meta nueva añadida, o None si no
     hubo cambio.
     """
+    cambio = False
     if meta_completada is not None:
         if meta_completada in agente.metas:
             agente.metas.remove(meta_completada)
+            cambio = True
     elif len(agente.memoria) >= 4 and agente.metas:
         agente.metas.pop(0)
+        cambio = True
     elif nueva_meta is None:
         return None
     # Meta nueva explícita con menos de 4 recuerdos (o sin metas):
@@ -121,7 +124,14 @@ def evolucionar_metas(agente, meta_completada=None, nueva_meta=None):
             nueva_meta = "Convertir lo vivido en algo útil para los demás"
     if nueva_meta not in agente.metas:
         agente.metas.append(nueva_meta)
-    return nueva_meta
+        cambio = True
+    # Sin retirada ni alta no hubo cambio: devolver la meta
+    # igualmente mentía al llamador (Mundo.tick registra "adopta
+    # una nueva" cuando el valor es verdadero). Antes de esta
+    # corrección, una meta nueva ya presente con menos de 4
+    # recuerdos y sin meta completada devolvía la meta sin haber
+    # tocado nada (16 nov 2026, 2ª tanda).
+    return nueva_meta if cambio else None
 
 
 def resumen_experiencia(agente):

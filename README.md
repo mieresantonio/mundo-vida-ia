@@ -30,7 +30,14 @@ python3 -m simulacion.demo
 Ambas vías hacen lo mismo y producen el mismo registro. La demo crea 5 agentes, corre 30 ticks, imprime la historia en pantalla y guarda
 el registro completo en `registro.json` (raíz) y en `visor/registro.json`.
 
-Tests: `python3 -m unittest discover` desde la raíz del proyecto corre la suite permanente de `tests/` (114 tests, solo biblioteca estándar) que fija los invariantes verificados en los ciclos anteriores: rechazos del motor, determinismo del registro y textos acentuados, más los bordes del motor (reglas duras de decisión, límites de energía, crecimiento por experiencias, evolución de metas, colaboración, los 6 tipos de caos e invariantes con varias semillas), el cierre de los hallazgos de la Ronda 4 (la meta nueva explícita ya no la bloquea la puerta de recuerdos, el constructor valida los tipos del protocolo y quedan caracterizados `decidir`, `resumen_experiencia` y `lugar_de`), la caracterización de `colaborar` (la región de rasgos y confianza en la que esa acción sí se elige, y la distancia exacta de la demo canónica a esa región), el contrato entre el motor y el visor (las claves y los tipos del registro que el visor lee, comprobados contra registros generados y contra los dos `registro.json` guardados) y la salida robusta en consolas sin UTF-8 (la demo completa la corrida con la E/S forzada a ASCII, regresión del 16 nov 2026).
+La demo acepta banderas sin romper la corrida canónica: `python3 -m simulacion.demo --semilla 7 --ticks 50 --con-ejemplos` siembra otra
+semilla, corre 50 ticks y añade a Nia, Bruno y Sofía (8 agentes). Sin banderas, la corrida es exactamente la canónica de siempre.
+
+El laboratorio de semillas (`python3 -m simulacion.laboratorio 100`) corre el motor en silencio sobre N semillas y compara las
+corridas en una tabla (eventos, diálogos, caos, colaboraciones, confianza máxima): responde con datos en cuántos mundos ocurre
+`colaborar`, sin escribir ningún registro. Con `--json` la salida es JSON.
+
+Tests: `python3 -m unittest discover` desde la raíz del proyecto corre la suite permanente de `tests/` (128 tests, solo biblioteca estándar) que fija los invariantes verificados en los ciclos anteriores: rechazos del motor, determinismo del registro y textos acentuados, más los bordes del motor (reglas duras de decisión, límites de energía, crecimiento por experiencias, evolución de metas, colaboración, los 6 tipos de caos e invariantes con varias semillas), el cierre de los hallazgos de la Ronda 4 (la meta nueva explícita ya no la bloquea la puerta de recuerdos, el constructor valida los tipos del protocolo y quedan caracterizados `decidir`, `resumen_experiencia` y `lugar_de`), la caracterización de `colaborar` (la región de rasgos y confianza en la que esa acción sí se elige, y la distancia exacta de la demo canónica a esa región), el contrato entre el motor y el visor (las claves y los tipos del registro que el visor lee, comprobados contra registros generados y contra los dos `registro.json` guardados), la salida robusta en consolas sin UTF-8 (la demo completa la corrida con la E/S forzada a ASCII, regresión del 16 nov 2026), el contrato de retorno de `evolucionar_metas` (sin retirada ni alta no hubo cambio y devuelve `None`, regresión del 16 nov 2026) y la convivencia de los 3 ejemplos con los 5 agentes de la demo (8 agentes sin choque de nombres, regresión del 16 nov 2026), y la CLI de la demo (las banderas `--semilla`, `--ticks` y `--con-ejemplos`, con la corrida canónica intacta sin banderas, 16 nov 2026), y el laboratorio de semillas (barrido determinista, semilla 42 = demo canónica, y conteo de colaboraciones validado con un caso positivo, 16 nov 2026).
 
 Para ver el resultado en el visor, sirve la carpeta por HTTP (el navegador
 bloquea leer archivos locales directamente) y abre `visor/index.html`:
@@ -56,7 +63,10 @@ python3 -m http.server 8000
   compartido hasta completarlo.
 - **Desarrollo.** Cada experiencia queda registrada. Tras varias experiencias
   del mismo tipo, un rasgo se mueve un poco (por ejemplo, sobrevivir tormentas
-  sube la paciencia; colaborar sube la sociabilidad). Las metas cumplidas se
+  sube la paciencia; colaborar sube la sociabilidad). No todos los tipos
+  mueven rasgos: explorar, los rumores, las visitas inesperadas y las
+  vivencias sin clasificar quedan en la memoria y se cuentan, pero no
+  cambian ningún rasgo. Las metas cumplidas se
   cierran y nacen metas nuevas derivadas de lo vivido.
 
 ## Cómo unirse (protocolo)
@@ -78,6 +88,11 @@ simulacion/
   interaccion.py   Diálogo, confianza y proyectos compartidos
   experiencia.py   Registro de experiencias y evolución de rasgos y metas
   demo.py          Demo: 5 agentes, 30 ticks, imprime la historia, guarda registro.json
+                   (banderas: --semilla, --ticks, --con-ejemplos)
+  laboratorio.py   Laboratorio: corre el motor sobre N semillas y compara las corridas
+tests/             Suite permanente de unittest (128 tests): invariantes del motor,
+                   bordes, contrato motor-visor, salida robusta en consolas ASCII,
+                   CLI de la demo y laboratorio de semillas
 como-unirse.md     Protocolo abierto para que otras IAs/agentes se unan
 ejemplos/          3 definiciones de agente (exploradora, constructor, organizadora)
 visor/
@@ -87,6 +102,7 @@ visor/
   registro.json    Último registro generado por la demo
 registro.json      Último registro generado por la demo
 log.md             Registro de corridas y cambios
+improvement-log.md Registro de mejoras: fallo, arreglo y verificación de cada cambio
 ```
 
 ## Límites honestos de esta beta
@@ -97,6 +113,12 @@ log.md             Registro de corridas y cambios
   en la demo de 30 ticks no llegan a dispararse: la acción `colaborar` no se
   elige ni una sola vez entre los 150 pensamientos de la corrida (los agentes
   hablan mucho y se agrupan); el protagonismo de la demo es diálogo y caos.
+  Medido con el laboratorio (16 nov 2026): tampoco se elige en ninguna de
+  600 semillas distintas (0–499 y 1000–1099), ni a 100 ticks, ni con los 8
+  agentes — 0 elecciones en más de 160.000 decisiones. La confianza sí llega
+  (media 0,77 a 30 ticks, 1,0 a 100), pero demasiado tarde: el crecimiento
+  por diálogo empuja la sociabilidad por encima de 0,7 antes, y la regla
+  dura de hablar captura a todo agente acompañado.
 - La semilla fija (42) hace la demo completamente determinista: sin cambios
   de código ni de datos, cada corrida produce exactamente el mismo registro,
   byte a byte (los mismos 375 eventos con el mismo desglose). El conteo solo

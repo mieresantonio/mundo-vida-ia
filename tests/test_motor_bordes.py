@@ -299,13 +299,28 @@ class TestExperiencia(unittest.TestCase):
         self.assertEqual(agente._conteo_experiencias["dialogo"], 0)
 
     def test_registrar_tipos_sin_crecimiento_solo_acumulan_conteo(self):
-        agente = agente_base()
-        for _ in range(3):
-            resultado = registrar_experiencia(
-                agente, "rumor sobre alguien", "rumor")
-            self.assertIsNone(resultado["cambio_rasgo"])
-        self.assertEqual(agente._conteo_experiencias["rumor"], 3)
-        self.assertEqual(agente.rasgos, dict(RASGOS_BASE))
+        # El conjunto completo sin crecimiento (16 nov 2026, 2ª
+        # tanda): explorar, rumor, visita_inesperada y vivencia
+        # (texto sin clasificar) se registran y cuentan, pero
+        # ningún rasgo se mueve por muchos que se acumulen. Antes
+        # este test solo cubría el rumor; los cuatro pasan por la
+        # misma rama (`tipo not in _CRECIMIENTO`).
+        casos = (
+            ("rumor", "rumor sobre alguien"),
+            ("explorar", "explorar bosque"),
+            ("visita_inesperada", "visita_inesperada: conocí a una viajera"),
+            (None, "nada conocido"),
+        )
+        for tipo, texto in casos:
+            with self.subTest(tipo=tipo or "vivencia"):
+                agente = agente_base()
+                for _ in range(3):
+                    resultado = registrar_experiencia(agente, texto, tipo)
+                    self.assertIsNone(resultado["cambio_rasgo"])
+                clave = tipo or "vivencia"
+                self.assertEqual(agente._conteo_experiencias[clave], 3)
+                self.assertEqual(agente.rasgos, dict(RASGOS_BASE))
+                self.assertEqual(len(agente.memoria), 3)
 
     def test_registrar_crea_el_contador_si_el_agente_no_lo_tiene(self):
         # Agentes ajenos al constructor de Agente (p. ej. objetos
@@ -336,6 +351,17 @@ class TestExperiencia(unittest.TestCase):
         nueva = evolucionar_metas(agente, meta_completada="m1",
                                   nueva_meta="m1")
         self.assertEqual(nueva, "m1")
+        self.assertEqual(agente.metas, ["m1"])
+
+    def test_evolucionar_sin_cambio_devuelve_none(self):
+        # REGRESIÓN 16 nov 2026 (2ª tanda): el docstring promete
+        # None "si no hubo cambio", pero una meta nueva ya presente,
+        # sin meta completada y sin retirada (menos de 4 recuerdos),
+        # devolvía la meta sin haber tocado nada — y Mundo.tick
+        # registra "adopta una nueva" cuando el valor es verdadero.
+        agente = agente_base(metas=["m1"])
+        agente.memoria = ["solo", "dos"]
+        self.assertIsNone(evolucionar_metas(agente, nueva_meta="m1"))
         self.assertEqual(agente.metas, ["m1"])
 
     def test_evolucionar_sin_completada_deriva_la_nueva_del_ultimo_recuerdo(self):

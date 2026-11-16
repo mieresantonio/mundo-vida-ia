@@ -1,5 +1,86 @@
 # Registro de mejoras — mundo-vida-ia
 
+## 2026-11-16 · Los ejemplos ya no chocan con la demo (2ª tanda)
+
+### El fallo — dos de los tres ejemplos tenían nombres de la demo
+
+- **Qué pasaba:** los ejemplos `constructor.json` y
+  `organizadora.json` se llamaban Tomas y Lia, los mismos nombres
+  que dos agentes de la demo (con rasgos y metas distintos). El
+  primer intento natural de unirse —cargar un ejemplo en el mundo
+  de la demo— moría con `ValueError` por nombre duplicado, aunque
+  la regla de unicidad está documentada.
+- **El arreglo (`ejemplos/`):** constructor pasa a llamarse Bruno
+  y organizadora Sofía; exploradora sigue siendo Nia. Solo cambia
+  el nombre: rasgos, metas y lugar intactos. Aprovechando el
+  cambio, los tres JSON se escriben legibles (indentación de 2,
+  claves en el mismo orden que el ejemplo de `como-unirse.md`)
+  en vez de en una sola línea minificada.
+- **Regresión (`tests/test_invariantes.py`):**
+  `test_los_tres_ejemplos_conviven_con_los_agentes_de_la_demo`
+  carga los 5 agentes de la demo y los 3 ejemplos en un mismo
+  mundo (8 agentes, nombres distintos) y corre 5 ticks.
+- **Verificación:** suite completa **116/116 OK** (115 + 1 nuevo);
+  demo canónica intacta (MD5
+  `b56a5a928fcf5a2722665c8251a5aa7b`, 375 eventos). README al día
+  con la suite (116 tests).
+
+## 2026-11-16 · Documentación al día con el motor (2ª tanda)
+
+- **`como-unirse.md`:** la tabla pedía «2 o 3 metas», pero el motor
+  acepta cualquier lista y los 5 agentes de la demo usan una sola
+  meta cada uno; ahora dice «una o más» con esa precisión. El paso
+  3 del ciclo listaba «mover» como si fuera una acción — no lo es
+  (las 6 acciones son hablar, explorar, construir, descansar,
+  colaborar y observar) y decía que actuar «actualiza el lugar»,
+  cuando el cambio de lugar es aleatorio (20% por tick) y ocurre
+  después de que todos actúen; redactado como es.
+- **README:** la frase de «Desarrollo» daba a entender que toda
+  experiencia repetida mueve un rasgo; en realidad explorar, los
+  rumores, las visitas inesperadas y las vivencias sin clasificar
+  solo se registran y se cuentan. Añadida la precisión y ampliado
+  el test `test_registrar_tipos_sin_crecimiento_solo_acumulan_conteo`
+  del rumor solo a los cuatro tipos sin crecimiento.
+- **`log.md`:** la cita del diálogo decía «¿y tu?» sin tilde; el
+  texto real es «¿y tú?». Las dos notas pendientes («falta una
+  renderización en navegador real» y «subir el contenido a
+  GitHub») quedaron resueltas y se marca así sin reescribir la
+  historia.
+- **`tests/test_contrato_visor.py`:** el docstring citaba líneas
+  del visor y del motor que ya no coincidían tras los cambios
+  posteriores (`cargar` L751→L744, «Sin metas registradas»
+  L650→L670, `construir_registro` L68-88→L72-96, `_registrar`
+  L92-99→L92-100, constructor de `Agente` L41-69→L34-83,
+  `eventoHTML` L675-682→L675-683). Verificadas una por una contra
+  los archivos reales; las demás referencias seguían vigentes.
+- **Verificación:** suite **115/115 OK**; demo canónica intacta
+  (MD5 `b56a5a928fcf5a2722665c8251a5aa7b`).
+
+## 2026-11-16 · `evolucionar_metas` ya no miente cuando no cambia nada
+
+### El fallo — devolvía la meta nueva sin haber tocado nada
+
+- **Qué pasaba:** el docstring de `evolucionar_metas` promete
+  devolver la meta nueva añadida «o None si no hubo cambio», pero
+  con una meta nueva ya presente, sin meta completada y sin
+  retirada (menos de 4 recuerdos), devolvía la meta sin modificar
+  nada. El llamador (`Mundo.tick`) registra «completa una meta y
+  adopta una nueva» cuando el valor es verdadero, así que el
+  registro podía afirmar una adopción que no ocurrió.
+- **El arreglo (`simulacion/experiencia.py`):** la función sigue
+  si hubo retirada o alta y devuelve la meta solo en ese caso;
+  si no hubo cambio devuelve `None`, como promete el docstring.
+  El caso vecino (meta completada retirada y vuelta a añadir con
+  el mismo nombre) sigue devolviendo la meta, como fija el test
+  existente.
+- **Regresión (`tests/test_motor_bordes.py`):**
+  `test_evolucionar_sin_cambio_devuelve_none` exige `None` y las
+  metas intactas para una meta ya presente sin retirada.
+- **Verificación:** suite completa **115/115 OK** (114 + 1 nuevo);
+  la demo canónica no se mueve (la demo no llega a colaborar):
+  MD5 `b56a5a928fcf5a2722665c8251a5aa7b`, 375 eventos. README al
+  día con la suite (115 tests).
+
 ## 2026-11-16 · La demo ya no muere en consolas ASCII
 
 ### El fallo — UnicodeEncodeError en el primer print con «ñ»

@@ -9,7 +9,7 @@ coordinador con idéntico resultado).
 - Eventos totales: 375
   - pensamiento: 150 · acción: 80 · diálogo: 70 · crecimiento: 64 · caos: 11
 - Diálogos: 70 (ejemplo: Tomas le dice a Lia: "estoy trabajando en una meta
-  que me importa mucho, ¿y tu?").
+  que me importa mucho, ¿y tú?").
 - Caos: 11 eventos (descubrimientos, escasez en el mercado, rumores en el
   taller, entre otros).
 - Crecimiento: los 5 agentes terminaron con rasgos distintos a los iniciales
@@ -37,5 +37,10 @@ coordinador con idéntico resultado).
   muestra en /tmp (nunca dentro del repo); falta una renderización en
   navegador real con el registro verdadero, que se hará al abrirlo con un
   servidor local.
+  [Resuelto el 16 nov 2026: pasada visual completa en Chromium headless
+  con el registro verdadero — conteos, filtros, atajos y móvil en verde,
+  sin defectos. Ver la Ronda 10 del log de la operación de mejora.]
 - Pendiente para el padre: subir el contenido al repo GitHub ya creado
   (https://github.com/mieresantonio/mundo-vida-ia) cuando lo disponga.
+  [Resuelto: el repo está publicado en GitHub y la demo canónica sigue
+  verificada contra el MD5 `b56a5a928fcf5a2722665c8251a5aa7b`.]

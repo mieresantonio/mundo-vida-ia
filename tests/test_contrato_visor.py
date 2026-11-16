@@ -19,30 +19,30 @@ Del visor (``visor/index.html``):
 - L636-673 (``tarjetaAgente``): lee de cada agente ``nombre``,
   ``rasgos_iniciales``, ``rasgos_finales``, ``animo``, ``energia``,
   ``metas`` y ``recuerdos`` (de recuerdos solo ``.length``, L657).
-- L675-682 (``eventoHTML``) y L723-729: lee de cada evento ``tick``,
+- L675-683 (``eventoHTML``) y L723-729: lee de cada evento ``tick``,
   ``tipo``, ``agente`` y ``texto``.
 - L714-719 (``pintar``): lee ``meta.ticks``, ``meta.semilla``,
   ``agentes.length`` y ``eventos.length``.
-- L751 (``cargar``): la ÚNICA validación estructural del visor es
+- L744 (``cargar``): la ÚNICA validación estructural del visor es
   ``datos.meta`` presente y ``agentes``/``eventos`` arrays; si falla,
   prueba la otra ruta y al final muestra el panel de error
   (``mostrarError``, L738). Todo lo demás degrada en silencio:
   rasgo ausente -> fila omitida (L638-640), metas ausentes ->
-  «Sin metas registradas» (L650), tipo de evento desconocido ->
+  «Sin metas registradas» (L670), tipo de evento desconocido ->
   se pinta solo en «todos», sin color ni filtro propio (L676,
   L685-703), ``agente`` ausente -> se omite el nombre (L680).
 
 Del motor:
-- ``simulacion/demo.py`` L68-88 (``construir_registro``): proyecta
+- ``simulacion/demo.py`` L130-154 (``construir_registro``): proyecta
   ``meta{ticks, semilla}``, ``agentes`` con exactamente las 7 claves
   de arriba y ``eventos`` con exactamente ``tick/tipo/agente/texto``.
-- ``simulacion/mundo.py`` L92-99 (``_registrar``) y sus llamadores:
+- ``simulacion/mundo.py`` L92-100 (``_registrar``) y sus llamadores:
   ``pensamiento`` (L203), ``dialogo`` (L217), ``accion`` (L234,
   L255), ``crecimiento`` (L102-111 y L249-253) siempre con
   ``agente`` = nombre (cadena); ``caos`` (L193) siempre con
   ``agente`` = None.
 - ``simulacion/agente.py`` L7: ``RASGOS_VALIDOS`` son los mismos 4
-  rasgos del visor, y el constructor (L41-69) los completa todos,
+  rasgos del visor, y el constructor (L34-83) los completa todos,
   numéricos en 0.0-1.0; ``energia`` se mantiene en 0-100.
 
 Los registros se generan de verdad (demo canónica y un barrido de

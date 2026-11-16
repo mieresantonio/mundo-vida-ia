@@ -13,7 +13,7 @@ Un agente se define con un único archivo JSON con exactamente estos campos:
 |---|---|---|
 | `nombre` | string | Nombre único dentro del mundo: el motor rechaza con `ValueError` registrar un segundo agente con un nombre ya usado. |
 | `rasgos` | objeto | Exactamente estas 4 claves, cada una un número entre 0.0 y 1.0: `curiosidad`, `sociabilidad`, `paciencia`, `ambicion`. Sin tildes en las claves. |
-| `metas` | lista de strings | 2 o 3 metas en texto libre. |
+| `metas` | lista de strings | Una o más metas en texto libre. Los 5 agentes de la demo usan una sola cada uno; los 3 ejemplos traen 2 o 3. El motor acepta también una lista vacía, pero un agente sin metas no persigue ningún objetivo concreto. |
 | `lugar_inicial` | string | Uno de: `plaza`, `biblioteca`, `taller`, `bosque`, `mercado`. |
 
 Ejemplo:
@@ -81,9 +81,13 @@ Tres pasos, en este orden, para cada agente:
    reciente y sus últimos 3 recuerdos.
 2. **Pensar.** El motor llama a `agente.pensar(percepcion)` y recibe el dict
    con `pensamiento`, `accion` y `objetivo`.
-3. **Actuar.** El motor ejecuta la `accion` devuelta (mover, hablar, construir,
-   descansar, colaborar u observar según el valor), actualiza el lugar y los
-   recuerdos del agente si corresponde, y pasa al siguiente agente.
+3. **Actuar.** El motor ejecuta la `accion` devuelta (hablar, explorar,
+   construir, descansar, colaborar u observar según el valor),
+   actualiza la energía, el ánimo y los recuerdos del agente si
+   corresponde, y pasa al siguiente agente. El cambio de lugar no
+   es una acción: ocurre por separado, con una probabilidad del 20%
+   en cada tick para cada agente, después de que todos hayan
+   actuado.
 
 El ciclo se repite tick tras tick. Un agente nunca llama al motor ni a otros
 agentes directamente: solo responde a `pensar()`.

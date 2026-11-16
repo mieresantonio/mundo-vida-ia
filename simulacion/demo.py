@@ -3,8 +3,14 @@
 Código 100% original, escrito desde cero para mundo-vida-ia.
 Semilla fija (42) para que cada ejecución sea reproducible.
 Solo usa la biblioteca estándar de Python.
+
+Banderas (sin banderas, la corrida es exactamente la canónica):
+  --semilla N      otra semilla para el generador aleatorio
+  --ticks N        número de ticks de la simulación
+  --con-ejemplos   añade a Nia, Bruno y Sofía (ejemplos/), 8 agentes
 """
 
+import argparse
 import json
 import os
 import sys
@@ -24,6 +30,58 @@ else:
 
 SEMILLA = 42
 TICKS = 30
+
+# Los 3 agentes de ejemplos/, en el orden Nia, Bruno, Sofía:
+# exploradora (Nia), constructor (Bruno), organizadora (Sofía).
+EJEMPLOS = ("exploradora.json", "constructor.json", "organizadora.json")
+
+
+def raiz_proyecto():
+    """Raíz del proyecto relativa a este script (demo.py vive en
+    simulacion/, la raíz es su carpeta padre): así la demo lee y
+    escribe dentro del clon desde el que se ejecuta, esté donde esté.
+    """
+    return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def parse_args(argv=None):
+    """Banderas de la CLI. Los valores por defecto son las constantes
+    de la demo canónica, así que sin banderas la corrida es
+    exactamente la de siempre (semilla 42, 30 ticks, 5 agentes).
+    """
+    parser = argparse.ArgumentParser(
+        prog="simulacion.demo",
+        description="Mundo-vida-ia: 5 agentes, 30 ticks, historia en "
+                    "español. Sin banderas, la corrida canónica.",
+    )
+    parser.add_argument("--semilla", type=int, default=SEMILLA,
+                        help="semilla del generador aleatorio "
+                             "(por defecto: %(default)s)")
+    parser.add_argument("--ticks", type=int, default=TICKS,
+                        help="número de ticks de la simulación "
+                             "(por defecto: %(default)s)")
+    parser.add_argument("--con-ejemplos", action="store_true",
+                        help="añade a Nia, Bruno y Sofía "
+                             "(ejemplos/): 8 agentes en el mundo")
+    args = parser.parse_args(argv)
+    if args.ticks < 0:
+        parser.error("--ticks no puede ser negativo")
+    return args
+
+
+def cargar_ejemplos():
+    """Los 3 agentes de ejemplos/ como objetos Agente, en el orden
+    Nia, Bruno, Sofía. Sus nombres no chocan con los de la demo
+    (los 8 conviven; ver test_invariantes, regresión 16 nov 2026).
+    """
+    agentes = []
+    for archivo in EJEMPLOS:
+        ruta = os.path.join(raiz_proyecto(), "ejemplos", archivo)
+        with open(ruta, encoding="utf-8") as f:
+            datos = json.load(f)
+        agentes.append(Agente(datos["nombre"], datos["rasgos"],
+                              datos["metas"], datos["lugar_inicial"]))
+    return agentes
 
 
 def asegurar_salida_utf8():
@@ -96,20 +154,23 @@ def construir_registro(mundo, agentes, rasgos_iniciales):
     }
 
 
-def main():
+def main(argv=None):
+    args = parse_args(argv)
     asegurar_salida_utf8()
-    mundo = Mundo(semilla=SEMILLA)
+    mundo = Mundo(semilla=args.semilla)
     agentes = crear_agentes()
+    if args.con_ejemplos:
+        agentes.extend(cargar_ejemplos())
     rasgos_iniciales = {a.nombre: dict(a.rasgos) for a in agentes}
     for agente in agentes:
         mundo.agregar_agente(agente)
 
     print("=== MUNDO-VIDA-IA ===")
-    print("5 agentes despiertan en un mundo pequeño: plaza, biblioteca, "
-          "taller, bosque y mercado.")
+    print("%d agentes despiertan en un mundo pequeño: plaza, biblioteca, "
+          "taller, bosque y mercado." % len(agentes))
     print("Cada uno piensa, actúa, habla, colabora... y el caos interviene.\n")
 
-    for _ in range(TICKS):
+    for _ in range(args.ticks):
         antes = len(mundo.eventos)
         mundo.tick()
         nuevos = mundo.eventos[antes:]
@@ -130,10 +191,7 @@ def main():
         print()
 
     registro = construir_registro(mundo, agentes, rasgos_iniciales)
-    # Raíz del proyecto relativa a este script (demo.py vive en
-    # simulacion/, la raíz es su carpeta padre): así la demo escribe
-    # dentro del clon desde el que se ejecuta, esté donde esté.
-    base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    base = raiz_proyecto()
     visor = os.path.join(base, "visor")
     os.makedirs(visor, exist_ok=True)
     rutas = [
@@ -147,7 +205,7 @@ def main():
     caos = sum(1 for e in registro["eventos"] if e["tipo"] == "caos")
     print("=== FIN DE LA SIMULACIÓN ===")
     print("Ticks: %d | Diálogos: %d | Eventos de caos: %d"
-          % (TICKS, dialogos, caos))
+          % (args.ticks, dialogos, caos))
     for agente in registro["agentes"]:
         cambio = agente["rasgos_finales"] != agente["rasgos_iniciales"]
         print("  %s: ánimo=%s, energía=%d, rasgos cambiaron=%s"

@@ -243,6 +243,31 @@ class TestEjemplos(unittest.TestCase):
         self.assertEqual(mundo.tick_actual, 5)
         self.assertTrue(mundo.eventos)
 
+    def test_los_tres_ejemplos_conviven_con_los_agentes_de_la_demo(self):
+        # REGRESIÓN 16 nov 2026 (2ª tanda): los ejemplos
+        # constructor y organizadora se llamaban Tomas y Lia —los
+        # mismos nombres que dos agentes de la demo— así que el
+        # primer intento natural de unirse (cargar un ejemplo en
+        # el mundo de la demo) moría con ValueError por nombre
+        # duplicado. Ahora se llaman Bruno y Sofía y los 8
+        # agentes conviven y el mundo corre.
+        mundo = Mundo()
+        for agente in crear_agentes():
+            mundo.agregar_agente(agente)
+        for archivo in ("exploradora.json", "constructor.json",
+                        "organizadora.json"):
+            with open(os.path.join(RAIZ, "ejemplos", archivo),
+                      encoding="utf-8") as f:
+                datos = json.load(f)
+            mundo.agregar_agente(Agente(datos["nombre"], datos["rasgos"],
+                                        datos["metas"],
+                                        datos["lugar_inicial"]))
+        self.assertEqual(len(mundo.agentes), 8)
+        self.assertEqual(len({a.nombre for a in mundo.agentes}), 8)
+        mundo.ejecutar(5)
+        self.assertEqual(mundo.tick_actual, 5)
+        self.assertTrue(mundo.eventos)
+
 
 class TestDeterminismo(unittest.TestCase):
     """Ciclos 3-5: mismo registro entre ejecuciones, igual al
