@@ -19,6 +19,46 @@ def _subir_confianza(agente, otro_nombre, cantidad=_AUMENTO_CONFIANZA):
         1.0, _confianza_actual(agente, otro_nombre) + cantidad)
 
 
+# Nombres propios para los proyectos de la aldea (2ª tanda, 23 nov
+# 2026). Antes todos se llamaban «Proyecto del mercado» (o del lugar
+# donde nacían) y ninguno se recordaba; ahora cada proyecto toma un
+# nombre de esta tabla según su lugar, con los participantes dentro
+# del nombre («El puesto de Mara y Nara»). Dos plantillas por lugar:
+# la primera nombra a dos participantes ({a} y {b}) y la segunda a
+# uno solo ({a}); la elección es determinista (suma de las
+# longitudes de los nombres, módulo 2), así que la misma corrida
+# produce siempre el mismo nombre y el determinismo por semilla se
+# mantiene. Los nombres no llevan tildes para no mover el conteo de
+# formas acentuadas más de lo que ya mueve el cambio de texto.
+_NOMBRES_PROYECTO = {
+    "plaza": ("La plaza de {a} y {b}", "El rincón de {a}"),
+    "biblioteca": ("La biblioteca de {a} y {b}", "El mapa de {a}"),
+    "taller": ("El taller de {a} y {b}", "La herramienta de {a}"),
+    "bosque": ("El sendero de {a} y {b}", "El claro de {a}"),
+    "mercado": ("El puesto de {a} y {b}", "La feria de {a}"),
+}
+
+
+def nombre_proyecto(lugar, participantes):
+    """Nombre propio para un proyecto nuevo.
+
+    ``participantes`` es la lista de nombres de quienes lo empiezan
+    (el primero es quien toma la iniciativa). Si la plantilla
+    elegida necesita dos nombres y solo hay uno, se usa la otra
+    plantilla del lugar; si el lugar no está en la tabla, el nombre
+    es «Proyecto de {a}». Nunca devuelve una plantilla sin rellenar.
+    """
+    nombres = [str(n) for n in (participantes or ["alguien"])]
+    plantillas = _NOMBRES_PROYECTO.get(
+        str(lugar), ("Proyecto de {a} y {b}", "Proyecto de {a}"))
+    indice = sum(len(n) for n in nombres) % len(plantillas)
+    plantilla = plantillas[indice]
+    if "{b}" in plantilla and len(nombres) < 2:
+        plantilla = plantillas[(indice + 1) % len(plantillas)]
+    segundo = nombres[1] if len(nombres) > 1 else nombres[0]
+    return plantilla.format(a=nombres[0], b=segundo)
+
+
 def hablar(emisor, receptor, pensamiento):
     """Genera un mensaje del emisor al receptor y sube la confianza mutua.
 
@@ -38,6 +78,13 @@ def hablar(emisor, receptor, pensamiento):
     elif "tormenta" in texto:
         cuerpo = ("la tormenta me dejó pensando, "
                   "¿a ti también te afectó?")
+    elif "confío mucho" in texto:
+        # Sesión de mejora, 23 nov 2026: el pensamiento de un
+        # agente que va a colaborar por confianza dice "confío
+        # mucho en X"; si ese pensamiento llega a diálogo (porque
+        # otro agente lo escucha), el mensaje lo dice tal cual en
+        # vez de caer en la plantilla genérica de metas.
+        cuerpo = "confío mucho en ti, ¿hacemos algo juntos?"
     elif "meta" in texto or "quiero lograr" in texto or "proyecto" in texto:
         cuerpo = "estoy trabajando en una meta que me importa mucho, ¿y tú?"
     elif "solo" in texto:

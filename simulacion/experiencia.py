@@ -16,6 +16,11 @@ _CRECIMIENTO = {
     "construir": ("ambicion", 0.03),
     "escasez": ("paciencia", 0.04),
     "celebracion": ("sociabilidad", 0.02),
+    # Sesión de mejora, 23 nov 2026 (los dos tipos de caos nuevos):
+    # vivir eclipses enseña a esperar (paciencia); vivir ferias
+    # enseña a tratar con otros (sociabilidad).
+    "eclipse": ("paciencia", 0.04),
+    "feria": ("sociabilidad", 0.02),
 }
 
 # Experiencias necesarias para un hito de crecimiento.
@@ -37,7 +42,9 @@ def _clasificar(texto, tipo_sugerido=None):
                           ("dialogo", "dialogo"),
                           ("diálogo", "dialogo"),
                           ("colaborar", "colaborar"),
-                          ("construir", "construir")):
+                          ("construir", "construir"),
+                          ("eclipse", "eclipse"),
+                          ("feria", "feria")):
         if palabra in bajo:
             return tipo
     return "vivencia"
@@ -132,6 +139,43 @@ def evolucionar_metas(agente, meta_completada=None, nueva_meta=None):
     # recuerdos y sin meta completada devolvía la meta sin haber
     # tocado nada (16 nov 2026, 2ª tanda).
     return nueva_meta if cambio else None
+
+
+# Prefijo de las metas compartidas: una meta compartida es un deseo
+# («Hacer un proyecto juntos con Nara») que dos amigos adoptan al
+# hacerse amigos. El texto lleva el nombre del otro agente, así que
+# cada meta compartida pertenece a un par concreto.
+_PREFIJO_META_COMPARTIDA = "Hacer un proyecto juntos con "
+
+
+def meta_compartida_con(agente, otro_nombre):
+    """La meta compartida del agente con otro agente, si la tiene.
+
+    Devuelve el texto de la meta o None. Es la pregunta que el
+    mundo hace al completar un proyecto: si un participante tiene
+    una meta compartida con otro participante, ese proyecto la
+    cumple y la meta se retira (ver Mundo.tick).
+    """
+    texto = _PREFIJO_META_COMPARTIDA + str(otro_nombre)
+    return texto if texto in agente.metas else None
+
+
+def adoptar_meta_compartida(agente, otro_nombre):
+    """El agente adopta la meta de hacer un proyecto con otro.
+
+    Solo AÑADE: nunca retira ninguna meta. Por eso no pasa por
+    evolucionar_metas(): esa función retira la primera meta cuando
+    el agente ya acumula 4 recuerdos, y hacerse amigo de alguien
+    no debería borrar la meta propia del agente (su deseo
+    original). Devuelve la meta añadida, o None si ya la tenía
+    (mismo contrato de retorno que evolucionar_metas: sin cambio,
+    None).
+    """
+    texto = _PREFIJO_META_COMPARTIDA + str(otro_nombre)
+    if texto in agente.metas:
+        return None
+    agente.metas.append(texto)
+    return texto
 
 
 def resumen_experiencia(agente):

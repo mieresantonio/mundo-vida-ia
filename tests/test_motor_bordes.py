@@ -12,14 +12,17 @@ estándar (``python3 -m trace --count --missing``):
   crecimiento de ``registrar_experiencia``, ``evolucionar_metas``
   completo y ``resumen_experiencia`` (sin ningún llamador en el
   motor: solo se ejercitan aquí).
-- ``interaccion.colaborar`` completo (en la demo de la semilla 42
-  la rama de colaborar de ``Mundo.tick`` no se dispara ni una vez
-  en 30 ticks) y las plantillas de ``hablar`` que la demo no
-  produce (cansado, solo, curiosidad y la de por defecto).
-- Los 6 tipos de caos de ``Mundo.generar_caos`` forzados con un
-  RNG falso determinista, incluidas las ramas que la semilla 42
-  no alcanza (celebración con dos agentes en la plaza y rumor
-  con un solo agente).
+- ``interaccion.colaborar`` completo (hasta el 23 nov 2026, en
+  la demo de la semilla 42 la rama de colaborar de ``Mundo.tick``
+  no se disparaba ni una vez en 30 ticks; desde la regla dura de
+  colaborar por confianza sí se dispara) y las plantillas de
+  ``hablar`` que la demo no produce (cansado, solo, curiosidad y
+  la de por defecto).
+- Los 6 tipos de caos originales de ``Mundo.generar_caos``
+  forzados con un RNG falso determinista, incluidas las ramas que
+  la semilla 42 no alcanza (celebración con dos agentes en la
+  plaza y rumor con un solo agente). Los 2 tipos nuevos (eclipse
+  y feria) se fuerzan igual en tests/test_mejora_2026_11_23.py.
 - El protocolo de agente personalizado de ``como-unirse.md``:
   un ``pensar()`` propio que devuelve ``hablar``/``colaborar``
   con ``objetivo`` a ``None`` funciona dentro de ``Mundo.tick``.
@@ -511,6 +514,20 @@ class _RngFalso:
         return 0.99
 
 
+class _RngQuieto:
+    """RNG sin movimiento ni caos espontáneo (como el _RngFijo de
+    test_ronda4_hallazgos): aísla la rama de colaborar de
+    Mundo.tick del azar del movimiento y del caos, que desde el
+    23 nov 2026 (8 tipos de caos) cambian de flujo y podrían
+    separar a los agentes antes de completar el proyecto."""
+
+    def random(self):
+        return 0.99
+
+    def choice(self, secuencia):
+        return secuencia[0]
+
+
 def mundo_de_caos(tipo, agentes):
     mundo = Mundo(semilla=1)
     mundo.rng = _RngFalso(tipo)
@@ -690,6 +707,9 @@ class TestProtocoloAgentesPersonalizados(unittest.TestCase):
 
     def test_colaborar_en_tick_crea_completa_y_hace_evolucionar_metas(self):
         mundo = Mundo(semilla=3)
+        # Sin movimiento ni caos: lo que este test mide es la rama
+        # de colaborar de Mundo.tick, no la suerte del azar.
+        mundo.rng = _RngQuieto()
         agentes = []
         for nombre in ("ColabUno", "ColabDos"):
             agente = _ColaboradorSiempre(

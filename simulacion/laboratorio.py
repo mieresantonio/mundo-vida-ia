@@ -1,15 +1,21 @@
 """Laboratorio de semillas de mundo-vida-ia (2ª tanda, 16 nov 2026).
 
 Corre el motor en silencio sobre varias semillas y compara cómo
-diverge la simulación: eventos, diálogos, caos, colaboraciones y
-rasgos finales por semilla. No escribe ningún registro: solo mide
-mundos en memoria, así que la demo canónica queda intacta.
+diverge la simulación: eventos, diálogos, caos, colaboraciones,
+amistades y rasgos finales por semilla. No escribe ningún
+registro: solo mide mundos en memoria, así que la demo canónica
+queda intacta.
 
-Su primera pregunta es la abierta más interesante del repo: en la
-demo canónica la acción ``colaborar`` no se elige ni una vez
+Su primera pregunta era la abierta más interesante del repo: en
+la demo canónica la acción ``colaborar`` no se elegía ni una vez
 (0 de 150 a 30 ticks, 0 de 15.000 a 3.000 ticks; ver Ronda 6) —
 ¿en cuántas semillas sí llega a ocurrir, y qué tienen en común
-esos mundos?
+esos mundos? Desde la sesión de mejora del 23 nov 2026 la
+pregunta tiene respuesta: la regla dura de colaborar por
+confianza (agente.py) abrió la puerta y colaborar ya ocurre en
+la demo y en parte de las semillas; el laboratorio ahora mide
+cuánto (colaboraciones, proyectos completados y amistades por
+semilla) en vez de demostrar un cero.
 
 Uso::
 
@@ -42,7 +48,8 @@ else:
 
 SEMILLAS_POR_DEFECTO = 20
 TICKS_POR_DEFECTO = 30
-TIPOS_EVENTO = ("pensamiento", "accion", "dialogo", "crecimiento", "caos")
+TIPOS_EVENTO = ("pensamiento", "accion", "dialogo", "crecimiento", "caos",
+                "amistad")
 RASGOS = ("curiosidad", "sociabilidad", "paciencia", "ambicion")
 
 
@@ -93,8 +100,9 @@ def medir(mundo, agentes):
     """Mide una corrida terminada. Devuelve un dict con los conteos
     por tipo de evento, las colaboraciones reales (mensajes de
     proyecto), las veces que se eligió colaborar (pensamientos
-    «voy a colaborar»), los proyectos completados, la confianza
-    máxima entre cualquier par de agentes y la media de los rasgos
+    «voy a colaborar»), los proyectos completados, las amistades
+    formadas (eventos de tipo «amistad»), la confianza máxima
+    entre cualquier par de agentes y la media de los rasgos
     finales.
     """
     conteo = {tipo: 0 for tipo in TIPOS_EVENTO}
@@ -130,6 +138,7 @@ def medir(mundo, agentes):
         "colaboraciones": colaboraciones,
         "proyectos_completados": proyectos,
         "elecciones_colaborar": elecciones,
+        "amistades": conteo.get("amistad", 0),
         "confianza_max": round(confianza_max, 3),
         "rasgos_finales_medios": rasgos_medios,
     }
@@ -154,10 +163,11 @@ def _media(valores):
 
 
 def resumir(resultados):
-    """Resumen del barrido: cuántas semillas colaboran (la pregunta
-    abierta del repo), totales, rango de eventos y la comparación
-    clave — la confianza máxima media en los mundos que colaboran
-    frente a los que no — para ver qué tienen en común.
+    """Resumen del barrido: cuántas semillas colaboran, totales,
+    rango de eventos y la comparación clave — la confianza máxima
+    media en los mundos que colaboran frente a los que no — para
+    ver qué tienen en común. Desde el 23 nov 2026 también cuenta
+    las amistades totales del barrido.
     """
     con_colaboracion = [r for r in resultados if r["colaboraciones"] > 0]
     sin_colaboracion = [r for r in resultados if r["colaboraciones"] == 0]
@@ -172,6 +182,8 @@ def resumir(resultados):
                                      for r in resultados),
         "elecciones_colaborar_total": sum(
             r["elecciones_colaborar"] for r in resultados),
+        "amistades_totales": sum(r.get("amistades", 0)
+                                 for r in resultados),
         "decisiones_totales": sum(r["pensamiento"] for r in resultados),
         "eventos_min": min(eventos) if eventos else 0,
         "eventos_max": max(eventos) if eventos else 0,
@@ -187,14 +199,15 @@ def formatear_tabla(resultados, resumen):
     """Tabla de texto: una fila por semilla, más el resumen."""
     lineas = []
     cabecera = ("semilla  eventos  diál.  caos  colab.  proy.  "
-                "conf.máx  soc.med")
+                "amist.  conf.máx  soc.med")
     lineas.append(cabecera)
     lineas.append("-" * len(cabecera))
     for r in resultados:
         lineas.append(
-            "%7d  %7d  %5d  %4d  %6d  %5d  %8.2f  %7.2f"
+            "%7d  %7d  %5d  %4d  %6d  %5d  %6d  %8.2f  %7.2f"
             % (r["semilla"], r["eventos"], r["dialogo"], r["caos"],
                r["colaboraciones"], r["proyectos_completados"],
+               r.get("amistades", 0),
                r["confianza_max"],
                r["rasgos_finales_medios"]["sociabilidad"]))
     lineas.append("-" * len(cabecera))
@@ -209,6 +222,8 @@ def formatear_tabla(resultados, resumen):
     lineas.append("Colaborar elegido: %d de %d decisiones"
                   % (resumen["elecciones_colaborar_total"],
                      resumen["decisiones_totales"]))
+    lineas.append("Amistades totales: %d"
+                  % resumen["amistades_totales"])
     lineas.append("Eventos: min %d, max %d, media %.1f"
                   % (resumen["eventos_min"], resumen["eventos_max"],
                      resumen["eventos_media"]))

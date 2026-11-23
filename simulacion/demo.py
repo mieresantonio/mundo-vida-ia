@@ -22,11 +22,13 @@ if __package__ in (None, ""):
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     from agente import Agente
     from mundo import Mundo
+    from diario import generar_diario, generar_momentos
 else:
     # Ejecutado como módulo desde la raíz del proyecto
     # (python3 -m simulacion.demo): imports relativos al paquete.
     from .agente import Agente
     from .mundo import Mundo
+    from .diario import generar_diario, generar_momentos
 
 SEMILLA = 42
 TICKS = 30
@@ -127,8 +129,19 @@ def crear_agentes():
     ]
 
 
+def _es_colaboracion(texto):
+    """True si el evento de acción es un mensaje de proyecto (una
+    colaboración real con compañeros). Es la misma detección que
+    laboratorio._es_colaboracion, repetida aquí a propósito: el
+    laboratorio importa de demo, así que demo no puede importar
+    del laboratorio sin un ciclo. Las dos formas las produce
+    interaccion.colaborar.
+    """
+    return " avanzan en '" in texto or texto.startswith("¡Proyecto '")
+
+
 def construir_registro(mundo, agentes, rasgos_iniciales):
-    return {
+    registro = {
         "meta": {"ticks": mundo.tick_actual, "semilla": mundo.semilla},
         "agentes": [
             {
@@ -139,6 +152,17 @@ def construir_registro(mundo, agentes, rasgos_iniciales):
                 "energia": a.energia,
                 "metas": list(a.metas),
                 "recuerdos": list(a.memoria),
+                # Sesión de mejora, 23 nov 2026: el mapa de
+                # confianza final (nombre -> 0.0-1.0) que el visor
+                # usa para pintar la red de confianza. Se redondea
+                # a 2 decimales porque la confianza se acumula en
+                # pasos de 0.05 y 0.03 y el flotante deja restos
+                # (0.30000000000000004); se ordena por nombre para
+                # que el JSON sea estable.
+                "relaciones": {
+                    nombre: round(valor, 2)
+                    for nombre, valor in sorted(a.relaciones.items())
+                },
             }
             for a in agentes
         ],
@@ -152,6 +176,11 @@ def construir_registro(mundo, agentes, rasgos_iniciales):
             for e in mundo.eventos
         ],
     }
+    # Momentos destacados: se calculan del registro ya construido
+    # (diario.py solo lee meta/agentes/eventos) y se guardan como
+    # clave propia para que el visor los pinte sin recalcularlos.
+    registro["momentos"] = generar_momentos(registro)
+    return registro
 
 
 def main(argv=None):
@@ -186,6 +215,8 @@ def main(argv=None):
                 print("  [CAOS] %s" % evento["texto"])
             elif tipo == "crecimiento":
                 print("  [crece] %s" % evento["texto"])
+            elif tipo == "amistad":
+                print("  [amistad] %s" % evento["texto"])
             else:
                 print("  [%s] %s" % (evento["agente"], evento["texto"]))
         print()
@@ -203,15 +234,27 @@ def main(argv=None):
             json.dump(registro, f, ensure_ascii=False, indent=2)
     dialogos = sum(1 for e in registro["eventos"] if e["tipo"] == "dialogo")
     caos = sum(1 for e in registro["eventos"] if e["tipo"] == "caos")
+    amistades = sum(1 for e in registro["eventos"] if e["tipo"] == "amistad")
+    colaboraciones = sum(
+        1 for e in registro["eventos"]
+        if e["tipo"] == "accion" and _es_colaboracion(e["texto"]))
     print("=== FIN DE LA SIMULACIÓN ===")
-    print("Ticks: %d | Diálogos: %d | Eventos de caos: %d"
-          % (args.ticks, dialogos, caos))
+    print("Ticks: %d | Diálogos: %d | Eventos de caos: %d | Amistades: %d | "
+          "Colaboraciones: %d"
+          % (args.ticks, dialogos, caos, amistades, colaboraciones))
     for agente in registro["agentes"]:
         cambio = agente["rasgos_finales"] != agente["rasgos_iniciales"]
         print("  %s: ánimo=%s, energía=%d, rasgos cambiaron=%s"
               % (agente["nombre"], agente["animo"], agente["energia"], cambio))
     for ruta in rutas:
         print("Registro guardado en: %s" % ruta)
+    # Diario de la corrida: se imprime al final, después del
+    # resumen, para no mover las líneas que los tests de la CLI
+    # comprueban con assertIn. Es relato generado a partir del
+    # registro guardado, no una segunda simulación.
+    print()
+    print("=== DIARIO DEL MUNDO ===")
+    print(generar_diario(registro))
 
 
 if __name__ == "__main__":

@@ -8,41 +8,47 @@ evento nuevo, el visor se rompería en silencio (sección vacía o
 eventos sin filtro ni color, sin ninguna excepción visible).
 
 Este fichero fija el contrato REAL, extraído del código de ambas
-partes en la Ronda 10:
+partes en la Ronda 10 y actualizado en la sesión de mejora del
+23 nov 2026 (tipo de evento ``amistad`` y clave de agente
+``relaciones`` para la red de confianza):
 
 Del visor (``visor/index.html``):
-- L607: ``RASGOS = ["curiosidad", "sociabilidad", "paciencia",
+- L668: ``RASGOS = ["curiosidad", "sociabilidad", "paciencia",
   "ambicion"]`` — las únicas claves de rasgo que pinta.
-- L608: ``TIPOS = ["todos", "pensamiento", "dialogo", "caos",
-  "accion", "crecimiento"]`` — "todos" es un pseudo-filtro; los
-  tipos reales son los otros cinco.
-- L636-673 (``tarjetaAgente``): lee de cada agente ``nombre``,
+- L669: ``TIPOS = ["todos", "pensamiento", "dialogo", "caos",
+  "accion", "crecimiento", "amistad"]`` — "todos" es un
+  pseudo-filtro; los tipos reales son los otros seis.
+- L699-736 (``tarjetaAgente``): lee de cada agente ``nombre``,
   ``rasgos_iniciales``, ``rasgos_finales``, ``animo``, ``energia``,
-  ``metas`` y ``recuerdos`` (de recuerdos solo ``.length``, L657).
-- L675-683 (``eventoHTML``) y L723-729: lee de cada evento ``tick``,
+  ``metas`` y ``recuerdos`` (de recuerdos solo ``.length``, L720).
+- L738-770 (``redConfianza``): lee de cada agente ``nombre`` y
+  ``relaciones`` (el mapa de confianza final) para pintar la red
+  de confianza y marcar los amigos (confianza mutua >= 0.8).
+- L772-780 (``eventoHTML``) y L818-847: lee de cada evento ``tick``,
   ``tipo``, ``agente`` y ``texto``.
-- L714-719 (``pintar``): lee ``meta.ticks``, ``meta.semilla``,
+- L818-847 (``pintar``): lee ``meta.ticks``, ``meta.semilla``,
   ``agentes.length`` y ``eventos.length``.
-- L744 (``cargar``): la ÚNICA validación estructural del visor es
+- L855-868 (``cargar``): la ÚNICA validación estructural del visor es
   ``datos.meta`` presente y ``agentes``/``eventos`` arrays; si falla,
   prueba la otra ruta y al final muestra el panel de error
-  (``mostrarError``, L738). Todo lo demás degrada en silencio:
-  rasgo ausente -> fila omitida (L638-640), metas ausentes ->
-  «Sin metas registradas» (L670), tipo de evento desconocido ->
-  se pinta solo en «todos», sin color ni filtro propio (L676,
-  L685-703), ``agente`` ausente -> se omite el nombre (L680).
+  (``mostrarError``, L849-853). Todo lo demás degrada en silencio:
+  rasgo ausente -> fila omitida (L701-703), metas ausentes ->
+  «Sin metas registradas» (L733), tipo de evento desconocido ->
+  se pinta solo en «todos», sin color ni filtro propio (L773,
+  L782-809), ``agente`` ausente -> se omite el nombre (L777),
+  ``relaciones`` ausente -> el par no aparece en la red (L743-745).
 
 Del motor:
-- ``simulacion/demo.py`` L130-154 (``construir_registro``): proyecta
-  ``meta{ticks, semilla}``, ``agentes`` con exactamente las 7 claves
+- ``simulacion/demo.py`` L141-177 (``construir_registro``): proyecta
+  ``meta{ticks, semilla}``, ``agentes`` con exactamente las 8 claves
   de arriba y ``eventos`` con exactamente ``tick/tipo/agente/texto``.
-- ``simulacion/mundo.py`` L92-100 (``_registrar``) y sus llamadores:
-  ``pensamiento`` (L203), ``dialogo`` (L217), ``accion`` (L234,
-  L255), ``crecimiento`` (L102-111 y L249-253) siempre con
-  ``agente`` = nombre (cadena); ``caos`` (L193) siempre con
-  ``agente`` = None.
+- ``simulacion/mundo.py`` L113-121 (``_registrar``) y sus llamadores:
+  ``pensamiento`` (L273), ``dialogo`` (L287), ``accion`` (L304,
+  L325), ``crecimiento`` (L123-132) y ``amistad`` (L134-155,
+  ``_detectar_amistades``) siempre con ``agente`` = nombre
+  (cadena); ``caos`` (L263) siempre con ``agente`` = None.
 - ``simulacion/agente.py`` L7: ``RASGOS_VALIDOS`` son los mismos 4
-  rasgos del visor, y el constructor (L34-83) los completa todos,
+  rasgos del visor, y el constructor (L47-98) los completa todos,
   numéricos en 0.0-1.0; ``energia`` se mantiene en 0-100.
 
 Los registros se generan de verdad (demo canónica y un barrido de
@@ -73,13 +79,20 @@ from simulacion.mundo import Mundo
 RUTA_VISOR = os.path.join(RAIZ, "visor", "index.html")
 
 # El contrato, clave a clave, tal como lo lee el visor.
-CLAVES_SUPERIORES = {"meta", "agentes", "eventos"}
+CLAVES_SUPERIORES = {"meta", "agentes", "eventos", "momentos"}
 CLAVES_META = {"ticks", "semilla"}
 CLAVES_AGENTE = {
     "nombre", "rasgos_iniciales", "rasgos_finales",
-    "animo", "energia", "metas", "recuerdos",
+    "animo", "energia", "metas", "recuerdos", "relaciones",
 }
 CLAVES_EVENTO = {"tick", "tipo", "agente", "texto"}
+
+# Cada momento destacado: el tick en que ocurrió, su título corto y
+# una frase. El visor los pinta en la sección «Momentos» (m.tick,
+# m.titulo, m.texto); el contrato no comprueba m.* con regex (como
+# tampoco comprueba las claves de agente dentro de tarjetaAgente
+# más allá de a.*), así que estas claves se fijan con tests.
+CLAVES_MOMENTO = {"tick", "titulo", "texto"}
 
 # Barrido corto: la demo canónica entra por SEMILLA/TICKS y además
 # como un caso más del barrido.
@@ -190,6 +203,37 @@ def problemas_estructura(registro, semilla, ticks):
     return probs
 
 
+def problemas_momentos(registro):
+    probs = []
+    momentos = registro.get("momentos")
+    if not isinstance(momentos, list):
+        return ["'momentos' no es una lista"]
+    if len(momentos) > 8:
+        probs.append("'momentos' tiene %d entradas (máximo 8)"
+                     % len(momentos))
+    ticks = []
+    for i, m in enumerate(momentos):
+        donde = "momentos[%d]" % i
+        if not isinstance(m, dict):
+            probs.append("%s no es un objeto" % donde)
+            continue
+        for clave in sorted(CLAVES_MOMENTO):
+            if clave not in m:
+                probs.append("falta %s.%r" % (donde, clave))
+        if isinstance(m.get("tick"), int) and not isinstance(m.get("tick"), bool):
+            ticks.append(m["tick"])
+        else:
+            probs.append("%s.tick no es un entero: %r"
+                         % (donde, m.get("tick")))
+        for clave in ("titulo", "texto"):
+            if clave in m and not isinstance(m[clave], str):
+                probs.append("%s.%s no es una cadena: %r"
+                             % (donde, clave, m[clave]))
+    if ticks != sorted(ticks):
+        probs.append("'momentos' no está ordenado por tick")
+    return probs
+
+
 def problemas_agentes(registro, rasgos_visor):
     probs = []
     for i, a in enumerate(registro.get("agentes") or []):
@@ -217,6 +261,25 @@ def problemas_agentes(registro, rasgos_visor):
                 probs.append("%s.%s no es una lista: %r" % (donde, campo, a[campo]))
             elif any(not isinstance(x, str) for x in a[campo]):
                 probs.append("%s.%s contiene elementos que no son cadenas" % (donde, campo))
+        # relaciones: el mapa de confianza final que redConfianza
+        # usa para la red (nombre -> número 0.0-1.0).
+        relaciones = a["relaciones"]
+        if not isinstance(relaciones, dict):
+            probs.append("%s.relaciones no es un objeto: %r" % (donde, relaciones))
+        else:
+            for otro, valor in sorted(relaciones.items()):
+                if not isinstance(otro, str) or not otro:
+                    probs.append(
+                        "%s.relaciones tiene una clave que no es un nombre: %r"
+                        % (donde, otro))
+                elif not _es_numero(valor):
+                    probs.append(
+                        "%s.relaciones[%r] no es numérica (el visor le aplica "
+                        "Number().toFixed(2)): %r" % (donde, otro, valor))
+                elif not 0.0 <= valor <= 1.0:
+                    probs.append(
+                        "%s.relaciones[%r]=%r fuera del rango 0.0-1.0 que el "
+                        "visor convierte en porcentaje" % (donde, otro, valor))
         for campo in ("rasgos_iniciales", "rasgos_finales"):
             rasgos = a[campo]
             if not isinstance(rasgos, dict):
@@ -272,7 +335,7 @@ def problemas_eventos(registro, tipos_visor):
             probs.append("%s.texto no es una cadena: %r" % (donde, e["texto"]))
         # Campo por tipo que el visor usa igual para todos (muestra el
         # nombre si viene): el motor garantiza nombre en todo tipo
-        # salvo «caos», que siempre lleva agente=None (mundo.py L193).
+        # salvo «caos», que siempre lleva agente=None (mundo.py L263).
         if e.get("tipo") == "caos":
             if e["agente"] is not None:
                 probs.append(
@@ -310,13 +373,24 @@ class TestContratoSobreRegistrosGenerados(unittest.TestCase):
                     problemas_estructura(registro, semilla, ticks), [])
 
     def test_agentes_claves_y_tipos(self):
-        # Presencia y tipos de las 7 claves, energía en 0-100 y
+        # Presencia y tipos de las 8 claves, energía en 0-100 y
         # metas/recuerdos como listas de cadenas.
         for etq, registro, _s, _t in self.casos:
             with self.subTest(caso=etq):
                 probs = [
                     p for p in problemas_agentes(registro, self.rasgos_visor)
                     if ".rasgos_" not in p
+                ]
+                self.assertEqual(probs, [])
+
+    def test_relaciones_son_un_mapa_de_confianza_en_rango(self):
+        # La clave nueva del 23 nov 2026: relaciones es un objeto
+        # nombre -> número en 0.0-1.0 en todos los registros.
+        for etq, registro, _s, _t in self.casos:
+            with self.subTest(caso=etq):
+                probs = [
+                    p for p in problemas_agentes(registro, self.rasgos_visor)
+                    if ".relaciones" in p
                 ]
                 self.assertEqual(probs, [])
 
@@ -373,13 +447,17 @@ class TestContratoSobreRegistrosGenerados(unittest.TestCase):
                 ]
                 self.assertEqual(probs, [])
 
-    def test_demo_canonica_ejercita_los_cinco_tipos_del_visor(self):
+    def test_demo_canonica_ejercita_los_seis_tipos_del_visor(self):
+        # Desde el 23 nov 2026 la demo canónica produce los seis
+        # tipos, incluido "amistad": si este test falla, la demo
+        # nueva no formó ninguna amistad en 30 ticks y hay que
+        # revisar el umbral (mundo.py) antes de publicar.
         registro = generar_registro(SEMILLA, TICKS)
         vistos = {e["tipo"] for e in registro["eventos"]}
         self.assertEqual(vistos, set(self.tipos_visor))
 
     def test_pensamientos_de_la_demo_listos_para_su_seccion(self):
-        # La sección 02 del visor filtra tipo == "pensamiento" y cita
+        # La sección 03 del visor filtra tipo == "pensamiento" y cita
         # tick, agente y texto de cada uno.
         registro = generar_registro(SEMILLA, TICKS)
         pensamientos = [
@@ -391,6 +469,23 @@ class TestContratoSobreRegistrosGenerados(unittest.TestCase):
             self.assertTrue(e["agente"])
             self.assertIsInstance(e["texto"], str)
             self.assertTrue(e["texto"])
+
+    def test_momentos_claves_y_tipos(self):
+        # Cada momento del barrido y de los registros guardados
+        # tiene exactamente tick/titulo/texto, con sus tipos.
+        for etq, registro, _s, _t in self.casos:
+            with self.subTest(caso=etq):
+                self.assertEqual(problemas_momentos(registro), [])
+
+    def test_momentos_de_la_demo_canonica(self):
+        # La demo canónica produce al menos un momento (los de
+        # resumen —quién más cambió, quién más habló— existen
+        # siempre que haya agentes y diálogos) y como mucho 8.
+        registro = generar_registro(SEMILLA, TICKS)
+        momentos = registro["momentos"]
+        self.assertGreaterEqual(len(momentos), 1)
+        self.assertLessEqual(len(momentos), 8)
+        self.assertEqual(problemas_momentos(registro), [])
 
     def test_el_registro_crudo_sobrevive_al_viaje_json(self):
         # Sin viaje JSON previo: lo que construir_registro devuelve
@@ -446,13 +541,14 @@ class TestContratoContraElCodigoDelVisor(unittest.TestCase):
         self.assertEqual(tipos_crudos[0], "todos")
         self.assertEqual(
             sorted(t for t in tipos_crudos if t != "todos"),
-            ["accion", "caos", "crecimiento", "dialogo", "pensamiento"])
+            ["accion", "amistad", "caos", "crecimiento", "dialogo",
+             "pensamiento"])
 
     def test_el_visor_no_lee_ninguna_clave_fuera_del_contrato(self):
         script = _script_del_visor()
         self.assertEqual(
             set(re.findall(r"\ba\.(\w+)", script)), CLAVES_AGENTE,
-            "tarjetaAgente lee claves de agente fuera del contrato")
+            "tarjetaAgente/redConfianza leen claves de agente fuera del contrato")
         self.assertEqual(
             set(re.findall(r"\be\.(\w+)", script)), CLAVES_EVENTO,
             "el visor lee claves de evento fuera del contrato")

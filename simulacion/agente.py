@@ -10,6 +10,19 @@ ACCIONES_VALIDAS = ("hablar", "explorar", "construir", "descansar", "colaborar",
 # lugares documentados en como-unirse.md.
 LUGARES_VALIDOS = ("plaza", "biblioteca", "taller", "bosque", "mercado")
 
+# Confianza mínima para que un agente ambicioso prefiera colaborar
+# con su cercano de más confianza antes que charlar o explorar
+# (regla dura 2 de pensar()). 0.85 son 17 diálogos con la misma
+# persona (+0.05 por diálogo): una amistad ya probada, no un
+# primer encuentro. La ambición mínima es 0.6: sin ganas de
+# construir algo, la confianza alta solo da conversación.
+# (Sesión de mejora, 23 nov 2026: antes de esta regla, colaborar
+# no se elegía nunca en la demo — la regla dura de hablar
+# capturaba a todo agente acompañado antes de que la confianza
+# llegara; ver la Ronda 6 y el README.)
+_UMBRAL_CONFIANZA_COLABORAR = 0.85
+_AMBICION_MINIMA_COLABORAR = 0.6
+
 _COSTE_ENERGIA = {
     "hablar": 3,
     "explorar": 8,
@@ -147,6 +160,10 @@ class Agente:
         Intención: la acción con mayor puntuación según rasgos,
         energía, ánimo, compañía y recuerdos, con reglas duras
         prioritarias que garantizan coherencia con los rasgos.
+        Hablar y colaborar se dirigen al cercano de más confianza
+        (en empate, al primero de la lista), no siempre al primero:
+        las relaciones que el agente construye deciden con quién
+        pasa el tiempo.
         """
         cercanos = list(percepcion.get("agentes_cercanos") or [])
         recuerdos = list(percepcion.get("recuerdos") or [])
@@ -160,6 +177,16 @@ class Agente:
             or (evento and "descubrimiento" in str(evento).lower())
         )
         meta_principal = self.metas[0] if self.metas else None
+        # El cercano de más confianza (max devuelve el primero en
+        # caso de empate, así que el desempate es determinista y
+        # coincide con el comportamiento anterior cuando no hay
+        # confianza registrada).
+        mejor_cercano = None
+        mejor_confianza = 0.0
+        if cercanos:
+            mejor_cercano = max(
+                cercanos, key=lambda n: self.relaciones.get(n, 0.0))
+            mejor_confianza = self.relaciones.get(mejor_cercano, 0.0)
 
         creencias = []
         if cercanos:
@@ -185,13 +212,23 @@ class Agente:
             deseos.append("quiero descubrir cosas nuevas")
 
         # Reglas duras, en orden de prioridad (coherencia garantizada):
-        # 1. Sin energía, descansar. 2. Muy sociable + compañía, hablar.
-        # 3. Muy curioso + sin descubrimiento reciente, explorar.
+        # 1. Sin energía, descansar. 2. Confianza muy alta + ambición,
+        # colaborar con el mejor amigo. 3. Muy sociable + compañía,
+        # hablar. 4. Muy curioso + sin descubrimiento reciente,
+        # explorar. La regla 2 va antes que la 3 y la 4 a propósito:
+        # una amistad probada con ganas de construir pesa más que
+        # charlar por charlar o que la curiosidad del momento.
         if self.energia < 30:
             accion, objetivo = "descansar", None
             razon = "estoy agotado y necesito recuperar fuerzas"
+        elif (mejor_cercano is not None
+              and mejor_confianza >= _UMBRAL_CONFIANZA_COLABORAR
+              and self.rasgos["ambicion"] >= _AMBICION_MINIMA_COLABORAR):
+            accion, objetivo = "colaborar", mejor_cercano
+            razon = ("confío mucho en %s y juntos podemos construir algo"
+                     % mejor_cercano)
         elif self.rasgos["sociabilidad"] >= 0.7 and cercanos:
-            accion, objetivo = "hablar", cercanos[0]
+            accion, objetivo = "hablar", mejor_cercano
             razon = "me gusta la compañía y hay alguien cerca"
         elif (self.rasgos["curiosidad"] >= 0.7 and not hubo_descubrimiento
               and not vivio_escasez):
@@ -210,10 +247,6 @@ class Agente:
             p["hablar"] += self.rasgos["sociabilidad"] * 10
             if cercanos:
                 p["hablar"] += 4
-                mejor_confianza = max(
-                    (self.relaciones.get(n, 0.0) for n in cercanos),
-                    default=0.0,
-                )
                 p["colaborar"] += mejor_confianza * 6
             p["explorar"] += self.rasgos["curiosidad"] * 10
             if hubo_descubrimiento:
@@ -241,7 +274,9 @@ class Agente:
             orden = ("hablar", "colaborar", "explorar", "construir",
                      "observar", "descansar")
             accion = max(orden, key=lambda a: (p[a], -orden.index(a)))
-            objetivo = cercanos[0] if accion in ("hablar", "colaborar") and cercanos else None
+            objetivo = (mejor_cercano
+                        if accion in ("hablar", "colaborar") and cercanos
+                        else None)
             razon = "tras valorar mis rasgos, mi energía y lo que recuerdo"
 
         pensamiento = (

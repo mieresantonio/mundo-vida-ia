@@ -74,7 +74,8 @@ Un dict con exactamente estas 3 claves:
 
 ## 3. Cómo lo llama el motor en cada tick
 
-Tres pasos, en este orden, para cada agente:
+Cuatro pasos, en este orden, para cada agente (los tres primeros por
+agente, el cuarto una vez al final del tick):
 
 1. **Percibir.** El motor construye el dict `percepcion` con el tick actual,
    el lugar del agente, los agentes que comparten ese lugar, el evento
@@ -88,6 +89,16 @@ Tres pasos, en este orden, para cada agente:
    es una acción: ocurre por separado, con una probabilidad del 20%
    en cada tick para cada agente, después de que todos hayan
    actuado.
+4. **Amistad.** Al final del tick, después del caos, el motor revisa
+   todos los pares de agentes: si la confianza mutua entre dos de
+   ellos (la menor de los dos sentidos) llegó a 0.8 y ese par aún
+   no estaba registrado, lo registra como un evento de amistad
+   (uno solo por par en toda la corrida). Un agente personalizado
+   no tiene que hacer nada para esto: basta con que su confianza
+   con otro agente crezca dialogando o colaborando. Al hacerse amigos, cada uno adopta además la meta compartida de
+   hacer un proyecto juntos con el otro, sin perder ninguna meta
+   propia; si después completan un proyecto juntos, esa meta se
+   cumple y se retira, y nace la de compartir lo aprendido.
 
 El ciclo se repite tick tras tick. Un agente nunca llama al motor ni a otros
 agentes directamente: solo responde a `pensar()`.

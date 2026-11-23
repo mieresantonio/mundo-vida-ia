@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mundo Vida IA — Visor del registro</title>
-<meta name="description" content="Visor estático del registro de una corrida de Mundo Vida IA: agentes, sus pensamientos internos y la línea de tiempo de lo vivido.">
+<meta name="description" content="Visor estático del registro de una corrida de Mundo Vida IA: agentes, sus pensamientos internos, la red de confianza entre ellos, los momentos destacados y la línea de tiempo de lo vivido.">
 <style>
   /* ============================================================
      Sistema visual del visor (rediseño 2026-11-09)
@@ -45,6 +45,7 @@
     --tipo-caos: #e08073;
     --tipo-accion: #7fa8d9;
     --tipo-crecimiento: #d9b45c;
+    --tipo-amistad: #d98bb0;
 
     /* Semánticos de cambio de rasgo */
     --sube: #7bc47f;
@@ -358,6 +359,75 @@
 
   .vacio { color: var(--tenue); }
 
+  /* ---------- Red de confianza (23 nov 2026) ---------- */
+  /* Un par por fila, ordenado por confianza mutua (la menor de
+     los dos sentidos): la barra llega al valor mutuo y la
+     pastilla ★ marca los pares que cruzaron 0.8 y son amigos. */
+  .red-lista {
+    display: flex; flex-direction: column; gap: var(--e3);
+    max-width: 760px;
+  }
+  .red-fila {
+    background: var(--superficie);
+    border-radius: var(--r-l);
+    box-shadow: inset 0 0 0 1px var(--borde);
+    padding: var(--e4) var(--e5);
+    display: flex; flex-direction: column; gap: var(--e2);
+  }
+  .red-par {
+    display: flex; align-items: center; gap: var(--e3); flex-wrap: wrap;
+    font-weight: 600;
+  }
+  .red-amigos {
+    font-size: 0.78rem; font-weight: 600;
+    color: var(--tipo-amistad);
+    border: 1px solid var(--tipo-amistad);
+    border-radius: var(--r-pastilla);
+    padding: 0 var(--e2);
+  }
+  .red-barra {
+    height: 8px; border-radius: var(--r-pastilla);
+    background: var(--interior);
+    box-shadow: inset 0 0 0 1px var(--borde);
+    overflow: hidden;
+  }
+  .red-relleno {
+    height: 100%; border-radius: var(--r-pastilla);
+    background: var(--acento); opacity: 0.75;
+  }
+  .red-relleno.amigos { background: var(--tipo-amistad); opacity: 1; }
+  .red-valor {
+    font-size: 0.85rem; color: var(--atenuado);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- Momentos (2ª tanda, 23 nov 2026) ---------- */
+  /* Mismo patrón que .pensamiento: tarjeta con borde lateral y
+     chip de tick; el título del momento va en la cabecera. */
+  .momentos-lista {
+    display: flex; flex-direction: column; gap: var(--e4);
+    max-width: 760px;
+  }
+  .momento {
+    background: var(--superficie);
+    border-radius: var(--r-xl);
+    box-shadow: inset 0 0 0 1px var(--borde);
+    border-left: 4px solid var(--acento);
+    padding: var(--e5);
+  }
+  .momento .quien {
+    display: flex; align-items: center; gap: var(--e2); flex-wrap: wrap;
+    font-size: 0.78rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.06em; color: var(--atenuado);
+  }
+  .momento .quien .titulo { color: var(--texto); font-size: 0.85rem; }
+  .momento p {
+    font-family: var(--serif);
+    font-size: 1.08rem; line-height: 1.7;
+    margin: var(--e3) 0 0;
+    text-wrap: pretty;
+  }
+
   /* ---------- Pensamientos ---------- */
   .pensamientos-lista {
     display: flex; flex-direction: column; gap: var(--e4);
@@ -413,6 +483,7 @@
   .punto.t-caos { background: var(--tipo-caos); }
   .punto.t-accion { background: var(--tipo-accion); }
   .punto.t-crecimiento { background: var(--tipo-crecimiento); }
+  .punto.t-amistad { background: var(--tipo-amistad); }
 
   .filtros { display: flex; flex-wrap: wrap; gap: var(--e2); margin-bottom: var(--e5); }
   .filtros button {
@@ -464,6 +535,7 @@
   .evento.caos::before { background: var(--tipo-caos); }
   .evento.accion::before { background: var(--tipo-accion); }
   .evento.crecimiento::before { background: var(--tipo-crecimiento); }
+  .evento.amistad::before { background: var(--tipo-amistad); }
 
   .evento-cabecera {
     display: flex; align-items: center; gap: var(--e2); flex-wrap: wrap;
@@ -521,10 +593,11 @@
     </div>
     <p class="bajada">
       Este visor muestra el registro completo de una corrida de la simulación:
-      quiénes son los agentes y cómo cambiaron sus rasgos, qué pensaron por
-      dentro en cada tick y todo lo que ocurrió, en orden, en la línea de
-      tiempo. Los pensamientos son textos generados por plantillas a partir
-      de rasgos, recuerdos y metas de cada agente.
+      quiénes son los agentes y cómo cambiaron sus rasgos, qué confianza se
+      tienen entre ellos, qué pensaron por dentro en cada tick, los momentos
+      destacados de la corrida y todo lo que ocurrió, en orden, en la línea
+      de tiempo. Los pensamientos son textos generados por plantillas a
+      partir de rasgos, recuerdos y metas de cada agente.
     </p>
     <span class="aviso-beta"><strong>Beta — simulación, no consciencia real.</strong>
       Nadie aprende aquí con aprendizaje automático ni hay conexión a la red.</span>
@@ -535,6 +608,8 @@
 
     <nav class="atajos" aria-label="Secciones del visor" id="atajos" hidden>
       <a href="#agentes-seccion">Agentes</a>
+      <a href="#red-seccion">Red de confianza</a>
+      <a href="#momentos-seccion">Momentos</a>
       <a href="#pensamientos-seccion">Pensamientos internos</a>
       <a href="#linea-seccion">Línea de tiempo</a>
     </nav>
@@ -560,9 +635,34 @@
       <div class="grid" id="agentes"></div>
     </section>
 
+    <section id="red-seccion" aria-labelledby="titulo-red">
+      <div class="seccion-cabecera">
+        <span class="indice">02 · Vínculos</span>
+        <h2 id="titulo-red">Red de confianza</h2>
+        <p>Cuánto confía cada par de agentes al cerrar la corrida. La barra
+          muestra la confianza mutua —la menor de los dos sentidos— y la
+          pastilla ★ marca a los amigos: pares cuya confianza mutua llegó
+          a 0.8. La confianza sube dialogando y colaborando, y baja con
+          los rumores.</p>
+      </div>
+      <div class="red-lista" id="red"></div>
+    </section>
+
+    <section id="momentos-seccion" aria-labelledby="titulo-momentos">
+      <div class="seccion-cabecera">
+        <span class="indice">03 · Lo memorable</span>
+        <h2 id="titulo-momentos">Momentos</h2>
+        <p>Lo destacado de la corrida, elegido por la simulación: la
+          primera amistad, el primer proyecto completado, el caos que
+          más se repitió, quién más cambió. En 30 segundos se entiende
+          la historia; la línea de tiempo guarda todo lo demás.</p>
+      </div>
+      <div class="momentos-lista" id="momentos"></div>
+    </section>
+
     <section id="pensamientos-seccion" aria-labelledby="titulo-pensamientos">
       <div class="seccion-cabecera">
-        <span class="indice">02 · Voz interior</span>
+        <span class="indice">04 · Voz interior</span>
         <h2 id="titulo-pensamientos">Pensamientos internos</h2>
         <p>El razonamiento de cada agente antes de actuar: lo que cree (su
           percepción y sus recuerdos), lo que desea (sus metas) y la acción que
@@ -574,7 +674,7 @@
 
     <section id="linea-seccion" aria-labelledby="titulo-linea">
       <div class="seccion-cabecera">
-        <span class="indice">03 · Cronología</span>
+        <span class="indice">05 · Cronología</span>
         <h2 id="titulo-linea">Línea de tiempo</h2>
         <p>Todos los eventos de la corrida en el orden en que ocurrieron,
           tick a tick. Usa los filtros para quedarte con un solo tipo.</p>
@@ -585,6 +685,7 @@
         <span class="leyenda-item"><span class="punto t-dialogo" aria-hidden="true"></span><strong>Diálogo</strong><span class="glosa">un agente habla con otro</span></span>
         <span class="leyenda-item"><span class="punto t-accion" aria-hidden="true"></span><strong>Acción</strong><span class="glosa">decisión ejecutada</span></span>
         <span class="leyenda-item"><span class="punto t-crecimiento" aria-hidden="true"></span><strong>Crecimiento</strong><span class="glosa">un rasgo cambia</span></span>
+        <span class="leyenda-item"><span class="punto t-amistad" aria-hidden="true"></span><strong>Amistad</strong><span class="glosa">dos agentes se hacen amigos</span></span>
         <span class="leyenda-item"><span class="punto t-caos" aria-hidden="true"></span><strong>Caos</strong><span class="glosa">evento del mundo</span></span>
       </div>
 
@@ -605,11 +706,13 @@
 
 <script>
 const RASGOS = ["curiosidad", "sociabilidad", "paciencia", "ambicion"];
-const TIPOS = ["todos", "pensamiento", "dialogo", "caos", "accion", "crecimiento"];
+const TIPOS = ["todos", "pensamiento", "dialogo", "caos", "accion", "crecimiento", "amistad"];
 // Etiquetas legibles: los valores internos van sin tilde porque son
 // identificadores del registro; al mostrarlos se acentúan.
 const RASGO_TEXTO = {"ambicion": "ambición"};
 const TIPO_TEXTO = {"dialogo": "diálogo", "accion": "acción"};
+// Umbral de amistad del motor (mundo.py): confianza mutua >= 0.8.
+const UMBRAL_AMISTAD = 0.8;
 let eventosTodos = [];
 let filtroActual = "todos";
 
@@ -672,6 +775,40 @@ function tarjetaAgente(a) {
   "</article>";
 }
 
+function redConfianza(agentes) {
+  // Un par por cada dos agentes con algo de confianza en algún
+  // sentido; la barra muestra la mutua (la menor de las dos).
+  // Ordenados de más a menos confianza mutua.
+  var pares = [];
+  agentes.forEach(function (a, i) {
+    agentes.slice(i + 1).forEach(function (b) {
+      var ida = (a.relaciones && a.relaciones[b.nombre]) || 0;
+      var vuelta = (b.relaciones && b.relaciones[a.nombre]) || 0;
+      var maxima = Math.max(ida, vuelta);
+      if (maxima > 0) {
+        pares.push({a: a.nombre, b: b.nombre,
+                    mutua: Math.min(ida, vuelta)});
+      }
+    });
+  });
+  pares.sort(function (x, y) { return y.mutua - x.mutua; });
+  if (!pares.length) {
+    return '<p class="vacio">Aún no hay confianza registrada entre agentes: nadie ha dialogado lo suficiente.</p>';
+  }
+  return pares.map(function (p) {
+    var amigos = p.mutua >= UMBRAL_AMISTAD;
+    return '<div class="red-fila">' +
+      '<div class="red-par"><span>' + esc(p.a) + " ↔ " + esc(p.b) + "</span>" +
+      (amigos ? '<span class="red-amigos">★ Amigos</span>' : "") +
+      "</div>" +
+      '<div class="red-barra" role="img" aria-label="Confianza mutua entre ' + esc(p.a) + " y " + esc(p.b) + ": " + fmt(p.mutua) + '">' +
+        '<div class="red-relleno' + (amigos ? " amigos" : "") + '" style="width:' + pct(p.mutua) + '"></div>' +
+      "</div>" +
+      '<span class="red-valor">Confianza mutua: ' + fmt(p.mutua) + " / 1.00</span>" +
+    "</div>";
+  }).join("");
+}
+
 function eventoHTML(e) {
   return '<article class="evento ' + esc(e.tipo) + '">' +
     '<div class="evento-cabecera">' +
@@ -711,15 +848,39 @@ function pintarFiltros() {
   });
 }
 
+function esColaboracion(texto) {
+  // Las dos formas que produce interaccion.colaborar; igual que
+  // laboratorio._es_colaboracion y demo._es_colaboracion.
+  return texto.indexOf(" avanzan en '") !== -1 ||
+    texto.indexOf("¡Proyecto '") === 0;
+}
+
 function pintar(datos) {
+  var amistades = datos.eventos.filter(function (e) { return e.tipo === "amistad"; }).length;
+  var colaboraciones = datos.eventos.filter(function (e) {
+    return e.tipo === "accion" && esColaboracion(e.texto);
+  }).length;
+  var momentos = datos.momentos || [];
   document.getElementById("resumen").innerHTML =
     '<div class="cifra"><span class="valor">' + esc(datos.meta.ticks) + '</span><span class="rotulo">Ticks de la corrida</span></div>' +
     '<div class="cifra"><span class="valor">' + esc(datos.meta.semilla) + '</span><span class="rotulo">Semilla (corrida determinista)</span></div>' +
     '<div class="cifra"><span class="valor">' + datos.agentes.length + '</span><span class="rotulo">Agentes</span></div>' +
-    '<div class="cifra"><span class="valor">' + datos.eventos.length + '</span><span class="rotulo">Eventos registrados</span></div>';
+    '<div class="cifra"><span class="valor">' + datos.eventos.length + '</span><span class="rotulo">Eventos registrados</span></div>' +
+    '<div class="cifra"><span class="valor">' + amistades + '</span><span class="rotulo">Amistades formadas</span></div>' +
+    '<div class="cifra"><span class="valor">' + colaboraciones + '</span><span class="rotulo">Colaboraciones</span></div>' +
+    '<div class="cifra"><span class="valor">' + momentos.length + '</span><span class="rotulo">Momentos destacados</span></div>';
   document.getElementById("atajos").hidden = false;
   document.getElementById("agentes").innerHTML =
     datos.agentes.map(tarjetaAgente).join("");
+  document.getElementById("red").innerHTML = redConfianza(datos.agentes);
+  document.getElementById("momentos").innerHTML = momentos.length
+    ? momentos.map(function (m) {
+        return '<article class="momento"><div class="quien">' +
+          '<span class="tick-chip">Tick ' + esc(m.tick) + "</span>" +
+          '<span class="titulo">' + esc(m.titulo) + "</span>" +
+          "</div><p>" + esc(m.texto) + "</p></article>";
+      }).join("")
+    : '<p class="vacio">Sin momentos destacados en esta corrida.</p>';
   var pensamientos = datos.eventos.filter(function (e) { return e.tipo === "pensamiento"; });
   document.getElementById("pensamientos").innerHTML = pensamientos.length
     ? pensamientos.map(function (e) {

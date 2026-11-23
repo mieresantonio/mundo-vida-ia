@@ -11,14 +11,18 @@ if __package__ in (None, ""):
     # (python3 simulacion/demo.py) importa mundo.py sin paquete,
     # así que los imports son absolutos desde la carpeta simulacion/.
     from agente import Agente
-    from experiencia import registrar_experiencia, evolucionar_metas
-    from interaccion import hablar, colaborar
+    from experiencia import (
+        registrar_experiencia, evolucionar_metas,
+        adoptar_meta_compartida, meta_compartida_con)
+    from interaccion import hablar, colaborar, nombre_proyecto
 else:
     # Paquete: uso desde la raíz del proyecto
     # (import simulacion.mundo o python3 -m simulacion.demo).
     from .agente import Agente
-    from .experiencia import registrar_experiencia, evolucionar_metas
-    from .interaccion import hablar, colaborar
+    from .experiencia import (
+        registrar_experiencia, evolucionar_metas,
+        adoptar_meta_compartida, meta_compartida_con)
+    from .interaccion import hablar, colaborar, nombre_proyecto
 
 LUGARES = {
     "plaza": "el corazón del pueblo, donde todos se cruzan",
@@ -35,10 +39,25 @@ TIPOS_CAOS = (
     "celebracion",
     "rumor",
     "visita_inesperada",
+    # Sesión de mejora, 23 nov 2026: dos tipos nuevos. El eclipse
+    # es el caos que une mirando hacia arriba (todos pierden
+    # energía y ganan paciencia al vivirlo); la feria es el caos
+    # que une comerciando (todos ganan energía y ánimo, y quienes
+    # están en el mercado se conocen un poco más).
+    "eclipse",
+    "feria",
 )
 
 _PROBABILIDAD_CAOS = 0.3
 _PROBABILIDAD_MOVIMIENTO = 0.2
+
+# Confianza mutua (el mínimo de los dos sentidos) a partir de la
+# cual dos agentes se consideran amigos: el mundo registra un
+# evento de tipo "amistad" la primera vez que un par la alcanza.
+# 0.8 son 16 diálogos entre ellos (+0.05 por diálogo en cada
+# sentido), menos que los 17 que pide colaborar (agente.py):
+# primero se hacen amigos y luego, si hay ambición, trabajan juntos.
+_UMBRAL_AMISTAD = 0.8
 
 # Nombres legibles para los textos generados: las claves internas
 # (rasgos y tipos de experiencia) se mantienen sin tildes porque son
@@ -61,6 +80,12 @@ class Mundo:
         self.evento_reciente = None
         self.eventos = []  # eventos con tick/tipo/agente/texto
         self.proyecto_actual = None
+        # Amistades ya registradas: pares (nombre, nombre) en orden
+        # alfabético, en el orden en que se formaron. La lista
+        # pública es `amistades`; el conjunto es la guarda para no
+        # registrar dos veces el mismo par.
+        self.amistades = []
+        self._amistades = set()
 
     # -- agentes y lugares ----------------------------------------------
     def agregar_agente(self, agente):
@@ -109,6 +134,36 @@ class Mundo:
                    _RASGO_TEXTO.get(cambio["rasgo"], cambio["rasgo"]),
                    cambio["antes"], cambio["despues"],
                    _TIPO_TEXTO.get(resultado["tipo"], resultado["tipo"])))
+
+    def _detectar_amistades(self):
+        """Registra como evento cada amistad nueva: dos agentes cuya
+        confianza mutua (el mínimo de los dos sentidos) llega al
+        umbral. Cada par se registra una sola vez en toda la
+        corrida, en el tick en que cruza el umbral. Se llama al
+        final de cada tick, después del caos, porque la confianza
+        cambia durante el turno de los agentes y con los eventos
+        del mundo (celebración, feria, rumor)."""
+        for i, a in enumerate(self.agentes):
+            for b in self.agentes[i + 1:]:
+                par = tuple(sorted((a.nombre, b.nombre)))
+                if par in self._amistades:
+                    continue
+                mutua = min(a.relaciones.get(b.nombre, 0.0),
+                            b.relaciones.get(a.nombre, 0.0))
+                if mutua >= _UMBRAL_AMISTAD:
+                    self._amistades.add(par)
+                    self.amistades.append(par)
+                    self._registrar(
+                        "amistad", par[0],
+                        "%s y %s se han hecho amigos: su confianza "
+                        "mutua ya es muy alta." % par)
+                    for agente, otro in ((a, b), (b, a)):
+                        meta = adoptar_meta_compartida(agente, otro.nombre)
+                        if meta:
+                            self._registrar(
+                                "crecimiento", agente.nombre,
+                                "%s adopta una meta compartida: %s."
+                                % (agente.nombre, meta))
 
     # -- caos -------------------------------------------------------------
     def generar_caos(self):
@@ -180,6 +235,32 @@ class Mundo:
                         objetivo, "rumor sobre " + segundo.nombre, "rumor"))
             else:
                 texto = "Un rumor sin destino se pierde entre los lugares."
+        elif tipo == "eclipse":
+            texto = ("Un eclipse repentino oscurece el cielo: todos se "
+                     "detienen y miran hacia arriba en silencio.")
+            for agente in self.agentes:
+                agente.energia = max(0, agente.energia - 10)
+                agente.animo = "inquieto"
+                self._crecimiento(
+                    agente, registrar_experiencia(
+                        agente, "eclipse: el cielo se oscureció de repente",
+                        "eclipse"))
+        elif tipo == "feria":
+            texto = ("Feria improvisada en el mercado: puestos, trueques "
+                     "y música para todos.")
+            for agente in self.agentes:
+                agente.energia = min(100, agente.energia + 5)
+                agente.animo = "alegre"
+                self._crecimiento(
+                    agente, registrar_experiencia(
+                        agente, "feria en el mercado", "feria"))
+            vecinos = self.agentes_en("mercado")
+            for i, nombre_a in enumerate(vecinos):
+                for nombre_b in vecinos[i + 1:]:
+                    a = self._por_nombre[nombre_a]
+                    b = self._por_nombre[nombre_b]
+                    a.relaciones[nombre_b] = min(1.0, a.relaciones.get(nombre_b, 0.0) + 0.05)
+                    b.relaciones[nombre_a] = min(1.0, b.relaciones.get(nombre_a, 0.0) + 0.05)
         else:  # visita_inesperada
             texto = ("Una visita inesperada llega al mundo: una viajera "
                      "desconocida saluda a %s en %s y le deja una idea nueva."
@@ -227,7 +308,10 @@ class Mundo:
                 ]
                 if self.proyecto_actual is None:
                     self.proyecto_actual = colaborar(
-                        companeros, "Proyecto del " + agente.lugar)
+                        companeros,
+                        nombre_proyecto(
+                            agente.lugar,
+                            [c.nombre for c in companeros]))
                 else:
                     self.proyecto_actual = colaborar(
                         companeros, self.proyecto_actual)
@@ -240,9 +324,25 @@ class Mundo:
                             "colaborar en " + self.proyecto_actual["nombre"],
                             "colaborar"))
                 if self.proyecto_actual["completado"]:
+                    nombres = [p.nombre for p in companeros]
                     for participante in companeros:
+                        # Si el participante tenía una meta
+                        # compartida con otro participante, este
+                        # proyecto la cumple: se retira ESA meta
+                        # (no la primera) y nace la de compartir lo
+                        # aprendido. Sin meta compartida, el
+                        # comportamiento es el de siempre (retirar
+                        # la primera si ya toca retirar).
+                        cumplida = None
+                        for otro in nombres:
+                            if otro != participante.nombre:
+                                cumplida = meta_compartida_con(
+                                    participante, otro)
+                                if cumplida:
+                                    break
                         nueva = evolucionar_metas(
                             participante,
+                            meta_completada=cumplida,
                             nueva_meta=("Compartir lo aprendido en "
                                         + self.proyecto_actual["nombre"]))
                         if nueva:
@@ -273,6 +373,10 @@ class Mundo:
             self.generar_caos()
         else:
             self.evento_reciente = None
+        # Amistades nuevas: la confianza cambió durante el tick
+        # (diálogos, colaboración, celebración, feria, rumor) y
+        # algún par puede haber cruzado el umbral.
+        self._detectar_amistades()
 
     def ejecutar(self, ticks):
         for _ in range(int(ticks)):
